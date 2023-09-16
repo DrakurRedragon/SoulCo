@@ -1,0 +1,19 @@
+embed
+<drac2>
+a = &ARGS&
+current = int(a[0])
+new = roll('1d100')+20
+total = new + current
+bulletmax = round(int(total)*.2,0)
+
+if total > 200:
+	total = 200
+else:
+	total == total
+
+T = "Nen's Bullet Supply"
+F = f"{total} bullets are currently in inventory for 1gp per round.  Each person may purchase a maximum of {bulletmax}."
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-footer "!bulletshop | Made by DrakurRedragon for his own use...because math is annoying."
