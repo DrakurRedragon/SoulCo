@@ -1,0 +1,20 @@
+embed
+<drac2>
+#variables
+ch=character()
+flip = roll('1d2')
+
+#logic
+if flip == 1:
+    thumb="https://media.discordapp.net/attachments/1071973561419440151/1114538065583689798/Heads.png?width=688&height=671"
+    F="It's Heads!"
+else:
+    thumb="https://media.discordapp.net/attachments/1071973561419440151/1114538083145240617/Tails.png?width=688&height=671"
+    F="It's Tails!"
+
+T = f"{name} flips a coin."
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-thumb "{{thumb}}"
+-footer "!cflip | by DrakurRedragon"
