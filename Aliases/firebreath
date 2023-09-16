@@ -1,0 +1,49 @@
+<drac2>
+#variables
+ch=character()
+c  = combat()
+combatant = c.get_combatant(name)
+combatant.add_effect(
+    "Fire Breath",
+    attacks=[{
+        "attack":{
+            "name": "Fire Breath", 
+            "_v": 2, 
+            "verb": "unleashes",
+            "automation": [
+                {
+                    "type": "roll", 
+                    "dice": "4d6[fire]", 
+                    "name": "damage", 
+                },
+                {
+                    "type": "target",
+                    "target": "all",
+                    "effects": [
+                        {
+                            "type": "save",
+                            "stat": "dex",
+                            "fail": 
+                                [{
+                                    "type": "damage",
+                                    "damage": "{damage}",
+                                }],
+                            "success":
+                                [{
+                                    "type": "damage",
+                                    "damage": "{damage}/2",
+                                }],
+                            "dc": "13"
+                        }
+                    ]
+                }, 
+                {
+                     "type": "text", 
+                     "text": "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed."
+                }
+            ]
+	    }
+    }]
+)
+return  f'embed -title "Potion of Fire Breath" -f "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed." -thumb "https://media.discordapp.net/attachments/1117199737590919249/1152730111691472926/kitskiss_smooth_vector_potion_bottle_red_orange_liquid_fire_mag_31f3a2dc-2607-45bf-9423-b22c1fe88881.png" -footer "Made by DrakurRedragon for Soul Co"'
+</drac2>
