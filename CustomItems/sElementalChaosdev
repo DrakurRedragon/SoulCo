@@ -1,0 +1,80 @@
+<drac2>
+#Staff of Elemental Chaos, a homebrew item for Soul Co
+#created by Drakur Redragon#6416
+#variables
+ch=character()
+cc="Staff of Elemental Chaos"
+a  = &ARGS&
+spell=a[0].lower()
+lvl=a[1]
+elemspec = a[2].lower()
+cast_args="""&*&"""
+syntax="Ball, LBolt, Cone, or Chain. Always include level. `!sElements ball 3`."
+elemroll = roll('1d5')
+
+ch.create_cc_nx(cc, 0, ch.levels.total_level, "long", "number", None, None, cc, "Staff of Elemental Chaos Charges")
+
+if elemspec == "fire" or elemspec == "acid" or elemspec == "cold" or elemspec == "lightning" or elemspec == "thunder":
+    element = elemspec
+    elemchosen = "True"
+else:
+    if elemroll == 1:
+        element = "acid"
+    if elemroll == 2:
+        element = "cold"
+    if elemroll == 3:
+        element = "fire"        
+    if elemroll == 4:
+        element = "lightning"
+    if elemroll == 5:
+        element = "thunder"
+    elemchosen = "False"
+        
+if elemchosen == "True":
+    charge = int(lvl) + 1
+    if element == "acid":
+        ea = "eaa"
+    if element == "cold":
+        ea = "eac"
+    if element == "fire" :
+        ea = "eaf"      
+    if element == "lightning":
+        ea = "eal"
+    if element == "thunder":
+        ea = "eat"
+else:
+    charge = int(lvl)
+    ea = ""
+
+if spell == "ball":
+    if ch.get_cc(cc) < 3:
+        return f'embed -title "Staff of Elemental Chaos" -f "No Resources|Not enough charges!     **Charges:** {ch.cc_str(cc)}"'            
+    else:
+        ch.mod_cc(cc, -int(charge))
+        return f'cast "fireball" -l {lvl} -dtype {element} {ea} {cast_args} -i -phrase "Using the Staff of Elemental Chaos **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "lbolt":
+    if ch.get_cc(cc) < 3:
+        return f'embed -title "Staff of Elemental Chaos" -f "No Resources|Not enough charges!     **Charges:** {ch.cc_str(cc)}"'            
+    else:
+        ch.mod_cc(cc, -int(charge))
+        return f'cast "lightning bolt" -l {lvl} -dtype {element} {ea} {cast_args} -i -phrase "Using the Staff of Elemental Chaos **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "cone":
+    if ch.get_cc(cc) < 5:
+        return f'embed -title "Staff of Elemental Chaos" -f "No Resources|Not enough charges!     **Charges:** {ch.cc_str(cc)}"'            
+    else:
+        ch.mod_cc(cc, -int(charge))
+        return f'cast "cone of cold" -l {lvl} -dtype {element} {ea} {cast_args} -i -phrase "Using the Staff of Elemental Chaos **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "chain":
+    if ch.get_cc(cc) < 6:
+        return f'embed -title "Staff of Elemental Chaos" -f "No Resources|Not enough charges!     **Charges:** {ch.cc_str(cc)}"'            
+    else:
+        ch.mod_cc(cc, -int(charge))
+        return f'cast "chain lightning" -l {lvl} -dtype {element} {ea} {cast_args} -i -phrase "Using the Staff of Elemental Chaos **Charges:** {ch.cc_str(cc)}"'
+    
+else:
+    return f'embed -title "Staff of Elemental Chaos" -f **Use:** {syntax}. **Charges:** {ch.cc_str(cc)}'
+
+</drac2>
