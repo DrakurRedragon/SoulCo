@@ -1,0 +1,90 @@
+embed
+<drac2>
+#variables
+ch=character()
+a  = &ARGS&
+usage=a[0].lower()
+rewards = "Rewards: None"
+oops = 0
+T = 0
+currentcc = 0
+
+
+#if logic
+
+if len(a) == 1:
+    num = 0
+if len (a) == 2:
+    num = int(a[1])
+if len (a) > 2:
+    oops = 1
+    num = 0
+
+if usage == "newholm":
+    cc = "Rep - Newholm"
+    desc = "Reputation with the Newholm Militia"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+    if ch.get_cc(cc) > 9:
+        rewards = "Rewards: Mount (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+    if ch.get_cc(cc) > 14:
+        rewards = "Rewards: Mount, Exclusive IC Area (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+    if ch.get_cc(cc) > 24:
+        rewards = "Rewards: Mount, Exclusive IC Area, Exclusive Quests (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+    if ch.get_cc(cc) > 49:
+        rewards = "Rewards: Mount, Exclusive IC Area, Exclusive Quests, Tract of Land (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+
+elif usage == "springport":
+    cc = "Rep - Springport"
+    desc = "Reputation with the Springport Society"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+    if ch.get_cc(cc) > 4:
+        rewards = "Rewards: Access to IC Springport Areas (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+    if ch.get_cc(cc) > 14:
+        rewards = "Rewards: Mount, Voucher for +1 Weapon of choice (if you have not claimed your reward, please go to Honorward Retreat to claim)"
+    if ch.get_cc(cc) > 29:
+        rewards = "Rewards: Mount, Voucher for +1 Weapon of choice, One-Time Voucher for Raise Dead, spellcasting offered at Honorward Retreat (if you have not claimed your reward, please go to Honorward Retreat to claim)"
+    if ch.get_cc(cc) > 74:
+        rewards = "Rewards: Mount, Voucher for +1 Weapon of choice, One-Time Voucher for Raise Dead, spellcasting offered at Honorward Retreat, Honorary Title with Springport faction (if you have not claimed your reward, please go to Honorward Retreat to claim)"
+
+elif usage == "underground":
+    cc = "Rep - Underground"
+    desc = "Reputation with the Underground"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+elif usage == "summer":
+    cc = "Rep - Summer Court"
+    desc = "Reputation with the Summer Court"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+elif usage == "vanalir":
+    cc = "Rep - Vanalir"
+    desc = "Reputation with all of Vanalir"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+else:
+    desc = "what now?  You made a booboo."
+    oops = 1
+
+#output
+if num == 0:
+    T = f"{name} checks their {desc}"
+else:
+    T = f"{name} adds to their {desc}"
+if oops == 1:
+    rewards = "Choose from: newholm, springport, or underground"
+    currentcc = "The format is !rep newholm 1 to add."
+
+else:
+    currentcc=ch.get_cc(cc)
+
+
+</drac2>
+-title "{{T}}"
+-f "{{rewards}}"
+-f "Current Rep: {{currentcc}}"
+-footer "!rep [Organization] | by @ Drakurredragon"
