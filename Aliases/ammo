@@ -1,0 +1,64 @@
+embed
+<drac2>
+ch=character()
+a = &ARGS&
+ammo = a[0].lower()
+bonus = a[1]
+number = int(a[2])
+T = "error"
+F = "error"
+cc = "error"
+
+if ammo == "arrow":
+    if bonus == "0":
+        ccfull = "Arrow"
+    elif bonus == "1":
+        ccfull = "+1 Arrow"
+    elif bonus == "2":
+        ccfull = "+2 Arrow"
+    elif bonus == "3":
+        ccfull = "+3 Arrow"
+    else:
+        cc = "Oops"
+elif ammo == "bolt":
+    if bonus == "0":
+        ccfull = "Bolt"
+    elif bonus == "1":
+        ccfull = "+1 Bolt"
+    elif bonus == "2":
+        ccfull = "+2 Bolt"
+    elif bonus == "3":
+        ccfull = "+3 Bolt"
+    else:
+        cc = "Oops"
+elif ammo == "bullet":
+    if bonus == "0":
+        ccfull = "Bullet"
+    elif bonus == "1":
+        ccfull = "+1 Bullet"
+    elif bonus == "2":
+        ccfull = "+2 Bullet"
+    elif bonus == "3":
+        ccfull = "+3 Bullet"
+    else:
+        cc = "Oops"
+else:
+    cc = "dafuq"
+
+if cc == "Oops":
+    T= f"{name} can't even..."
+    F = f"Make sure you use `!ammo type bonus number`.  Type can be Arrow, Bolt, or Bullet.  Bonus can be 1, 2, or 3.  Use 0 for base bullets.  Number is the number of the ammunition you are adding.  You entered: {ammo} {bonus} {number}"    
+elif cc == "dafuq":
+    T= f"{name} mega fucked up"
+    F = f"Make sure you use `!ammo type bonus number`.  Type can be Arrow, Bolt, or Bullet.  Bonus can be 1, 2, or 3.  Use 0 for base bullets.  Number is the number of the ammunition you are adding.  You entered: {ammo} {bonus} {number}"    
+else:
+    if ch.cc_exists(ccfull):
+        ch.mod_cc(ccfull, number)
+    else:
+        ch.create_cc(ccfull, 0, None, None, None, None, None, ccfull, None, number)
+    T = f"{name} checks their {ccfull}s"
+    F = ch.get_cc(ccfull)
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-footer "!ammo | made by DrakurRedragon for Soul Co"
