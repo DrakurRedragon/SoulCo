@@ -1,0 +1,44 @@
+<drac2>
+#variables
+a = &ARGS&
+act = a[0].lower()
+cast_args="""&*&"""
+ch=character()
+cc="Ring of the Illithid Arcanist"
+chlevel = ch.levels.get("Warlock", default=0)
+
+#logic
+
+if chlevel > 8:
+    lvl = 5
+elif chlevel > 6:
+    lvl = 4
+elif chlevel > 4:
+    lvl = 3
+elif chlevel > 2:
+    lvl = 2
+else:
+    lvl = 1
+
+if act == "store":
+    spell = a[1]
+    ch.set_cvar("RIllithidArcanist",spell)
+    ch.create_cc(cc, 0, 2, None, "number", None, None, cc, "Casts remaining for the Ring", 2)
+    return f'embed -title "Ring of Illithid Arcanist" -f "{spell} cast into the ring!" -thumb "https://media.discordapp.net/attachments/1117199737590919249/1150919809651966123/kitskiss_smooth_vector_fantasy_dark_grey_ring_purple_gems_gemst_6e26ad1e-b548-4ef0-a70f-69e262d4190c.png"'
+elif act == "cast":
+    if ch.get_cc(cc) > 0:
+        spell = ch.get_cvar("RIllithidArcanist")
+        if ch.spellbook.max_pact_slots == "None":
+            return f'embed -title "Ring of the Illithid Arcanist" -f "You have no pact slots remaining!"'
+        else:
+            ch.spellbook.set_slots(lvl, ch.spellbook.get_slots(lvl) - 1)
+            ch.mod_cc(cc, -1)
+            return f'cast {spell} -l {lvl} {cast_args} -i -phrase "Using the Ring of the Illithid Arcanist **Charges:** {ch.cc_str(cc)}" -thumb "https://media.discordapp.net/attachments/1117199737590919249/1150919809651966123/kitskiss_smooth_vector_fantasy_dark_grey_ring_purple_gems_gemst_6e26ad1e-b548-4ef0-a70f-69e262d4190c.png"'
+    else:
+        spell = ch.get_cvar("RIllithidArcanist")
+        ch.delete_cc(cc)
+        ch.delete_cvar("RIllithidArcanist")
+        return f'cast {spell} -l {lvl} {cast_args} -i -phrase "Final charge, the spell is discharged!" -thumb "https://media.discordapp.net/attachments/1117199737590919249/1150919809651966123/kitskiss_smooth_vector_fantasy_dark_grey_ring_purple_gems_gemst_6e26ad1e-b548-4ef0-a70f-69e262d4190c.png"'
+else:
+    return  f'embed -title "Ring of the Illithid Arcanist" -f "**Use:** `!ria store <spellname>` to add, `!ria cast` to cast. **Charges:** {ch.cc_str(cc)}"'
+</drac2>
