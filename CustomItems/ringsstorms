@@ -1,0 +1,70 @@
+<drac2>
+#variables
+ch=character()
+cc="Ring of Summer Storms"
+a  = &ARGS&
+spell=a[0].lower()
+cast_args="""&*&"""
+syntax="Use etherealness, plane, gust, chain, or control to cast the associated spell.  `!ringsstorms plane`."
+
+ch.create_cc_nx(cc, 0, 20, "long", "number", None, None, cc, "Ring of Summer Storms Charges")
+
+if spell == "etherealness":
+    if ch.get_cc(cc) < 6:
+        if ch.spellbook.get_slots(7) > 0:
+            ch.spellbook.set_slots(7, ch.spellbook.get_slots(7) - 1)
+            return f'cast "etherealness" {cast_args} -i -phrase "Not enough charges, using spell slots **Charges:** {ch.cc_str(cc)}"'            
+        else:
+            return f'embed -title "Ring of Summer Storms" -f "No Resources|Not enough charges or spell slots to cast Etherealness!"'
+    else:
+        ch.mod_cc(cc, -6)
+        return f'cast "etherealness" {cast_args} -i -phrase "Using the Ring of Summer Storms **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "plane":
+    if ch.get_cc(cc) < 6:
+        if ch.spellbook.get_slots(7) > 0:
+            ch.spellbook.set_slots(7, ch.spellbook.get_slots(7) - 1)
+            return f'cast "plane shift" {cast_args} -i -phrase "Not enough charges, using spell slots **Charges:** {ch.cc_str(cc)}"'            
+        else:
+            return f'embed -title "Ring of Summer Storms" -f "No Resources|Not enough charges or spell slots to cast Etherealness!"'    
+    else:
+        ch.mod_cc(cc, -6)
+        return f'cast "plane shift" -i -phrase "Using the Ring of Summer Storms to the Feywilds **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "gust":
+    if ch.get_cc(cc) < 2:
+        if ch.spellbook.get_slots(2) > 0:
+            ch.spellbook.set_slots(2, ch.spellbook.get_slots(2) - 1)
+            return f'cast "gust of wind" {cast_args} -i -phrase "Not enough charges, using spell slots **Charges:** {ch.cc_str(cc)}"'            
+        else:
+            return f'embed -title "Ring of Summer Storms" -f "No Resources|Not enough charges or spell slots to cast Etherealness!"'    
+    else:
+        ch.mod_cc(cc, -2)
+        return f'cast "gust of wind" -i {cast_args} -phrase "Using the Ring of Summer Storms **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "chain":
+    if ch.get_cc(cc) < 5:
+        if ch.spellbook.get_slots(6) > 0:
+            ch.spellbook.set_slots(5, ch.spellbook.get_slots(5) - 1)
+            return f'cast "chain lightning" {cast_args} -i -phrase "Not enough charges, using spell slots **Charges:** {ch.cc_str(cc)}"'            
+        else:
+            return f'embed -title "Ring of Summer Storms" -f "No Resources|Not enough charges or spell slots to cast Etherealness!"'    
+    else:
+        ch.mod_cc(cc, -5)
+        return f'cast "chain lightning" -i {cast_args} -phrase "Using the Ring of Summer Storms **Charges:** {ch.cc_str(cc)}"'
+    
+if spell == "control":
+    if ch.get_cc(cc) < 10:
+        if ch.spellbook.get_slots(8) > 0:
+            ch.spellbook.set_slots(8, ch.spellbook.get_slots(8) - 1)
+            return f'cast "control weather" {cast_args} -i -phrase "Not enough charges, using spell slots **Charges:** {ch.cc_str(cc)}"'            
+        else:
+            return f'embed -title "Ring of Summer Storms" -f "No Resources|Not enough charges or spell slots to cast Etherealness!"'    
+    else:
+        ch.mod_cc(cc, -10)
+        return f'cast "control weather" -i phrase "Using the Ring of Summer Storms, **Charges:** {ch.cc_str(cc)}"'
+    
+else:
+    return f'embed -title Ring of Summer Storms" -f **Use:** {syntax}. **Charges:** {ch.cc_str(cc)}'
+
+</drac2>
