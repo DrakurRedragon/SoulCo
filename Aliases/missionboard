@@ -1,0 +1,10 @@
+<drac2>
+#quest variables
+
+nightmare = '"**Quest Name:** Nightmare in the Shamble \n **Recommended Level:** 1-5 \n **Quest Start Location:** #shambleacre \n **Questgiver:** Bezat \n **Rewards:** 150gp, 500xp \n **Description**: Bezat is needing help dealing with an unfortunate circumstance. The dead are being raised by an unknown source and they are wandering into Shambleacre. He is busy keeping them from getting too close to town. He needs some skilled adventurers to assist him and take out the bigger threats while he fights off the smaller ones coming into Shambleacre."'
+dominion = '"**Quest Name:** Dominion Falls \n **Recommended Level:** 1-5 (Hard Mode available, level 8+) \n **Quest Start Location:** #newholm-main-gate-🛡 \n **Questgiver:** Qhurri \n **Rewards:** +1 Springport Society Favor, 250xp \n **Description:** Posted to the #mission-board is a fresh sheet of parchment in flowing script. “To All Brave Adventurers! The road to Springport has many hidden spots often used to rest and relax on the journey between destinations. But, being nestled in the jungle comes with certain dangers, and Springport is prepared to offer favor and a boon to those who will deliver safety to our citizens! Meet me at Newholm’s Main Gate to sign up!”"'
+
+F = %1%
+
+return f'embed -title "Mission Board Entry" -f {F} -footer "!missionboard <name>, created by @DrakurRedragon"'
+</drac2>
