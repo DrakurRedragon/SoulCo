@@ -1,0 +1,58 @@
+embed
+<drac2>
+#variables
+ch=character()
+c  = combat()
+a  = &ARGS&
+args   = argparse(a[1:])
+target = a[:1][0]
+combatant = c.get_combatant(target)
+card=%2%
+
+#logic
+if card == 1:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066771813511737414/image.png?width=435&height=671"
+    combatant.add_effect("Damage Boost", duration=4)
+    cardname="a Damage Boost"
+    F="Target of your choice receives a bonus of 1d6 damage, `-b 1d6`."
+if card == 2:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066771944474689546/image.png?width=434&height=671"
+    combatant.add_effect("Damage Reduction", duration=4)
+    cardname="a Damage Reduction"
+    F="Damage dealt to a target of your choice is reduced by 1d6, `!hp +1d6`."
+if card == 3:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066941808287940678/image.png?width=395&height=609"
+    combatant.add_effect("Extra Attack", duration=4)
+    cardname="an Extra attack"
+    F="Target of your choice gains an additional attack when they use the attack action."
+if card == 4:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066941905730023504/image.png?width=394&height=609"
+    combatant.add_effect("Crit 19-20", duration=4)
+    cardname="a Crit Range increase"
+    F="Target of your choice has their attacks crit on a 19 or 20 (unless they have an ability that provides a better crit range) `-criton 19`."
+if card == 5:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066941686674116718/image.png?width=394&height=609"
+    combatant.add_effect("Spell Slot", duration=4)
+    cardname="a Spell Slot"
+    F="Target can use this effect in place of spell slot up to 2nd, once used, `!i re yourname Spell`"
+if card == 6:
+    thumb="https://media.discordapp.net/attachments/1023739151931158528/1066941598904094760/image.png?width=390&height=609"
+    combatant.add_effect("Ability Use", duration=4)
+    cardname="an Ability Use"
+    F="Target can use this effect to restore 1 non spell slot ability usage, once used, `!i re yourname Ability`."
+if card == 7:
+    thumb="https://media.discordapp.net/attachments/1071973561419440151/1071973578150527007/image.png?width=436&height=671"
+    combatant.add_effect("Speed Up", duration=4)
+    cardname="a Movement Increase"
+    F="Target's movement speed increases by 10 ft."
+if card == 8:
+    thumb="https://media.discordapp.net/attachments/1071973561419440151/1071973700808753213/image.png?width=435&height=670"
+    combatant.add_effect("Reverse", duration=4)
+    cardname="an Uno Reverse"
+    F="Target can use their reaction when targeted by a hostile effect to also target the originator with the same effect. The originator may still make saving throws as normal, utilizing the original DCs.  Once used, `!i re yourname Reverse`."
+	
+T = f"{name} provides {cardname} to {target}"
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-thumb "{{thumb}}"
