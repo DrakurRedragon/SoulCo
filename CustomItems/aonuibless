@@ -1,0 +1,57 @@
+embed
+<drac2>
+#variables
+tableroll = "0"
+ch=character()
+cc = "Aonui's Blessing"
+desc = "Granted for service to Faeyis and her Mistress, this amulet provides a permanent +2 to Dexterity.  It also has 6 charges that restore after a long rest.  3 charges may be expended to utilize sneak attack as second time in a round.  2 charges may be expended to provide the benefit of the Haste spell.  1 charge may be expended to provide the benefit of the Bless spell."
+ch=character()
+a  = &ARGS&
+args   = argparse(a[1:])
+usage = a[:1][0]
+sneak = "sneak"
+haste = "haste"
+bless = "bless"
+
+#Custom Counter creation
+ch.create_cc_nx(cc, 0, 6, "long", "bubble", None, None, cc, desc)
+
+#if logic
+
+if usage == sneak:
+    if ch.get_cc(cc) > 2:
+        ch.mod_cc(cc, -3)
+        F=f"{name} uses Sneak Attack again!"
+        effectname="use Sneak Attack again."
+    else:
+        F="Not enough charges to use Sneak Attack."
+        effectname="do an oopsy."
+elif usage == haste:
+    if ch.get_cc(cc) > 1:
+        ch.mod_cc(cc, -2)
+        F=f"{name} casts Haste on herself!"
+        effectname="cast Haste."
+    else:
+        F="Not enough charges to use Haste."
+        effectname="do an oopsy."
+elif usage == bless:
+    if ch.get_cc(cc):
+        ch.mod_cc(cc, -1)
+        F=f"{name} casts Bless on herself and two allies!"
+        effectname="cast Bless."
+    else:
+        F="Not enough charges to use Bless."
+        effectname="do an oopsy."
+else:
+    F="I'm sorry Dave, I'm afrad I can't do that.  Please enter bless, haste, or sneak."
+    effectname="do a big oopsy."
+
+
+#output
+T = f"{name} uses her amulet to {effectname}"
+currentcc=ch.get_cc(cc)
+
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-f "Charges remaining: {{currentcc}}"
