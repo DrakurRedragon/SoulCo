@@ -1,0 +1,73 @@
+embed
+<drac2>
+#variables
+tableroll = "0"
+potionroll = "0"
+ch=character()
+
+#rolling
+tableroll = roll(100)
+
+#if logic
+if tableroll == 1:
+    forcedrink = roll('6d10')
+    forceblast = roll('1d10')
+    TEMP = "The potions mix and explode, dealing "
+    TEMP2 = f"{forcedrink}"
+    TEMP3 = " (6d10) force damage to the drinker and "
+    TEMP4 = f"{forceblast}"
+    TEMP5 = " (1d10) force damage to everything within 5 ft.  Neither potion has its normal effects."
+    F = f"{TEMP} {TEMP2} {TEMP3} {TEMP4} {TEMP5}"
+elif tableroll < 9:
+    poison = roll('2d4')
+    TEMP = "The drinker takes "
+    TEMP2 = f"{poison}"
+    TEMP3 = " (2d4) Poison damage and is Poisoned for 1 hour.  Neither potion has its normal effects."
+    F = f"{TEMP} {TEMP2} {TEMP3}"
+elif tableroll < 16:
+    F="Both potions lose their effects."
+elif tableroll < 26:
+    loseroll = roll('1d2')
+    if loseroll == 1:
+        F="The first potion loses its effect."
+    else:
+        F="The second potion loses its effects."
+elif tableroll < 36:
+    F="The potions only function for half of their duration."
+elif tableroll < 91:
+    F="The potions both work normally."
+elif tableroll < 100:
+    F="The duration of the potions is doubled."
+else:
+    potionroll = roll('1d12')
+    if potionroll == 1:
+        F="The potions mix and create a Potion of Healing instead!  `!potion healing`"
+    if potionroll == 2:
+        F="The potions mix and create a Potion of Greater Healing instead!  `!potion greater`"
+    if potionroll == 3:
+        F="The potions mix and create a Potion of Superior Healing instead!  `!potion superior`"
+    if potionroll == 4:
+        F="The potions mix and create a Potion of Supreme Healing instead!  `!potion supreme`"
+    if potionroll == 5:
+        F="The potions mix and create a Potion of Invisibility instead!  `!potion invisibility`"
+    if potionroll == 6:
+        F="The potions mix and create a Potion of Growth instead!  `!potion growth`"
+    if potionroll == 7:
+        F="The potions mix and create a Potion of Animal Friendship instead!  `!potion friendship`"
+    if potionroll == 8:
+        F="The potions mix and create a Potion of Invulnerability instead!  `!potion invulnerability`"
+    if potionroll == 9:
+        F="The potions mix and create a Potion of Heroism instead!  `!potion heroism`"
+    if potionroll == 10:
+        F="The potions mix and create a Potion of Climbing instead!  `!potion climbing`"
+    if potionroll == 11:
+        F="The potions mix and create a Potion of Speed instead!  `!potion speed`"
+    if potionroll == 12:
+        F="The potions mix and create a Potion of Vitality instead!  `!potion vitality`"
+#output
+T = f"{name} drank two potions!"
+</drac2>
+-title "{{T}}"
+-f "Rolling 1d100... {tableroll} !"
+-f "{{F}}"
+-thumb https://images-ext-1.discordapp.net/external/ohvxFnIhZafiOxyN6nJ0oYL51ZH1c209StAyiDHxPWk/https/i.pinimg.com/564x/05/a4/73/05a47304918aedfa72c4e2f561087f75.jpg
