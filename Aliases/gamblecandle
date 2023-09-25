@@ -1,0 +1,66 @@
+embed
+<drac2>
+#variables
+tableroll = "0"
+ch=character()
+cc = "Gamble Candle"
+desc = "Burning the candle takes 2 of its six hours."
+
+#rolling
+tableroll = roll('1d6')
+
+#Custom Counter creation
+ch.create_cc_nx(cc, 0, 6, "none", "bubble", None, None, cc, desc)
+
+#if logic
+ch.mod_cc(cc, -2)
+if tableroll == 1:
+    temproll = roll('1d4')
+    temproll2 = roll('2d20')
+    TEMP = "Your body feels as if it is burning up with fever, and you break out in a sweat. You strength increases by "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " points for "
+    TEMP4 = f"{temproll2}"
+    TEMP5 = " hours. You lose 1 point of Constitution permanently."
+    F = f"{TEMP} {TEMP2} {TEMP3} {TEMP4} {TEMP5}"
+if tableroll == 2:
+    temproll = roll('2d6')
+    TEMP = "The candle's mischievous magic heals all of your wounds, but the process makes your skin feel as if it is on fire. The fiery skin lasts for "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " days. At the end of your delirious fever, you must make a !c Con -dc 18, and upon success you gain 1 point of Strength permanently."
+    F = f"{TEMP} {TEMP2} {TEMP3}"
+if tableroll == 3:
+    temproll = roll('2d20+20')
+    temproll2 = roll('1d6')
+    TEMP = "You feel your body aging rapidly. You gain "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " years to your physical age. The effects will last for "
+    TEMP4 = f"{temproll2}"
+    TEMP5 = " days."
+    F = f"{TEMP} {TEMP2} {TEMP3} {TEMP4} {TEMP5}"
+if tableroll == 4:
+    temproll = roll('1d4')
+    TEMP = "You are granted advantage to all skill checks, ability rolls, et all. for "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " hours."
+    F = f"{TEMP} {TEMP2} {TEMP3}"
+if tableroll == 5:
+    temproll = roll('1d6')
+    TEMP = "Surrounded by a wispy cloud of alluring magic, you are quite suddenly irresistible to the opposite sex. For "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " days, you emanate the scent of someone's 3 favorite things, resulting in them becoming quite enamored  with you."
+    F = f"{TEMP} {TEMP2} {TEMP3}"
+if tableroll == 6:
+    temproll = roll('1d4')
+    TEMP = "There hangs magical music around the user that reflects their mood for "
+    TEMP2 = f"{temproll}"
+    TEMP3 = " hours. (30 feet range)"
+    F = f"{TEMP} {TEMP2} {TEMP3}"
+
+#output
+T = f"{name} burns the Gamble Candle!"
+F2 = f"{cc}|{ch.cc_str(cc)}"
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-f "{{F2}}"
