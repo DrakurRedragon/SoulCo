@@ -9,9 +9,209 @@ critter = roll('1d8')
 pic = roll('1d3')
 
 # If Logic
-# Rust
 
-if type == "rust"
+if type == "rust":
     bag = "Rust"
-    if critter == 1
-        T = 
+    if critter == 1:
+        critname = "Rat"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 2:
+        critname = "Owl"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 3:
+        critname = "Mastiff"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 4:
+        critname = "Goat"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 5:
+        critname = "Giant Goat"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 6:
+        critname = "Giant Boar"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 7:
+        critname = "Lion"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 8:
+        critname = "Brown Bear"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+elif type == "gray":
+    bag = "Gray"
+    if critter == 1:
+        critname = "Weasel"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 2:
+        critname = "Giant Rat"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 3:
+        critname = "Badger"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 4:
+        critname = "Boar"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 5:
+        critname = "Panther"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 6:
+        critname = "Giant Badger"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 7:
+        critname = "Dire Wolf"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 8:
+        critname = "Giant Elk"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+elif type == "tan":
+    bag = "Tan"
+    if critter == 1:
+        critname = "Jackal"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 2:
+        critname = "Ape"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 3:
+        critname = "Baboon"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 4:
+        critname = "Axe Beak"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 5:
+        critname = "Black Bear"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 6:
+        critname = "Giant Weasel"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    elif critter == 7:
+        critname = "Dire Wolf"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+    else:
+        critname = "Giant Elk"
+        if pic == 1:
+            thumb = "imageurl"
+        elif pic == 2:
+            thumb = "imageurl"
+        else:
+            thumb = "imageurl"
+
+</drac2>
+-t f'"{name} pulls a {critname} from their {bag} Bag of Tricks!"'
+-f f'"Bag of Tricks, {bag}|This ordinary bag of {bag} cloth appears empty.  Reaching inside reveals the presence of a fuzzy object that can be withdrawn as an action and thrown up to 20 ft.  It turns into a random animal ( `!item "Bag of Tricks" for full list).  This creature lasts until the next dawn or until it is reduced to 0 hp. \n The creature acts on your turn and will take actions appropriate to its nature.  You may take a bonus action to instead command the creature to take actions, such as attack the enemy."'
+-f f'"It's a {critname}|If you are in combat, use `!madd {critname} -p yourinit`, replacing yourinit with your actual initiative value.  You will then be able to move and control the critter.  Use `!i a` to see its actions, and `!i a claw` to attack, with a claw in that example.  Use `!map -t {critname} -move a1` to move it."'
+-thumb {thumb}
+-footer "!bagtricks name, created for Soul Co by @DrakurRedragon"
