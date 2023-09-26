@@ -1,6 +1,17 @@
+embed
 <drac2>
 # Assign Variables
 type = &1&
+ch = character()
 
 # Randomize
-critter = r
+critter = roll('1d8')
+pic = roll('1d3')
+
+# If Logic
+# Rust
+
+if type == "rust"
+    bag = "Rust"
+    if critter == 1
+        T = 
