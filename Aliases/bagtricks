@@ -1,0 +1,6 @@
+<drac2>
+# Assign Variables
+type = &1&
+
+# Randomize
+critter = r
