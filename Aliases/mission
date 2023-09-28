@@ -24,7 +24,20 @@ monsveritas = ' -f "Mons Veritas (5-15)|Quest Start Location: #the-intent \n Que
 enemy = ' -f "Enemy of my Enemy (6-10)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 500xp, +1 EACH Springport Society and Newholm Militia Rep"'
 faldara = ' -f "The Fal Dara Ravine (6-12)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa \n Rewards: +1 Springport Society Rep, and a voucher for 15% off spellcasting services."'
 conqueror = ' -f "Conquerors Grotto (6-14)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 750xp, +1 Newholm Militia Rep"'
-
+swampbully = ' -f "
+skittering = 
+bayou = 
+dominionhard = 
+daughters = 
+tumblr = 
+bold =
+maiden =
+whirlwind =
+tyranny = 
+lordseas = 
+highway = 
+corruption = 
+tyrant = 
 
 #logic
 
@@ -39,7 +52,38 @@ elif lvl == 4:
 elif lvl == 5:
     F = nightmare + dominion + escape + tiktok + fangs + braving + emptied + jungle + rumble + comingswarm + emptiedhard + tidepools + notpirates + onesmallstep + twitter + monsveritas + golden
 elif lvl == 6:
-    F = escape + tiktok + fangs + braving + emptied + jungle + rumble + comingswarm + emptiedhard + tidepools+ notpirates + onesmallstep + twitter + monsveritas + enemy + faldara + conqueror + golden
+    F = escape + tiktok + fangs + braving + emptied + jungle + rumble + comingswarm + emptiedhard + tidepools + notpirates + onesmallstep + twitter + monsveritas + enemy + faldara + conqueror + golden
+elif lvl == 7:
+    F = escape + tiktok + braving + emptied + jungle + rumble + comingswarm + emptiedhard + tidepools + notpirates + onesmallstep + twitter + monsveritas + enemy + faldara + conqueror + golden + swampbully
+elif lvl == 8:
+    F = escape + tiktok + emptied + jungle + rumble + emptiedhard + tidepools + notpirates + onesmallstep + twitter + monsveritas + enemy + faldara + conqueror + golden + swampbully + skittering + bayou + daughters + dominionhard
+elif lvl == 9:
+    F = escape + emptied + emptiedhard + tidepools + notpirates + onesmallstep + twitter + monsveritas + enemy + faldara + conqueror + swampbully + skittering + bayou + dominionhard + tumblr + daughters
+elif lvl == 10:
+    F = escape + emptied + emptiedhard + tidepools + notpirates + onesmallstep + monsveritas + enemy + faldara + conqueror + swampbully + skittering + bayou + dominionhard + tumblr + bold + maiden + whirlwind + daughters
+elif lvl == 11:
+    F = escape + emptied + emptiedhard + monsveritas + faldara + conqueror + swampbully + skittering + bayou + tumblr + bold + maiden + whirlwind + daughters
+elif lvl == 12:
+    F = escape + emptied + emptiedhard + monsveritas + faldara + conqueror + skittering + bayou + tumblr + bold + maiden + whirlwind + tyranny + lordseas + daughters
+elif lvl == 13:
+    F = escape + emptiedhard + monsveritas + conqueror + bayou + tumblr + bold + maiden + whirlwind + tyranny + lordseas + daughters
+elif lvl == 14:
+    F = escape + emptiedhard + monsveritas + conqueror + bayou + tumblr + bold + maiden + whirlwind + tyranny + lordseas + highway + corruption + daughters
+elif lvl == 15:
+    F = escape + emptiedhard + monsveritas + bayou + tumblr + bold + maiden + whirlwind + tyranny + lordseas + highway + corruption + tyrant
+elif lvl == 16:
+    F = escape + bayou + tumblr + tyranny + lordseas + highway + corruption + tyrant
+elif lvl == 17:
+    F = escape + tumblr + tyranny + lordseas + highway + corruption + tyrant
+elif lvl == 18:
+    F = escape + tumblr + tyranny + lordseas + highway + corruption + tyrant
+elif lvl == 19:
+    F = escape + tumblr + tyranny + lordseas + highway + corruption + tyrant
+elif lvl == 20:
+    F = escape + tumblr + tyranny + lordseas + highway + corruption + tyrant
+else:
+    F = "Please choose a level from 1-20.  `!mission 1`"
+
 
 return f'embed -title "Quests Available for level {lvl}" -footer "!mission <lvl>, created by #DrakurRedragon" {F} -desc "Check the mission board for quest details."'
 </drac2>
