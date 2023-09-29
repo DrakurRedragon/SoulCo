@@ -1,44 +1,52 @@
 <drac2>
-lvl = %1%
+
 F = ""
+ch = character ()
+
+#mission level declaration
+
+try:
+    lvl = %1%
+except ("DraconicSyntaxError"):
+    lvl = ch.level
 
 #quest variables
 
-nightmare = ' -f "Nightmare in the Shamble (1-5)|Quest Start Location: #shambleacre \n Questgiver: Bezat \n Rewards: 150gp, 500xp \n `!missionboard nightmare`"'
-dominion = ' -f "Dominion Falls 1-5)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: Qhurri \n Rewards: +1 Springport Society Favor, 250xp `!missionboard dominion`"' 
-escape = ' -f "Escape to Hammond Fields (Noncombat)|Quest Start Location: #d-and-d-ranch-🦖  \n Questgiver: Elsa ‘Hellrider’ May \n Rewards: Potion of Animal Friendship and 100xp per Sinoceratops herded home. \n `!missionboard escape`"'
-tiktok = ' -f "Tik Tok (2-6)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: Captain Aethusa Ironshield \n Rewards: 50gp, 200xp per player \n `!missionboard tiktok`"'
-golden = ' -f "Golden Promise (2-8)|Quest Start Location: #the-tabaxis-trade-ition \n Questgiver: a new player in town, goes by the street name *Nightshade* \n Rewards: +1 Underground credits and 200gp each \n `!missionboard golden`"'
-emptied = ' -f "Emptied Forest (2-12)|Quest Start Location: #newholm-main-gate \n Questgiver: General Arethusa Ironshield \n Rewards: 1,000xp, +1 EACH Springport Society and Newholm Militia reputation \n `!missionboard emptied`"'
+nightmare = ' -f "Nightmare in the Shamble (1-5)|Quest Start Location: [Shambleacre](https://discord.com/channels/956337252546535484/1067225146319978626) \n Questgiver: Bezat \n Rewards: 150gp, 500xp \n `!missionboard nightmare`"'
+dominion = ' -f "Dominion Falls 1-5)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: Qhurri \n Rewards: +1 Springport Society Favor, 250xp `!missionboard dominion`"' 
+escape = ' -f "Escape to Hammond Fields (Noncombat)|Quest Start Location: [d-and-d-ranch-🦖](https://discord.com/channels/956337252546535484/993637196382863510)  \n Questgiver: Elsa ‘Hellrider’ May \n Rewards: Potion of Animal Friendship and 100xp per Sinoceratops herded home. \n `!missionboard escape`"'
+tiktok = ' -f "Tik Tok (2-6)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: Captain Aethusa Ironshield \n Rewards: 50gp, 200xp per player \n `!missionboard tiktok`"'
+golden = ' -f "Golden Promise (2-8)|Quest Start Location: [the-tabaxis-trade-ition](https://discord.com/channels/956337252546535484/1004814502266671245) \n Questgiver: a new player in town, goes by the street name *Nightshade* \n Rewards: +1 Underground credits and 200gp each \n `!missionboard golden`"'
+emptied = ' -f "Emptied Forest (2-12)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: General Arethusa Ironshield \n Rewards: 1,000xp, +1 EACH Springport Society and Newholm Militia reputation \n `!missionboard emptied`"'
 fangs = ' -f "Fangs of Freedom (3-6)|Quest Start Location: \n Questgiver: Captain Shea Brennan \n Rewards: Potion of Greater Healing, 10gp each. \n `!missionboard fangs`"'
-braving = '-f "Braving the Forge (3-7)|Quest Start Location: #haamu-enclave \n Rewards: 500xp and a Cloak of Many Fashions \n `!missionboard braving`"'
-jungle = ' -f "Jungle Fever (4-8)|Quest Start Location: #atl-waterways \n Questgiver: Abha and Colel \n Rewards: Potion of Resistance, 250xp \n `!missionboard jungle`"'
-rumble = ' -f "Rumble in the Jungle (4-8)|Quest Start Location: #d-and-d-ranch-🦖 \n Questgiver: Elsa ‘Hellrider’ May \n Rewards: 50gp per Deino \n `!missionboard rumble`"'
-comingswarm = ' -f "The Coming Swarm (4-7)|Quest Start Location: #feyrise-embassy \n Rewards: 300 gp \n `!missionboard comingswarm`"'
-emptiedhard = ' -f "Emptied Forest, Hard Mode (5-15)|Quest Start Location: #newholm-main-gate \n Questgiver: General Arethusa Ironshield \n Rewards: 1,000xp, +1 EACH Springport Society and Newholm Militia reputation \n `!missionboard emptiedhard`"'
-tidepools = ' -f "Gibupgagools Tidepools (5-10)|Quest Start Location: #gaias-islands \n Rewards: To be determined. \n `!missionboard tidepools`"'
-notpirates = ' -f "Its Probably Not Pirates (5-10)|Quest Start Location: #port-market \n Questgiver: Alton Thorne \n Rewards: 750GP, 750xp \n `!missionboard notpirates`"'
-onesmallstep = ' -f "One Small Step (5-10)|Quest Start Location: #vouren-jalka \n Rewards: +1 Vanalir Rep, 500xp, and a Gem of Brightness \n `!missionboard onesmallstep`"'
-twitter = ' -f "Twitter (5-9)|Quest Start Location: #the-intent-🏕 \n Questgiver: Bordebella Kegfury \n Rewards: Opal, Stout(Potion of invulnerability), 750xp per player \n `!missionboard twitter`"'
+braving = '-f "Braving the Forge (3-7)|Quest Start Location: [haamu-enclave](https://discord.com/channels/956337252546535484/1075078037361676288) \n Rewards: 500xp and a Cloak of Many Fashions \n `!missionboard braving`"'
+jungle = ' -f "Jungle Fever (4-8)|Quest Start Location: [atl-waterways ](https://discord.com/channels/956337252546535484/1075082360418218076)\n Questgiver: Abha and Colel \n Rewards: Potion of Resistance, 250xp \n `!missionboard jungle`"'
+rumble = ' -f "Rumble in the Jungle (4-8)|Quest Start Location: [d-and-d-ranch-🦖](https://discord.com/channels/956337252546535484/993637196382863510) \n Questgiver: Elsa ‘Hellrider’ May \n Rewards: 50gp per Deino \n `!missionboard rumble`"'
+comingswarm = ' -f "The Coming Swarm (4-7)|Quest Start Location: [feyrise-embassy](https://discord.com/channels/956337252546535484/1037772384683429909) \n Rewards: 300 gp \n `!missionboard comingswarm`"'
+emptiedhard = ' -f "Emptied Forest, Hard Mode (5-15)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: General Arethusa Ironshield \n Rewards: 1,000xp, +1 EACH Springport Society and Newholm Militia reputation \n `!missionboard emptiedhard`"'
+tidepools = ' -f "Gibupgagools Tidepools (5-10)|Quest Start Location: [gaias-islands](https://discord.com/channels/956337252546535484/1075077756410408971) \n Rewards: To be determined. \n `!missionboard tidepools`"'
+notpirates = ' -f "Its Probably Not Pirates (5-10)|Quest Start Location: [port-market](https://discord.com/channels/956337252546535484/1041500107952095293) \n Questgiver: Alton Thorne \n Rewards: 750GP, 750xp \n `!missionboard notpirates`"'
+onesmallstep = ' -f "One Small Step (5-10)|Quest Start Location: [vouren-jalka](https://discord.com/channels/956337252546535484/1092867433490026577) \n Rewards: +1 Vanalir Rep, 500xp, and a Gem of Brightness \n `!missionboard onesmallstep`"'
+twitter = ' -f "Twitter (5-9)|Quest Start Location: [the-intent-🏕](https://discord.com/channels/956337252546535484/992187936734986280) \n Questgiver: Bordebella Kegfury \n Rewards: Opal, Stout(Potion of invulnerability), 750xp per player \n `!missionboard twitter`"'
 monsveritas = ' -f "Mons Veritatis (5-15)|Quest Start Location: #the-intent \n Questgiver: Captain Shea Brennan \n Rewards: The possibility of an Ikran Mount, plus 500xp, 500gp, and a Potion of Animal Friendship. \n `!missionboard monsveritatis`"'
-enemy = ' -f "Enemy of my Enemy (6-10)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 500xp, +1 EACH Springport Society and Newholm Militia Rep \n `!missionboard enemy`"'
-faldara = ' -f "The Fal Dara Ravine (6-12)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa \n Rewards: +1 Springport Society Rep, and a voucher for 15% off spellcasting services. \n `!missionboard faldara`"'
-conqueror = ' -f "Conquerors Grotto (6-14)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 750xp, +1 Newholm Militia Rep \n `!missionboard conqueror`"'
-swampbully = ' -f "Swamp Bully (7-11)|Quest Start Location: ##fontainebleau \n Questgiver: Grand-Pere Lavigne \n Rewards: 500gp , +750xp" \n `!missionboard swampbully`'
-skittering = ' -f "Skittering Feeling (8-12)|Quest Start Location: #garðarshólmi \n Questgiver: Astrid Heliagr \n Rewards: 750XP + 1 Potion of Greater Healing Each \n `!missionboard skittering`"'
-bayou = ' -f "In the Bayou (8-16)|Quest Start Location: #shambleacre \n Questgiver: Chut / Bezat \n Rewards 750xp, +1 Newholm Rep, and a Potion of Poison Resistance \n `!missionboard bayou`"'
-dominionhard = ' -f "Dominion Falls Hardmode (8-11)|Quest Start Location: #newholm-main-gate-🛡 \n Questgiver: Qhurri \n Rewards: +1 Springport Society Favor, 250xp \n `!missionboard dominionhard`"'
+enemy = ' -f "Enemy of my Enemy (6-10)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 500xp, +1 EACH Springport Society and Newholm Militia Rep \n `!missionboard enemy`"'
+faldara = ' -f "The Fal Dara Ravine (6-12)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: General Arethusa \n Rewards: +1 Springport Society Rep, and a voucher for 15% off spellcasting services. \n `!missionboard faldara`"'
+conqueror = ' -f "Conquerors Grotto (6-14)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: General Arethusa Ironshield \n Rewards: 750xp, +1 Newholm Militia Rep \n `!missionboard conqueror`"'
+swampbully = ' -f "Swamp Bully (7-11)|Quest Start Location: [fontainebleau](https://discord.com/channels/956337252546535484/1075069006995796100) \n Questgiver: Grand-Pere Lavigne \n Rewards: 500gp , +750xp" \n `!missionboard swampbully`'
+skittering = ' -f "Skittering Feeling (8-12)|Quest Start Location: [garðarshólmi](https://discord.com/channels/956337252546535484/1075076782811783278) \n Questgiver: Astrid Heliagr \n Rewards: 750XP + 1 Potion of Greater Healing Each \n `!missionboard skittering`"'
+bayou = ' -f "In the Bayou (8-16)|Quest Start Location: [Shambleacre](https://discord.com/channels/956337252546535484/1067225146319978626) \n Questgiver: Chut / Bezat \n Rewards 750xp, +1 Newholm Rep, and a Potion of Poison Resistance \n `!missionboard bayou`"'
+dominionhard = ' -f "Dominion Falls Hardmode (8-11)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡 \n Questgiver: Qhurri \n Rewards: +1 Springport Society Favor, 250xp \n `!missionboard dominionhard`"'
 daughters = ' -f "A Daughter’s Plea (8-14)|Quest Start Location: Where would one commandeer a ship? \n Rewards: 750xp, +1 Newholm Rep, and a Potion of Water Breathing \n `!missionbard daughters`"'
-tumblr = ' -f "Tumblr (9+)|Quest Start Location: #newholm-main-gate-🛡  \n Questgiver: General Arethusa Ironshield \n Rewards: Potion of Superior Healing, 1000xp per player, +1 Newholm Guard Rep \n `!missionboard tumblr`"'
-bold = ' -f "Bolds Strike Back (10-15)|Quest Start Location: château-de-saint-ouen \n Questgiver: Chevalier de Granpre \n Rewards: 500GP, A Kobold Invention \n `!missionboard bold`"'
-maiden = ' -f "Maiden’s Voyage (10-15)|Quest Start Location: #seaman’s-landing \n Questgiver: Alton Thorne \n Rewards: 1000gp, 1000xp \n `!missionboard maiden`"'
-whirlwind = ' -f "A Whirlwind of Revenge (10-15)|Quest Start Location: #newholm-main-gate \n Questgiver: Captain Arethusa Ironshield \n Rewards: \n `!missionboard whirlwind`"'
-tyranny = ' -f "Tyranny of the Bold (12+)|Quest Start Location: #newholm-main-gate \n Questgiver: General Arethusa \n Rewards:Potion of Superior Healing, +1500xp \n `!missionboard tyranny`"'
-lordseas = ' -f "The Lord of the Seas (12+)|Quest Start Location:  #newholm-main-gate \n Questgiver: Me. \n Rewards: Stuff. Maybe things, like your life. \n `!missionboard lordseas`"'
-highway = ' -f "Highway to Hel (14+)|Quest Start Location: #vouren-jalka \n Rewards: 1,000xp, 1,000gp, and a Badge of Vouren Jalka \n `!missionboard highway`"'
-corruption = ' -f "A Corruption of the Ways (14+)|Quest Start Location: #warden’s-command \n Questgiver: Qhurri and Wulfric \n Rewards: 1,500xp, +1 Newholm Reputation, and 500gp. \n `!missionboard corruption`"'
-tyrant = ' -f "The Tyrant’s Lair (15+) \n Quest Start Location: #vouren-jalka \n Rewards: 1,500xp, +1 Vanalir Rep, and a share of the treasures in Dhar Turum! \n `!missionboard tyrant`"'
-monkey = ' -f "Quit Monkeying Around (10-15)|Quest Start Location: #newholm-main-gate \n Questgiver: Cpt. Shea Brennan \n Rewards: 1000 GP, Springport +1 \n `!missionboard monkey`"'
+tumblr = ' -f "Tumblr (9+)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627)-🛡  \n Questgiver: General Arethusa Ironshield \n Rewards: Potion of Superior Healing, 1000xp per player, +1 Newholm Guard Rep \n `!missionboard tumblr`"'
+bold = ' -f "Bolds Strike Back (10-15)|Quest Start Location: [château-de-saint-ouen](https://discord.com/channels/956337252546535484/1075068789441429594) \n Questgiver: Chevalier de Granpre \n Rewards: 500GP, A Kobold Invention \n `!missionboard bold`"'
+maiden = ' -f "Maiden’s Voyage (10-15)|Quest Start Location: [seaman’s-landing](https://discord.com/channels/956337252546535484/1048692569233707019) \n Questgiver: Alton Thorne \n Rewards: 1000gp, 1000xp \n `!missionboard maiden`"'
+whirlwind = ' -f "A Whirlwind of Revenge (10-15)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: Captain Arethusa Ironshield \n Rewards: \n `!missionboard whirlwind`"'
+tyranny = ' -f "Tyranny of the Bold (12+)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: General Arethusa \n Rewards:Potion of Superior Healing, +1500xp \n `!missionboard tyranny`"'
+lordseas = ' -f "The Lord of the Seas (12+)|Quest Start Location:  [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: Me. \n Rewards: Stuff. Maybe things, like your life. \n `!missionboard lordseas`"'
+highway = ' -f "Highway to Hel (14+)|Quest Start Location: [vouren-jalka](https://discord.com/channels/956337252546535484/1092867433490026577) \n Rewards: 1,000xp, 1,000gp, and a Badge of Vouren Jalka \n `!missionboard highway`"'
+corruption = ' -f "A Corruption of the Ways (14+)|Quest Start Location: [warden’s-command](https://discord.com/channels/956337252546535484/1006278968619573318) \n Questgiver: Qhurri and Wulfric \n Rewards: 1,500xp, +1 Newholm Reputation, and 500gp. \n `!missionboard corruption`"'
+tyrant = ' -f "The Tyrant’s Lair (15+) \n Quest Start Location: [vouren-jalka](https://discord.com/channels/956337252546535484/1092867433490026577) \n Rewards: 1,500xp, +1 Vanalir Rep, and a share of the treasures in Dhar Turum! \n `!missionboard tyrant`"'
+monkey = ' -f "Quit Monkeying Around (10-15)|Quest Start Location: [newholm-main-gate](https://discord.com/channels/956337252546535484/990431605132783627) \n Questgiver: Cpt. Shea Brennan \n Rewards: 1000 GP, Springport +1 \n `!missionboard monkey`"'
 
 #logic
 
