@@ -1,14 +1,13 @@
 <drac2>
 
 F = ""
-ch = character ()
 
 #mission level declaration
 
 try:
-    lvl = %1%
-except ("DraconicSyntaxError"):
-    lvl = ch.level
+    lvl = int("&1&")
+except:
+    lvl = level
 
 #quest variables
 
