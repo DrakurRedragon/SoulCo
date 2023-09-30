@@ -1,0 +1,134 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Ring of Shooting Stars"
+
+try:
+    int(len(&ARGS&)
+except:
+    help = 1
+
+if a[0].lower() == help:
+    help = 1
+
+ch.create_cc_nx(cc, 0, 6, "long", "bubble", None, "1d6", cc, "Ring of Shooting Stars", 6)
+
+if help == 1:
+    return f'embed -title "Ring of Shooting Stars" -f "Ring of Shooting Stars|`!item "ring of shooting stars" \n Usage:\n `!rShootStars light` - cast Light.  \n `!rShootStars dancing` - cast Dancing Lights \n `!rShootStars faerie` - cast Faerie Fire.  Supports `-t`, DC 15 save. \n `!rShootStars ball 4` - Utilizes the Ball Lightning feature. Specify the number of balls summoned; this will provide an attack that you can use. \n `!rShootStars shooting 3` - Utilizes the Shooting Stars ability. Specify the number of charges expended.  It creates an attack that lasts for the round, Shooting stars.  Use this attack to specify your targets." -thumb https://images-ext-2.discordapp.net/external/rUywHP7A0sM0avHdDCgOsWgRPcUClHegRiL3z4vYXqw/https/images-ext-2.discordapp.net/external/UWXH9Z-lPFy9xjXeA6f5_jEGT0m6vhEB0jw9Qi_9Ql4/https/i.imgur.com/4NtxLFT.png  -f "Charges|{ch.cc_str(cc)}"'
+else:
+	a  = &ARGS&
+    use = a[0].lower()
+    charge = a[1]
+    cast_args="""&*&"""
+
+if use == "light"
+    return f'cast light -i -thumb https://images-ext-2.discordapp.net/external/rUywHP7A0sM0avHdDCgOsWgRPcUClHegRiL3z4vYXqw/https/images-ext-2.discordapp.net/external/UWXH9Z-lPFy9xjXeA6f5_jEGT0m6vhEB0jw9Qi_9Ql4/https/i.imgur.com/4NtxLFT.png -phrase "Using the Ring of Shootings Stars" -dc 15 {cast_args}'
+elif use == "dancing"
+    return f'cast dancing -i -thumb https://images-ext-2.discordapp.net/external/rUywHP7A0sM0avHdDCgOsWgRPcUClHegRiL3z4vYXqw/https/images-ext-2.discordapp.net/external/UWXH9Z-lPFy9xjXeA6f5_jEGT0m6vhEB0jw9Qi_9Ql4/https/i.imgur.com/4NtxLFT.png -phrase "Using the Ring of Shootings Stars"'
+elif use == "faerie"
+    ch.mod_cc(cc, -1)
+    return f'cast faerie -i -thumb https://images-ext-2.discordapp.net/external/rUywHP7A0sM0avHdDCgOsWgRPcUClHegRiL3z4vYXqw/https/images-ext-2.discordapp.net/external/UWXH9Z-lPFy9xjXeA6f5_jEGT0m6vhEB0jw9Qi_9Ql4/https/i.imgur.com/4NtxLFT.png -phrase "Using the Ring of Shootings Stars, charges left: {ch.cc_str(cc)} -dc 15 {cast_args}"'
+elif use == "ball"
+    ch.mod_cc(cc, -2)
+    if charge == 4:
+        damdice = "2d4"
+    elif charge == 3:
+        damdice = "2d6"
+    elif charge == 2:
+        damdice = "5d4"
+    else:
+        damdice = "4d12"
+	c  = combat()
+    combatant = c.get_combatant(name)
+    combatant.add_effect(
+        "Ball Lightning",
+        attacks=[{
+            "attack":{
+                "name": "Ball Lightning", 
+                "_v": 2, 
+                "verb": "discharges",
+                "automation": [
+                    {
+                        "type": "roll", 
+                        "dice": "{{damdice}}[lightning]", 
+                        "name": "damage", 
+                    },
+                    {
+                        "type": "target",
+                        "target": "all",
+                        "effects": [
+                            {
+                                "type": "save",
+                                "stat": "dex",
+                                "fail": 
+                                    [{
+                                        "type": "damage",
+                                        "damage": "{damage}",
+                                    }],
+                                "success":
+                                    [{
+                                    }],
+                                "dc": "15"
+                            }
+                        ]
+                    }, 
+                    {
+                         "type": "text", 
+                         "text": " You can expend 2 charges as an action to create {{charge}} 3-foot-diameter spheres of lightning. \n\n Each sphere appears in an unoccupied space you can see within 120 feet of you. The spheres last as long as you concentrate (as if concentrating on a spell), up to 1 minute. Each sphere sheds dim light in a 30-foot radius. \n\n As a bonus action, you can move each sphere up to 30 feet, but no farther than 120 feet away from you. When a creature other than you comes within 5 feet of a sphere, the sphere discharges lightning at that creature and disappears. That creature must make a DC 15 Dexterity saving throw. On a failed save, the creature takes lightning damage based on the number of spheres you created."
+                    }
+                ]
+	        }
+        }]
+    )
+elif use == "shooting"
+    ch.mod_cc(cc, -int({charge}))
+	c  = combat()
+    combatant = c.get_combatant(name)
+    combatant.add_effect(
+        "Shooting Stars",
+        duration=1,
+        attacks=[{
+            "attack":{
+                "name": "Shooting Stars", 
+                "_v": 2, 
+                "verb": "hurls",
+                "automation": [
+                    {
+                        "type": "roll", 
+                        "dice": "5d4[fire]", 
+                        "name": "damage", 
+                    },
+                    {
+                        "type": "target",
+                        "target": "all",
+                        "effects": [
+                            {
+                                "type": "save",
+                                "stat": "dex",
+                                "fail": 
+                                    [{
+                                        "type": "damage",
+                                        "damage": "{damage}",
+                                    }],
+                                "success":
+                                    [{
+                                        "type": "damage",
+                                        "damage": "{damage}/2",
+                                    }],
+                                "dc": "15"
+                            }
+                        ]
+                    }, 
+                    {
+                         "type": "text", 
+                         "text": "You can expend 1 to 3 charges as an action. For every charge you expend, you launch a glowing mote of light from the ring at a point you can see within 60 feet of you. Each creature within a 15-foot cube originating from that point is showered in sparks and must make a DC 15 Dexterity saving throw, taking 5d4 fire damage on a failed save, or half as much damage on a successful one."
+                    }
+                ]
+	        }
+        }]
+    )
+else:
+    return f'embed -title "Ring of Shooting Stars" -f "Ring of Shooting Stars|`!item "ring of shooting stars" \n Usage:\n `!rShootStars light` - cast Light.  \n `!rShootStars dancing` - cast Dancing Lights \n `!rShootStars faerie` - cast Faerie Fire.  Supports `-t`, DC 15 save. \n `!rShootStars ball 4` - Utilizes the Ball Lightning feature. Specify the number of balls summoned; this will provide an attack that you can use. \n `!rShootStars shooting 3` - Utilizes the Shooting Stars ability. Specify the number of charges expended.  Supports `-t`." -thumb https://images-ext-2.discordapp.net/external/rUywHP7A0sM0avHdDCgOsWgRPcUClHegRiL3z4vYXqw/https/images-ext-2.discordapp.net/external/UWXH9Z-lPFy9xjXeA6f5_jEGT0m6vhEB0jw9Qi_9Ql4/https/i.imgur.com/4NtxLFT.png -f "Charges|{ch.cc_str(cc)}"'
+</drac2>
