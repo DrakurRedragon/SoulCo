@@ -1,0 +1,90 @@
+embed
+<drac2>
+
+ch=character()
+
+cRoll=roll("1d6")
+cMaxHp=ch.max_hp+5
+cDef="Error"
+candyDef=""
+x = 1
+isCombat = 1
+T = ch.name+" tried to eat an error!"
+D = "I don't feel so good Mr. Stark!"
+F = "ooga booga"
+
+try:
+    c = combat()
+    combatant = c.get_combatant(name)
+except:
+    isCombat = 0
+
+if cRoll==1:
+    x = roll("1d4+4")
+    ch.modify_hp(x, ignore_temp=False, overflow=False)
+    candyDef = "is a round, purple hard candy, and fills your mouth with a bloom of GRAPE!\n\n"+ch.name+" healed for "+x+" HP."
+elif cRoll==2:
+    if ch.temp_hp < 5:
+        ch.set_temp_hp(5)
+        candyDef = "is a round, orange hard candy, and fills your mouth with a bloom of CITRUS!\n\n"+ch.name+" gained 5 temporary HP."
+    else:
+        candyDef = "is a round, orange hard candy, and fills your mouth with a bloom of CITRUS!\n\nNo effects can be felt - "+ch.name+" already has "+ch.temp_hp+" temporary HP."
+elif cRoll==3:
+    if isCombat==1:
+        combatant.add_effect(
+            "Halloween Candy! (Max HP Increase)",
+            duration=10,
+            passive_effects={
+                "max_hp_value":cMaxHp,
+            },
+        )
+    candyDef = "is wrapped in blue, and fills your mouth with the sweet taste of MOLASSES!\n\n"+ch.name+" gained 5 maximum HP for one minute.\n(Note: This effect only works in !init.)"
+elif cRoll==4:
+    if isCombat==1:
+        combatant.add_effect(
+            "Halloween Candy! (Attack Advantage)",
+            duration=1,
+            passive_effects={
+                "attack_advantage":1,
+            },
+        )
+    candyDef = "is wrapped in purple, and fills your mouth with the sweet taste of COTTON CANDY!\n\n"+ch.name+" gained advantage on all attacks for one round.\n(Note: This effect only works in !init.)"
+elif cRoll==5:
+    if isCombat==1:
+        combatant.add_effect(
+            "Halloween Candy! (Save Advantage)",
+            duration=1,
+            passive_effects={
+                "save_adv":["all"],
+            },
+        )
+    candyDef = "is a rich brown toffee, and its taste reminds you of COFFEE!\n\n"+ch.name+" gained advantage on all saves for one round.\n(Note: This effect only works in !init.)"
+elif cRoll==6:
+    if isCombat==1:
+        combatant.add_effect(
+            "Holy Halloween Candy! (Bless)",
+            duration=10,
+            passive_effects={
+                "save_bonus":"1d4",
+                "to_hit_bonus":"1d4",
+            },
+        )
+    candyDef = "is small and green, and tastes like an APPLE!\n\n"+ch.name+" gained the effects of the spell 'Bless' for one minute.\n(Note: This effect only works in !init.)"
+
+if ch.temp_hp>0:
+    cDef=ch.name+"'s HP: "+ch.hp+"/"+ch.max_hp+" (+"+ch.temp_hp+" temp)"
+else:
+    cDef=ch.name+"'s HP: "+ch.hp+"/"+ch.max_hp
+
+T=ch.name+" eats a piece of halloween candy!"
+D="These delicious treats offer a variety of helpful effects - NOM! This piece "+candyDef
+F=cDef
+
+</drac2>
+
+-title "{{T}}"
+-desc "{{D}}"
+-f "{{F}}"
+-color <color>
+-thumb https://i.imgur.com/L4aRpIh.png
+-footer "by DuckDuck" 
