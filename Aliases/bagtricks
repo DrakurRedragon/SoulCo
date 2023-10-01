@@ -15,51 +15,51 @@ if type == "rust":
     if critter == 1:
         critname = "Rat"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668555525988485/kitskiss_smooth_vector_fantasy_rat_fey_feywild_magic_magical_an_befc4ee3-7f0d-4c02-8720-f60aabfe28bb.png?ex=6519725c&is=651820dc&hm=721fd777354d77c62652af859fdc08b4e84fbbfda40f77b6615d747c7243e683&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668555949604964/kitskiss_smooth_vector_fantasy_rat_small_Fey_Feywild_animal_4d4c74b0-dbd9-41f1-a3b8-2b2ac335bf2c.png?ex=6519725c&is=651820dc&hm=0c76a7bd148bb310fe314dafa65a9b52c7a5a9d60abe1bb81c8aec83d2a0e9e7&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668556280963232/kitskiss_smooth_vector_fantasy_rat_small_Fey_Feywild_animal_0d1a276f-43f0-42ba-b4cb-45929a5d626a.png?ex=6519725c&is=651820dc&hm=8f7107e1d46ecb25f2dd4d38d034936ce10de7034aa2a1171112da76becc3bae&"
     elif critter == 2:
         critname = "Owl"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668566804475976/kitskiss_smooth_fantasy_owl_Fey_Feywild_d0ae73c1-94c6-46f0-bb7e-830bac3cfefa.png?ex=6519725e&is=651820de&hm=60f2de1373aba3d9cbb7da476495f6a6017c4564b8d9c2dce35eccd90932c140&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668567156785232/kitskiss_smooth_fantasy_owl_Fey_Feywild_720a9967-66e2-4cdf-a4e8-12b391dca1e8.png?ex=6519725e&is=651820de&hm=a26087e61005a42bbee6b05239d2006a60d17448af80107b1768a2de6ff9ba56&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668567605592165/kitskiss_smooth_fantasy_owl_Fey_Feywild_9bcfd49d-5374-4871-b2d6-a6d525209501.png?ex=6519725e&is=651820de&hm=01d523b389f3183cbda86fe05f232e5b64058c4acc10e961ee9694aa8a4a4ea0&"
     elif critter == 3:
         critname = "Mastiff"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842850386546698/kitskiss_smooth_vector_fantasy_dog_mastiff_Fey_Feywild_035a1f04-60eb-4122-a597-e2b1a79c66db.png?ex=651a14af&is=6518c32f&hm=104d1024633605f97ae24710634d901c0bea461b9f12281844b509a8b6c45f72&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842850650783744/kitskiss_smooth_vector_fantasy_dog_mastiff_Fey_Feywild_c37244cb-64b5-4d1b-a002-383e06beab55.png?ex=651a14af&is=6518c32f&hm=3a6abb5503a8a303cfb158367e24587c0e57748f4244da0b9967a63d9e83f3b8&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842850990534746/kitskiss_smooth_vector_fantasy_dog_mastiff_Fey_Feywild_f92bc2ae-f14c-47fa-ad6c-ba62d534f70c.png?ex=651a14af&is=6518c32f&hm=3584a79343976fc69d4be03a472a3f1ed1263eb1c36dbff58caf6fc6f52890b2&"
     elif critter == 4:
         critname = "Goat"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845373486899240/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_c9adcfa6-e4f3-43d2-8169-dd1286bab599.png?ex=651a1708&is=6518c588&hm=ad9275b7299bbdf10b7c61211c37340f541508bfd74ac5eab45f71a703c6f332&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845373793095861/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_3c7b956e-2552-4033-b784-dac0b6c0faac.png?ex=651a1708&is=6518c588&hm=2543583de3d36aa8772e7279350a64cc317ec3e4f7fc0469cff5ae4742c50283&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845374153801738/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_ff058a3f-5dae-4cef-be4a-6036b0f9f5ca.png?ex=651a1708&is=6518c588&hm=60ea368cbb233366f4d0008733d8c3c9bcf00e0dec47001ffb7bd745e87a5e19&"
     elif critter == 5:
         critname = "Giant Goat"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842860578717806/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_91c17066-d143-401a-9a5a-d1163c9e4f03.png?ex=651a14b1&is=6518c331&hm=72ff5b018e75510ddecfe052ff14936a662c13ca57dd0a6ff77e716639bed0b6&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842860847145051/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_ff058a3f-5dae-4cef-be4a-6036b0f9f5ca.png?ex=651a14b1&is=6518c331&hm=514932c23093a13e3b2683877b05d481cf28c28d9e4d5671f514c1da8d19b0a1&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842861132349562/kitskiss_smooth_vector_fantasy_goat_Fey_Feywild_giant_oversized_f940c221-0c22-4191-8e49-4afd6f6083aa.png?ex=651a14b1&is=6518c331&hm=8108b78509e82a4152daa02ee2be9f0bc388e2920616c6c36355c228978a945d&"
     elif critter == 6:
         critname = "Giant Boar"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842869810368562/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_6f7f86db-a43e-4c95-ab56-296acc4a3a25.png?ex=651a14b3&is=6518c333&hm=a89ba17ce570311301a02c9628611abcdb812aba43b7e9ce01045d6d775b83e0&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842870179479592/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_379840b6-039d-4fe0-95d4-1e34699c72e6.png?ex=651a14b3&is=6518c333&hm=cec4ab024adc9e7958dbc9c93e83c03eb7795ec4cc550ce117966c0d1b56df36&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842870707949659/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_67022351-84d0-4991-bc09-75fcfc708a0c.png?ex=651a14b4&is=6518c334&hm=70b0421b3e6c77f330668f46a9738653a1e5289371c8018d593d4121abe2f302&"
     elif critter == 7:
         critname = "Lion"
         if pic == 1:
@@ -71,21 +71,21 @@ if type == "rust":
     elif critter == 8:
         critname = "Brown Bear"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842879230775327/kitskiss_smooth_vector_fantasy_bear_Fey_Feywild_giant_oversized_9a79d60d-3299-4e0a-af7c-eac880602054.png?ex=651a14b6&is=6518c336&hm=4d9360f5a2ff894d5fb2b260073209097f2e47f9707dc3230ddc50003c48b751&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842879549558874/kitskiss_smooth_vector_fantasy_bear_Fey_Feywild_giant_oversized_d7822cd4-df29-4f4d-8cc7-d35b65ab9c2a.png?ex=651a14b6&is=6518c336&hm=c32fea21278ef1128070212206bafb36864e5ffb4e86adaa8ad176bcd45192d2&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842879868305510/kitskiss_smooth_vector_fantasy_bear_Fey_Feywild_magic_magical_b885be95-9d5d-48ba-9eae-87fd92ce94c9.png?ex=651a14b6&is=6518c336&hm=7a5d4662b2ff19ee3b33d55d694259379ac88d0c88e99e6ff6556bf405a52c60&"
 elif type == "gray":
     bag = "Gray"
     if critter == 1:
         critname = "Weasel"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842904581156904/kitskiss_smooth_fantasy_weasel_fey_feywild_magic_magical_glowin_82ef175c-1efb-4099-884a-7863be929062.png?ex=651a14bc&is=6518c33c&hm=5bd82055fcc924c17374f6d2ae5c36f0c127abeffac5dc28064c11640c80e7ea&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842905013157888/kitskiss_smooth_fantasy_giant_oversized_weasel_fey_feywild_magi_05af25b8-d4d5-4963-b513-7cf88c87015d.png?ex=651a14bc&is=6518c33c&hm=264303f73c28534ede21ba2c1a20bbf6ad9761d5ee226877a2cf923d26bdc033&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842905294192741/kitskiss_smooth_fantasy_giant_oversized_weasel_fey_feywild_magi_cadc18c5-e889-4bf1-b126-8a92a75c9a90.png?ex=651a14bc&is=6518c33c&hm=0bf95ebd52f5ca4c1ccb67d1a03e88c0e07a6285af9e08f54b8cdb92189709fa&"
     elif critter == 2:
         critname = "Giant Rat"
         if pic == 1:
@@ -97,77 +97,77 @@ elif type == "gray":
     elif critter == 3:
         critname = "Badger"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668574354223235/badger10.png?ex=65197260&is=651820e0&hm=521c8417529d600674d743759d37684a11c42a02650377daa38420f43c359898&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668574647812136/badger8.png?ex=65197260&is=651820e0&hm=6527b347c3f70b94c11df7a017197c6013724f66d708526285a3998beacb8711&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668575084032000/badger6.png?ex=65197260&is=651820e0&hm=a3bafc92024b5acd69705d5e1897dd1d38c29685af8dd0edb687ec514652ec90&"
     elif critter == 4:
         critname = "Boar"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845775150219307/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_50364f90-7b55-4392-b9ba-e4c91bf14708.png?ex=651a1768&is=6518c5e8&hm=9ef64538e59dd717524edbc3548865cb9679f4ccddf7d8f2963d0669a78ee3bb&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845776341422120/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_0c368fc9-5cef-41b0-946a-cf6757b8f55d.png?ex=651a1768&is=6518c5e8&hm=40eb0fed22060d7b796f8b91874237676e33c6c60c6800c28407481c4a1d60d1&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845776853110895/kitskiss_smooth_vector_fantasy_giant_boar_oversized_Fey_Feywild_24b878ea-32b8-41f0-b5d5-ed71c5c69f17.png?ex=651a1768&is=6518c5e8&hm=f5061af0bca3266cd89e4eee136956530fb77664bf983b3d59eab35678bdbe77&"
     elif critter == 5:
         critname = "Panther"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842914697809920/kitskiss_smooth_fantasy_panther_fey_feywild_magic_magical_glowi_b60c5d25-adb6-4e8a-be2b-2b7429535803.png?ex=651a14be&is=6518c33e&hm=d12c8252d760a4312474a6a0cde11073f7bc34c05b733a48ba41119b20bf49f6&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842914991407124/kitskiss_smooth_fantasy_panther_fey_feywild_magic_magical_glowi_6db339e0-484b-45ec-be8f-b71fb84f626e.png?ex=651a14be&is=6518c33e&hm=9900fd4701eb1a5edb7d78dca432933c4d1fa7497de1ffcefe67226f55081a99&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842915293413477/kitskiss_smooth_fantasy_panther_fey_feywild_magic_magical_glowi_4b44e35b-c34b-441c-99a5-924474540503.png?ex=651a14be&is=6518c33e&hm=099f223a658cf04fff0a502e36165b7a11a2789e7d6526a33c5b5d9a3cda7fb5&"
     elif critter == 6:
         critname = "Giant Badger"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668586664505384/kitskiss_smooth_fantasy_giant_oversized_badger_fey_feywild_magi_62d73f6b-b2fc-4069-bac9-d01a7dfe83d7.png?ex=65197263&is=651820e3&hm=bf7ff5a6e977bfe5300311f6666c50d20fb62fee429db32542d5855be89b9225&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668587268476978/kitskiss_smooth_fantasy_giant_oversized_badger_fey_feywild_magi_5e2c83ad-da4b-4902-b485-d44fea8270d5.png?ex=65197263&is=651820e3&hm=0d13e240d6e099c68c27cfac166a74a919a57e80352e54bf0a9e27b3a431090b&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668587796975657/kitskiss_smooth_fantasy_giant_oversized_badger_fey_feywild_magi_925cd705-93bf-4dd0-969d-49c21876bd75.png?ex=65197263&is=651820e3&hm=caf2f49fb47c4b145719ed197e5e124049d2dbc80f48f5695b63038a98b1d665&"
     elif critter == 7:
         critname = "Dire Wolf"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668530104315954/jackal7.png?ex=65197256&is=651820d6&hm=7a2411929c89fdca5dea9341d97a3787af773315aa67f9e20ac870984614e5df&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668530465022062/jackal5.png?ex=65197256&is=651820d6&hm=c52051531e56e4e0daabd9c4078651c066c4fa29cefe1a786eb08eaccae2c422&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668530846707752/jackal4.png?ex=65197256&is=651820d6&hm=db123ff8a73e8ccb8f0fe9a7bf25d9d465b00b454bcdceffbe77ef752a45737f&"
     elif critter == 8:
         critname = "Giant Elk"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668602103738449/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_76f4e9b6-6c4f-4e59-ad62-415ed70c0268.png?ex=65197267&is=651820e7&hm=ac2d326112f6f8ffb7b2207d4c3bbca0c13bfc0a85064d8562f3e0544969d385&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668602351190016/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_jungle_c788fb7d-7482-4efa-a0d0-e02139f10cef.png?ex=65197267&is=651820e7&hm=6545ca2dfde3eca9729bd7b638a807b7359ecd69f59a21c8ecac19571b6d9f62&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668602632224819/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_jungle_7e3e3874-1efd-4db5-a7f7-144b0daba6df.png?ex=65197267&is=651820e7&hm=21ede351e0ce5bea6e471d5dccafbae95551ca2f64c23c31041b172eb179d88f&"
 elif type == "tan":
     bag = "Tan"
     if critter == 1:
         critname = "Jackal"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668511871676416/hyena18.png?ex=65197251&is=651820d1&hm=3aa898838df3a1d73d75ee910655fe6fcec19e8c3bd3c8cd1071a1374ba03df8&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668512144310382/hyena14.png?ex=65197251&is=651820d1&hm=8d9a19fb2710a64a06a4d2e6216c1c6ac1c552823475b8443281c5c0d6656b68&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668512442097744/hyena17.png?ex=65197251&is=651820d1&hm=d371c0a85cc34453a1d2f52f309cc1722b9c2eba693b4f822716bad95a2fa0a0&"
     elif critter == 2:
         critname = "Ape"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668542758527016/ape3.png?ex=65197259&is=651820d9&hm=2592f82d16434bb7c5dd5dd599bf2a777f821d149ead08f8e2b06a86f0d77a78&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668543014391848/ape1.png?ex=65197259&is=651820d9&hm=c23475e2bd2e0a9ee46ff35f2e80330f7d9cb92d0df60158a12b02bf7610ceef&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668543270223903/ape2.png?ex=65197259&is=651820d9&hm=06cdfdde6e79c88552cf85a864bc3cb553e3209a59cbaa336012ae2537b562ee&"
     elif critter == 3:
         critname = "Baboon"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668548802510978/baboon8.png?ex=6519725a&is=651820da&hm=b82f6e89f071e3bc0a4a7dcbc93e0db81acd4a361777d47b01be0aa78b80af97&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668549096132641/baboon6.png?ex=6519725a&is=651820da&hm=735feec4a2a444075a180fde6ccbeb4660b5d78c2ef530cc7bb339f8c9294dea&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668549372944465/baboon1.png?ex=6519725a&is=651820da&hm=694f69bc29a45f85a903d06f6c710df5b00290ba687943688beeaa7abc5c1e9c&"
     elif critter == 4:
         critname = "Axe Beak"
         if pic == 1:
@@ -179,35 +179,35 @@ elif type == "tan":
     elif critter == 5:
         critname = "Black Bear"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668489771884636/bbear10.png?ex=6519724c&is=651820cc&hm=d6b370c7456e44585c73ccc24468189fde30a424a999c883747da1f11240f375&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668490149376121/bbear12.png?ex=6519724c&is=651820cc&hm=fcffe5538e635ef4abd399d6cf13a635ab5253c9e0df3bed181c7f833b44f81f&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668490501693511/bbear7.png?ex=6519724c&is=651820cc&hm=eae2961f56b9bdfbeeb9c546b03b5256409899eecdbb8085dadef063acaadf96&"
     elif critter == 6:
         critname = "Giant Weasel"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157844863912513566/kitskiss_smooth_fantasy_weasel_fey_feywild_magic_magical_glowin_80be3c99-7ff5-4b65-9d27-805a71154dfa.png?ex=651a168f&is=6518c50f&hm=165120406ef0b1f14e074dc1f3c64751d0f1ba1e65b0bbe8532e3154a919c89f&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157844864361308181/kitskiss_smooth_fantasy_weasel_fey_feywild_magic_magical_glowin_2f58c086-e466-495d-b2e9-36aa99ee2cf2.png?ex=651a168f&is=6518c50f&hm=f4a1e55cdfb80a3c581bfce4970d4e5d046c4345ff1eb0ef74a7862fc6bd259e&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157845118892646480/kitskiss_smooth_fantasy_giant_oversized_weasel_fey_feywild_magi_fab4c517-9850-4ad5-9a63-dd019f40810e.png?ex=651a16cc&is=6518c54c&hm=1aa5e66d0370776a4f9b78a466caf4c635ec806e0bf88d1745b1754a38e0b5f7&"
     elif critter == 7:
         critname = "Dire Wolf"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842895114612757/kitskiss_smooth_fantasy_wolf_fey_feywild_magic_magical_glowing_0efe08ac-ce3f-4d0b-9212-de4c9264096a.png?ex=651a14b9&is=6518c339&hm=d1728476f86cbc8487bfd8d3d5f096bf74638fc601bddf5b388f5a714e7c7382&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842895374647397/kitskiss_smooth_fantasy_wolf_fey_feywild_magic_magical_glowing_8413dee6-e1cc-40a6-8ee9-4cfdb947d671.png?ex=651a14b9&is=6518c339&hm=fc217d7ca5624a09b8d6515e3c82326adb57bb126435b3ed1c5a90da084a97b8&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157842895647293450/kitskiss_smooth_fantasy_wolf_fey_feywild_magic_magical_glowing_3d289d07-63ba-42a0-9826-c7cc3df30248.png?ex=651a14ba&is=6518c33a&hm=169687bcee1cab7b3fe692d60808c07fbaf863469bdd398c2f51317ce88cf9d7&"
     else:
         critname = "Giant Elk"
         if pic == 1:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668624123830322/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_colorfu_eb7cb013-1195-43e6-bf8b-97370ab427fb.png?ex=6519726c&is=651820ec&hm=177426d8af0e8001744b64c425aba106d600eabb5469a93fe3ec78750c0bbcca&"
         elif pic == 2:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668624400658432/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_jungle_33f87ec3-86d3-4f8e-9eb0-c75f51a17f31.png?ex=6519726c&is=651820ec&hm=c707b3a36e725b1aeb504e1a409b73ea183ad1decd55271ed579d28155f7ed2b&"
         else:
-            thumb = "imageurl"
+            thumb = "https://cdn.discordapp.com/attachments/1156921321398210561/1157668624664887376/kitskiss_smooth_fantasy_giant_oversized_elk_fey_feywild_colorfu_2769dc9d-866e-4e96-bc8a-06458ac93da9.png?ex=6519726c&is=651820ec&hm=af58ad4c5555b1611bd777f5a72369a237a3f52712750d204dbc981bfb2e8ce1&"
 
 </drac2>
 -t f'"{name} pulls a {critname} from their {bag} Bag of Tricks!"'
