@@ -1,0 +1,100 @@
+<drac2>
+#inputs
+
+ch = character()
+cc = "Dragons Stone"
+help = 0
+a  = &ARGS&
+pic = "https://media.discordapp.net/attachments/1115981952403656815/1167937126684434472/rt1.png?ex=654ff136&is=653d7c36&hm=f45d6b9bfcea64812dd28032a9ffceeb33f0aff3715a01b2c578799720d3b1e8&="
+lv = 0
+
+try:
+    errhand = a[0].lower()
+except:
+    help = 1
+	
+ch.create_cc_nx(cc, 0, 3, "long", "bubble", None, 3, cc, "Dragons Stone", 3)
+
+if help == 1:
+    return f'embed -title "Dragons Stone" -f "Dragons Stone|Granted for services to Faeyis and her mistress, his gem was once a chipped tooth of the Great Dragon Riloth, carefully chiseled into an exquisite gem allows its bearer to cast Mold Earth, Shape Water, Control Flames, Gust, and Druidcraft at will. \n It also has 3 charges that can be used to cast Feather Fall, Maximilians Earthen Grasp, or Fireball at the lowest level.  If all of the charges are expended, the bearer can instead use their own spell slots.  If they are used this way, they can be upcast but cannot exceed 5th level." -f "Usage| `!dstone gust`, `!dstone control`, `!dstone shape`, `!dstone mold`, `!dstone druidcraft` can all be used to cast their respective cantrips.  Accepts all normal casting arguments. \n\n `!dstone feather`, `!dstone grasp`, and `!dstone fireball` can be used to cast those spells.  It will automatically use charges.  If you are out of charges and wish to upcast, you need to specify the level like so: `!dstone fireball 5`.  It caps at 5 and will not accept a minimum of below the spell level.  Accepts all normal casting arguments EXCEPT `-l` for level." -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "Created by @DrakurRedragon for Scorpi on SoulCo"'
+else:
+    use = a[0].lower()
+    cast_args="""&*&"""
+
+if use == "mold":
+	return f'cast "Mold Earth" -i -thumb {pic} -phrase "Using the Dragons Stone" {cast_args}'
+
+elif use == "control":
+	return f'cast "Control Flames" -i -thumb {pic} -phrase "Using the Dragons Stone" {cast_args}'
+
+elif use == "shape":
+	return f'cast "Shape Water" -i -thumb {pic} -phrase "Using the Dragons Stone" {cast_args}'
+
+elif use == "gust":
+	return f'cast "Gust" -i -thumb {pic} -phrase "Using the Dragons Stone" {cast_args}'
+	
+elif use == "druidcraft":
+	return f'cast "Druidcraft" -i -thumb {pic} -phrase "Using the Dragons Stone" {cast_args}'
+
+elif use == "feather":
+	if ch.get_cc(cc) < 1:
+		try:
+			lv = int(a[1])
+		except:
+			return f'embed -title "Dragons Stone" -f "Oops|You need to properly specify a level" -thumb {pic} -footer "Created by @DrakurRedragon for Scorpi on SoulCo"'
+		if lv > 5:
+			lv == 5
+		elif lv < 1:
+			lv == 1
+		if ch.spellbook.get_slots(lv) > 0:
+			ch.spellbook.set_slots(lv, ch.spellbook.get_slots(lv) - 1)
+			return f'cast "Feather Fall" -i -thumb {pic} -phrase "Using the Dragons Stone and your spellslots, Slots remaining: {ch.spellbook.get_slots(lv)}" {cast_args} -l {lv}'
+		else:
+			return f'embed -title "Dragons Stone" -f "Not Enough Resources|You dont have spell slots or charges" -thumb {pic}'
+	else:
+		ch.mod_cc(cc, -1)
+		return f'cast "Feather Fall" -i -thumb {pic} -phrase "Using the Dragons Stone, charges left: {ch.cc_str(cc)}" {cast_args} -l 1'
+
+elif use == "grasp":
+	if ch.get_cc(cc) < 1:
+		try:
+			lv = int(a[1])
+		except:
+			return f'embed -title "Dragons Stone" -f "Oops|You need to properly specify a level" -thumb {pic} -footer "Created by @DrakurRedragon for Scorpi on SoulCo"'
+		if lv > 5:
+			lv == 5
+		elif lv < 2:
+			lv == 2
+		if ch.spellbook.get_slots(lv) > 0:
+			ch.spellbook.set_slots(lv, ch.spellbook.get_slots(lv) - 1)
+			return f'cast "Maximilians Earthen Grasp" -i -thumb {pic} -phrase "Using the Dragons Stone and your spellslots, Slots remaining: {ch.spellbook.get_slots(lv)}" {cast_args} -l {lv}'
+		else:
+			return f'embed -title "Dragons Stone" -f "Not Enough Resources|You dont have spell slots or charges" -thumb {pic}'
+	else:
+		ch.mod_cc(cc, -1)
+		return f'cast "Maximilians Earthen Grasp" -i -thumb {pic} -phrase "Using the Dragons Stone, charges left: {ch.cc_str(cc)}" {cast_args} -l 2'
+
+
+elif use == "fireball":
+	if ch.get_cc(cc) < 1:
+		try:
+			lv = int(a[1])
+		except:
+			return f'embed -title "Dragons Stone" -f "Oops|You need to properly specify a level" -thumb {pic} -footer "Created by @DrakurRedragon for Scorpi on SoulCo"'
+		if lv > 5:
+			lv == 5
+		elif lv < 3:
+			lv == 3
+		if ch.spellbook.get_slots(lv) > 0:
+			ch.spellbook.set_slots(lv, ch.spellbook.get_slots(lv) - 1)
+			return f'cast "fireball" -i -thumb {pic} -phrase "Using the Dragons Stone and your spellslots, Slots remaining: {ch.spellbook.get_slots(lv)}" {cast_args} -l {lv}'
+		else:
+			return f'embed -title "Dragons Stone" -f "Not Enough Resources|You dont have spell slots or charges" -thumb {pic}'
+	else:
+		ch.mod_cc(cc, -1)
+		return f'cast "fireball" -i -thumb {pic} -phrase "Using the Dragons Stone, charges left: {ch.cc_str(cc)}" {cast_args} -l 3'
+
+	
+else:
+    return f'embed -title "Dragons Stone" -f "Dragons Stone|Granted for services to Faeyis and her mistress, his gem was once a chipped tooth of the Great Dragon Riloth, carefully chiseled into an exquisite gem allows its bearer to cast Mold Earth, Shape Water, Control Flames, Gust, and Druidcraft at will. \n It also has 3 charges that can be used to cast Feather Fall, Maximilians Earthen Grasp, or Fireball at the lowest level.  If all of the charges are expended, the bearer can instead use their own spell slots.  If they are used this way, they can be upcast but cannot exceed 5th level." -f "Usage| `!dstone gust`, `!dstone control`, `!dstone shape`, `!dstone mold`, `!dstone druidcraft` can all be used to cast their respective cantrips.  Accepts all normal casting arguments. \n\n `!dstone feather`, `!dstone grasp`, and `!dstone fireball` can be used to cast those spells.  It will automatically use charges.  If you are out of charges and wish to upcast, you need to specify the level like so: `!dstone fireball 5`.  It caps at 5 and will not accept a minimum of below the spell level.  Accepts all normal casting arguments EXCEPT `-l` for level." -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "Created by @DrakurRedragon for Scorpi on SoulCo"'
+	</drac2>
