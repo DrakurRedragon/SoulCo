@@ -1,0 +1,93 @@
+embed
+<drac2>
+
+# Declarations
+
+ch=character()
+T = ch.name+" picks a flower!"
+F = "Stuff and Things"
+P = "oopsies"
+smell = "bad"
+feeling = "also bad"
+
+# Randomization
+proll = roll("1d12")
+froll = roll("1d7")
+sroll = roll("1d10")
+
+# If Logic, picture
+
+if proll == 1:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149445932706967582/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_sunflow_1fcbfca7-1528-449d-82a9-8b332033534e.png"
+elif proll == 2:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149445921235533844/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_hydrang_2f8faac1-d522-4ad4-9b23-dad5b4f3d481.png"
+elif proll == 3:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149445543668486164/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_hydrang_0e0ddaad-aa59-416d-84a4-657183b7f867.png"
+elif proll == 4:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149445108551389285/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_rose_8411f098-c081-4308-861f-9abbfb3dfd26.png"
+elif proll == 5:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149445523246432336/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_dahlia_e73c2c75-6d6f-479b-8cf9-7b3de446f47d.png"
+elif proll == 6:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149442976188223498/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_daisy_6c0b0dc6-2dc4-463c-abed-71d37d19962d.png"
+elif proll == 7:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149442663502844006/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_daisy_c40a9364-ddfd-4ec9-b48e-53f4672ed46b.png"
+elif proll == 8:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149442184257486920/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_ec1faaba-68b8-4f86-9632-74355d23547a.png"
+elif proll == 9:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149441517723861133/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_7af7c6dd-21cb-465c-977b-bd4925a93f19.png"
+elif proll == 10:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149441503664537722/kitskiss_smooth_vector_fantasy_wildflower_magic_glowing_f1032f1f-3b45-4a59-8e8d-5a8b25ca3620.png"
+elif proll == 11:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149441296885366876/kitskiss_smooth_vector_fantasy_flower_bloom_blossom_wildflower__14b19108-bdd9-431c-bd84-f3066140a882.png"
+else:
+    P = "https://media.discordapp.net/attachments/1117199737590919249/1149440312465436712/kitskiss_smooth_vector_small_bright_jewel-toned_flower_fey_feyw_ca1496cb-32ee-4134-9e11-5965aaa3bb81.png"
+
+# If Logic, feeling
+
+if froll == 1:
+    feeling = "sensual and giddy"
+elif froll == 2:
+    feeling = "warm and delicate"
+elif froll == 3:
+    feeling = "hopeful and promising"
+elif froll == 4:
+    feeling = "dignified yet comforting"
+elif froll == 5:
+    feeling = "summer-like and happy"
+elif froll == 6:
+    feeling = "innocent"
+else:
+    feeling = "comforting and homey"
+
+# If Logic, smell
+
+if sroll == 1:
+    smell = "opulent and heady"
+elif sroll == 2:
+    smell = "delicate and dreamy"
+elif sroll == 3:
+    smell = "sweet and slightly tangy"
+elif sroll == 4:
+    smell = "gentle and citrusy"
+elif sroll == 5:
+    smell = "creamy and clove-like"
+elif sroll == 6:
+    smell = "warm and sugary"
+elif sroll == 7:
+    smell = "sweet and pure"
+elif sroll == 8:
+    smell = "exotic and elegant"
+elif sroll == 9:
+    smell = "intensely sweet"
+else:
+    smell = "velvety and alluring"
+
+# Field Declaration
+
+F = "The flower evokes a "+feeling+" feeling with a "+smell+" scent!"
+
+</drac2>
+-title "{{T}}"
+-f "{{F}}"
+-thumb "{{P}}"
+-footer "!flower | Made by @DrakurRedragon for Vrakrinn"
