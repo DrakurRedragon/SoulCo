@@ -1,0 +1,60 @@
+embed
+<drac2>
+
+#baglib
+
+using(baglib="4119d62e-6a98-4153-bea9-0a99bb36da2c")
+baglist = baglib.load_bags()
+
+#declarations
+
+a  = &ARGS&
+ch = character()
+dieroll = roll("1d6")
+
+try:
+	errhand = a[0].lower()
+except:
+	help = 1
+
+if dieroll == 1:
+	baglib.modify_item(baglist, item="Cute and Squishy Lizardfolk Friend ", quantity=1, bag_name="Plushies", create_on_fail=True)
+	T = "Cute and Squishy Lizardfolk Friend, "
+	D = "A plushie Lizardfolk named "
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669665241878679/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_3286916c-c330-43a3-9234-33bdefdf8d14.png?ex=65529b71&is=65402671&hm=686bb8c7c482a58d215120018993b44d733846d336a8cb2efdc48000fec3dda9&=&width=671&height=671"
+
+elif dieroll == 2:
+	baglib.modify_item(baglist, item="Huggable and with real-flapping-wings! Dragon Buddy Pebble", quantity=1, bag_name="Plushies", create_on_fail=True)[1]
+	T = "Huggable and with real-flapping-wings! Dragon Buddy, Pebble"
+	D = "A plushie Dragon Buddy named Pebble"
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669665652908172/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_52384d49-4988-47b2-ae93-c84200aed3bd.png?ex=65529b71&is=65402671&hm=9b2090eed6547b24580b473318de1615e14f7e21ccaab936d9f3fc368279aad5&=&width=671&height=671"
+
+elif dieroll == 3:
+	baglib.modify_item(baglist, item="Water-Friendly Otter Pal Paul", quantity=1, bag_name="Plushies", create_on_fail=True)[1]
+	T = "Water-Friendly Otter Pal, Paul"
+	D = "A plushie otter named Paul!  Can even be put into the water!"
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669666135261336/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_bd006f87-fd37-467e-b93a-ec5040cef28a.png?ex=65529b71&is=65402671&hm=b6a3adfc79314c0eb39263442eebf2d43d3d1dc85db002a367bea347e8a73cdd&=&width=671&height=671"
+
+elif dieroll == 4:
+	baglib.modify_item(baglist, item="Mean-n-Fluffy Yeti Squish Sully", quantity=1, bag_name="Plushies", create_on_fail=True)[1]
+	T = "Mean-n-Fluffy Yeti Squish, Sully"
+	D = "A puffy mean looking yeti plushie named Sully!"
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669666659553431/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_20d61a5a-063e-47b2-9188-787b3b5f0c03.png?ex=65529b71&is=65402671&hm=d7ad79903662bb601a6a608cc0c2a60214ca6dc195a9f69b03cbd12c8345de37&=&width=671&height=671"
+
+elif dieroll == 5:
+	baglib.modify_item(baglist, item="Now with Nature scent! Sylvie", quantity=1, bag_name="Plushies", create_on_fail=True)
+	T = "Now with Nature scent!, Sylvie"
+	D = "A scented plushie named Sylvie!"
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669667150274662/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_mag_4a875aad-54f1-4e26-98b2-1bf076e1ed84.png?ex=65529b71&is=65402671&hm=6be3866f9c4fdb193a3a23839c8303197f8403bc08e0631c24b128e37b4d9b0e&=&width=671&height=671"
+
+else:
+	baglib.modify_item(baglist, item="Placeholder", quantity=1, bag_name="Plushies", create_on_fail=True)
+	T = "Placeholder"
+	D = "PlaceDesc"
+	pic = "https://media.discordapp.net/attachments/1137728466758938645/1168669667657793577/kitskiss_smooth_vector_fantasy_plush_stuffed_animal_cartoon_mag_ea870125-343f-472d-8f16-2b89a31e1333.png?ex=65529b71&is=65402671&hm=a3792b391489f55cb183cccd57c68244d3ea79b90f84c6d7f363950a9f1e4c5f&=&width=671&height=671"
+
+baglib.save_bags(baglist)
+</drac2>
+-title "{{T}}"
+-desc "{{D}}"
+-thumb {{pic}}
