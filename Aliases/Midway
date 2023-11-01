@@ -1,0 +1,55 @@
+embed
+<drac2>
+
+a  = &ARGS&
+ch = character()
+dieroll = roll("1d20")
+game = "none"
+help = 0
+strmod = strengthMod
+dexmod = dexterityMod
+intmod = intelligenceMod
+
+try:
+    errhand = a[0].lower()
+except:
+    help = 1
+
+if help == 1:
+    T = "!midway"
+    D = "Try your luck and skill with midway games!"
+    F = "How to play|Use the following choices: \n `!midway strength` - the classic game of strength.  Can you hit the bell? \n `!midway ring` - A ring toss, onto empty bottles...hopefully, you can manage a win. \n `!midway pegdrop` - Drop a coin down a board of pegs.  See where it lands at the bottom to see your prize."
+else:
+    game = a[0].lower()
+
+if game == "strength":
+    T = "Game of Strength!"
+    D = "Swing the hammer and make the slide hit the bel1!"
+    if dieroll + strengthMod > 19:
+        F = "DING!|You hit the bell!  You win `!g coins +5` or a stuffed animal of your choice.  \n  "+dieroll+" + " + strmod
+    else:
+        F = "AWWW!|You didn't quite hit the bell.  Try again? \n "+dieroll+" + " + strmod
+elif game == "ring":
+    T = "Ring Toss!"
+    D = "Get the ring on the neck of the bottle, but it's harder than it looks!"
+    if dieroll + dexmod > 19:
+        F = "GOT IT!|You got a ring on a bottle!  You win `!g coins +5` or a stuffed animal of your choice.  \n  "+dieroll+" + " + dexmod
+    else:
+        F = "SO CLOSE!|The ring bounced off the bottle.  Would you like to try again?  \n  "+dieroll+" + " + dexmod
+elif game == "pegdrop":
+    T = "Drop the Coin!"
+    D = "Drop the coin, let it fall down through the pegs, and see what slot it lands it at the bottom!"
+    if dieroll + intelligenceMod > 19:
+        F = "BIG PRIZE!|It landed in the Big Prize slot! You win `!g coins +5` or a stuffed animal of your choice  \n  "+dieroll+" + " + intmod
+    elif dieroll + intmod > 14:
+        F = "SMALL PRIZE!|It landed in the Small Prize slot! You won your gold back!  `!g coins +1`  \n  "+dieroll+" + " + intmod
+    else:
+        F = "NOT QUITE!|It landed in the no prize slot.  Sorry!  Try again?  \n  "+dieroll+" + " + intmod
+else:
+    T = "!midway"
+    F = "How to play|Use the following choices: \n `!midway strength` - the classic game of strength.  Can you hit the bell? \n `!midway ring` - A ring toss, onto empty bottles...hopefully, you can manage a win. \n `!midway pegdrop` - Drop a coin down a board of pegs.  See where it lands at the bottom to see your prize."
+</drac2>
+-title "{{T}}"
+-desc "{{D}}"
+-f "{{F}}"
+-footer "!midway | Written by @DrakurRedragon for Soul"
