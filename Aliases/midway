@@ -1,0 +1,97 @@
+embed
+<drac2>
+
+a  = &ARGS&
+ch = character()
+dieroll = roll("1d20")
+game = "none"
+help = 0
+strmod = strengthMod
+dexmod = dexterityMod
+intmod = intelligenceMod
+wismod = wisdomMod
+conmod = constitutionMod
+using(baglib="4119d62e-6a98-4153-bea9-0a99bb36da2c")
+baglist = baglib.load_bags()
+pic = "https://media.discordapp.net/attachments/1022929437248979045/1161313831956516955/IMG_6845.jpg?ex=654a4dc9&is=6537d8c9&hm=7a6ff6c65a901f17c4a1f85e41963112fe709c3bd6bb94822b5b977f1f3872da&="
+
+try:
+    errhand = a[0].lower()
+except:
+    help = 1
+
+if help == 1:
+    T = "!midway"
+    D = "Try your luck and skill with midway games!"
+    F = "How to play|Use the following choices: \n `!midway strength` - the classic game of strength.  Can you hit the bell? \n `!midway ring` - A ring toss, onto empty bottles...hopefully, you can manage a win. \n `!midway pegdrop` - Drop a coin down a board of pegs.  See where it lands at the bottom to see your prize. \n `!midway whack` - Whack a Chomper! Try to hit the most illusory chompers. \n `!midway eat` - Eating Contest!  Can you handle the food being served?  Will it be spicy, rich, or just a bunch of it?"
+else:
+    game = a[0].lower()
+
+#Games
+
+if game == "strength":
+    T = "Game of Strength!"
+    baglib.modify_coins(baglist, coin="gp", quantity=-1)[1]
+    D = "Swing the hammer and make the slide hit the bel1! \n\n Current Coins: "+ch.coinpurse.total
+    if dieroll + strengthMod > 19:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "DING!|You hit the bell!  You win 5 gp! You may also select a stuffed animal of your choice.  \n Current coins: "+ch.coinpurse.total+" \n  "+dieroll+" + " + strmod
+    else:
+        F = "AWWW!|You didn't quite hit the bell.  Try again? \n "+dieroll+" + " + strmod
+
+elif game == "ring":
+    T = "Ring Toss!"
+    baglib.modify_coins(baglist, coin="gp", quantity=-1)[1]
+    D = "Get the ring on the neck of the bottle, but it's harder than it looks!  \n\n Current Coins: "+ch.coinpurse.total
+    if dieroll + dexmod > 19:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "GOT IT!|You got a ring on a bottle!  You win 5 gp! You may also select a stuffed animal of your choice.  \n Current coins: Coins: "+ch.coinpurse.total+" \n  "+dieroll+" + " + dexmod
+    else:
+        F = "SO CLOSE!|The ring bounced off the bottle.  Would you like to try again?  \n  "+dieroll+" + " + dexmod
+
+elif game == "pegdrop":
+    T = "Drop the Coin!"
+    baglib.modify_coins(baglist, coin="gp", quantity=-1)[1]
+    D = "Drop the coin, let it fall down through the pegs, and see what slot it lands it at the bottom! \n\n Current Coins: "+ch.coinpurse.total
+    if dieroll + intelligenceMod > 19:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "BIG PRIZE!|It landed in the Big Prize slot! You win 5 gp! You may also select a stuffed animal of your choice \n Current coins: "+ch.coinpurse.total+" \n  "+dieroll+" + " + intmod
+    elif dieroll + intmod > 14:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "SMALL PRIZE!|It landed in the Small Prize slot! You won your gold back!  \n Current coins: {{ch.coinpurse.total}}  \n  "+dieroll+" + " + intmod
+    else:
+        F = "NOT QUITE!|It landed in the no prize slot.  Sorry!  Try again?  \n  "+dieroll+" + " + intmod
+
+elif game == "whack":
+    T = "Whack a Chomper!"
+    baglib.modify_coins(baglist, coin="gp", quantity=-1)[1]  
+    D = "Whack the illusory chompers, but you have to have a quick wit to spot them popping up! \n\n Current Coins: "+ch.coinpurse.total
+    pic = "https://images-ext-1.discordapp.net/external/cY82h55SxMgfzwPZvBr17_JVajWX7R3xtr6j2ZVpzyw/https/imgur.com/gy7p0oO.png?width=671&height=671"
+    if dieroll + wisdomMod > 20:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "You won!|You whacked the most chompers!  You win 5 gp!  You may also select a stuffed animal of your choice! \n Current coins: "+ch.coinpurse.total+" \n "+dieroll+" + " +wismod
+    else:
+        F = "Someone hit more than you!|Someone got a higher score...maybe you could try again?"
+
+elif game == "eat":
+    T = "Eating Contest!"
+    baglib.modify_coins(baglist, coin="gp", quantity=-1)[1]  
+    D = "Eating Contest, see if you can handle what's being served! \n\n Current Coins: "+ch.coinpurse.total
+    pic = "https://images-ext-1.discordapp.net/external/cY82h55SxMgfzwPZvBr17_JVajWX7R3xtr6j2ZVpzyw/https/imgur.com/gy7p0oO.png?width=671&height=671"
+    if dieroll + constitutionMod > 20:
+        baglib.modify_coins(baglist, coin="gp", quantity=5)[1]
+        F = "You won!|You might be a little sick to your stomach, but you beat them!  You win 5 gp!  You may also select a stuffed animal of your choice! \n Current coins: "+ch.coinpurse.total+" \n "+dieroll+" + " +conmod
+    else:
+        F = "Oop, looks like you couldn't handle it...hopefully you can keep it down at least...nope.  Try again?"
+
+else:
+    T = "!midway"
+    F = "How to play|Use the following choices: \n `!midway strength` - the classic game of strength.  Can you hit the bell? \n `!midway ring` - A ring toss, onto empty bottles...hopefully, you can manage a win. \n `!midway pegdrop` - Drop a coin down a board of pegs.  See where it lands at the bottom to see your prize. \n `!midway whack` - Whack a Chomper! Try to hit the most illusory chompers. \n `!midway eat` - Eating Contest!  Can you handle the food being served?  Will it be spicy, rich, or just a bunch of it?"
+
+</drac2>
+
+-title "{{T}}"
+-desc "{{D}}"
+-f "{{F}}"
+-thumb "{{pic}}"
+-footer "!midway | Written by @DrakurRedragon for Soul"
