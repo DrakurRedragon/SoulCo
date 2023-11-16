@@ -1,0 +1,11 @@
+embed
+<drac2>
+nm = ctx.author.display_name
+T = nm+" flops"
+D = nm+" is tired and doesn't wanna."
+P = "https://media.tenor.com/hH4ipnIaz4AAAAAd/kikis-delivery-service-tired.gif"
+</drac2>
+-title "{{T}}"
+-desc "{{D}}"
+-image {{P}}
+-footer "!flop | Made by DrakurRedragon in honor of Snacks"
