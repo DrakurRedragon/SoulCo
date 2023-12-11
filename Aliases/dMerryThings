@@ -1,0 +1,190 @@
+<drac2>
+
+#baglib
+using(baglib="4119d62e-6a98-4153-bea9-0a99bb36da2c")
+baglist = baglib.load_bags()
+
+ch=character()
+draw=roll("1d23")+1
+
+
+if draw == 2:
+	card = "The Ancient"
+	F = "The bearer of this card is entitled to a Wish."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183171660958941184/image.png?ex=65875d7a&is=6574e87a&hm=2ebcb107001a4ac785fcfc172a24286b38952f48af8e45f905a7255cdb0655ca&=&format=webp&quality=lossless"
+	baglib.modify_item(baglist, item="The Ancient Card (Wish)", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 3:
+	card = "Black Midwinter"
+	F = "The bearer of this card recieves The Curse of the Black Midwinter, suffering disadvantage on all Constitution checks and lowering their Max HP by 10."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183171665849491586/image.png?ex=65875d7b&is=6574e87b&hm=37c92d78efef536ef174b24d449d9f0ae964eb9571657d21e6c0645f98f6781c&=&format=webp&quality=lossless" 
+	baglib.modify_item(baglist, item="Black Midwinter", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 4:
+	card = "Feast of Fools"
+	alignroll = roll("1d4")
+	if alignroll == 1:
+		align = "Lawful Jolly"
+		F2 = "creatures can be counted on to promote happiness, fun and good cheer, all year round, but particularly at Midwinter. To be honest it can be a bit much, but their heart’s in the right place. Not so much the first one to the party, more the one organising the party, buying everyone presents, and making everyone wear silly hats. Red and green dragons, paladins, and most Midwinter elves are lawful jolly."
+	if alignroll == 2:
+		align = "Neutral Kringle"
+		F2 = "folk do the best they can to celebrate the season, according to their needs. Happy with most things as long as they’re seasonal. Nevertheless they’re still exasperated by Lawful Jolly folk."
+	if alignroll == 3:
+		align = "Neutral Humbug"
+		F2 = "is the alignment of those who deny Midwinter. They do whatever they will, but make no effort to observe the Midwinter traditions, as it’s become too commercialised these days."
+	if alignroll == 4:
+		align = "Chaotic Scrooge"
+		F2 = "creatures act with arbitrary negativity and even violence towards the season. They will actively try to ruin and destroy the festivities and cause grief and harm to others. Chaotic Scrooge is the alignment of most demons, devils and assholes"
+	F = "The Character's alignment is switched!"
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183171758484889640/image.png?ex=65875d91&is=6574e891&hm=382bcefd1596bc05bfb4ad0f714a8e7524b35d561734ecfe61295d7e03492284&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -f "{align}|{F2} -image {image}'
+
+elif draw == 5:
+	card = "Festive Ass"
+	baglib.modify_item(baglist, item="Festive Ass", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	F = "The unfortunate bearer of this card loses two levels. If you’re feeling festive, you can restore them at the end of the session. As long as they beg."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183171818031415386/image.png?ex=65875d9f&is=6574e89f&hm=3859eb9a06fcf9eea13eda9e28f39d3add50dc20a9489a5a71c66503cd10f376&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 6:
+	card = "First Footer"
+	F = "The bearer of this card become proficient in 3 random skills."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174087380570196/image.png?ex=65875fbc&is=6574eabc&hm=b3dc231eb545c08dfb0b94fbb75898972b91bf28ed980215ea7ca4c3c57bdd66&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 7:
+	card = "Ghosts"
+	F = "The curse of ignorance. The bearer loses one quarter of their spell slots (round down, I’m not a monster) and they suffer disadvantage to all Intelligence checks."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174183878922240/image.png?ex=65875fd3&is=6574ead3&hm=c11eae406248e2584c2ca0b0f624b8a050fcba47ad394ee5c9f05eab7e7760cc&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 8:
+	card = "The Gift"
+	baglib.modify_item(baglist, item="The Gift", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	F = "The bearer of this card gains advantage on all Persuasion checks.  They are also the owner of a large fortress in the far north, but to claim it, they must stay there forever making toys."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174259405754420/image.png?ex=65875fe5&is=6574eae5&hm=2bc1abdef7b8f09030e2fdcf0ce96ab42120c9e4f5219bfdf7aeb334d94e7772&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 9:
+	card = "The Greater Gift"
+	F = "The bearer receives a magical item!  Consult the DM/GM for your prize."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174320969760869/image.png?ex=65875ff4&is=6574eaf4&hm=9e57e879db68f37ce2538e3d8fc515655987ce0e7e4cc9e65c27425b6c78807c&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 10:
+	card = "Grinch"
+	F = "The holder of the card loses their most treasured possession - usually a magic item. If they do not own one, then a magic item (or falling that, money, heirlooms, teeth etc) is taken from one of the other members of the party. This one is good for getting your players to hate each other."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174398518235176/image.png?ex=65876006&is=6574eb06&hm=33e468c6cac3e066a086eb1b37e48e1a04988674caf8228b33ba7bfd86419a5c&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 11:
+	card = "Idiot"
+	F = "The bearer of this card must wear the stupidest Christmas hat you can lay your hands on. If you don’t have one, make a really crappy one out of paper. And write “idiot” on it just so everyone gets it. In addition to wearing the hat, the bearer loses 3 points of intelligence, and has disadvantage to Wisdom checks."
+	baglib.modify_item(baglist, item="Idiot", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174555041275904/image.png?ex=6587602c&is=6574eb2c&hm=cbff320309f648019f47f528de9bdb9eea4bf26721dc142b2ccd3dfc244a715b&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 12:
+	card = "Jester"
+	F = "The bearer of this card swaps his character sheet with that of another at the table. Roll to determine the “lucky” other player. If you’re using characters from an ongoing campaign you may wish to reverse this effect at the end of that adventure. Otherwise your players may run you out of town. If that happens, explain to them that life is unpredictable and capricious."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183174685672873994/image.png?ex=6587604b&is=6574eb4b&hm=d3a6a5e8c5d383dfec78023f630acdd3a1ac98cf122b4f355a1aac2257dac8d4&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 13:
+	card = "Krampus"
+	F = "Although the player should feel uneasy, a wondrous item appears. It is a crystal snow globe, depicting a tiny village within, that looks suspiciously similar to Cratch. This is clearly magical (and extremely rare and expensive) object, but its purpose is a mystery. Imply that it will have some effect later in the adventure. Unfortunately the only effect it will have is that the bearer earns the enmity of Krampus. The demon will attack the owner first, and, should they survive, the wondrous orb will turn to ice and melt away. "
+	baglib.modify_item(baglist, item="Krampus", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175158479978556/image.png?ex=658760bc&is=6574ebbc&hm=1adf9ffead055f11636fc7606bcfbc60b162febf0e1243f97bd4e35d5256333d&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 14:
+	card = "Merry and Bright"
+	F = "You now have the ability to alter one moment in time. DM discretion is advised."
+	baglib.modify_item(baglist, item="Merry and Bright", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175224896802847/image.png?ex=658760cb&is=6574ebcb&hm=63e5ff691fa6071048764ce7140a8e0af74753beb7b641f57b36b98121b0cb0f&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 15:
+	card = "Northern Lights"
+	F = "The bearer of this card is the recipient of a Geas (PHB). They must defeat the next opponent they meet by non violent means (their companions may assist and use as much violence as they like). If the geas is resisted the card bearer is hit by festive green and red lightning (lightning bolt 8d6, Dex save DC15, half damage on a success). If the geas is obeyed, the bearer of the card receives a wondrous item"
+	baglib.modify_item(baglist, item="Northern Lights", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175398037672047/image.png?ex=658760f5&is=6574ebf5&hm=55bb4f978c3ec0d2adf01332cce38eda2b6a9a3fc2de473d33ecc99f0d459a7d&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 16:
+	card = "Party Pooper"
+	F = "This card confers The Curse of Everything. Every attack roll, skill check or saving throw the player makes from now on is at a -2 penalty. Sucks to be you."
+	baglib.modify_item(baglist, item="Party Pooper", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175710689468456/image.png?ex=6587613f&is=6574ec3f&hm=01258b0d02aa6ba764b71abcca9e981dbf9421d17b340bbfd484299c2269735e&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 17:
+	card = "The Prisoner"
+	F = "The bearer of this card instantly disappears into Krampus' Bag! The character must fight Krampus.  If successful, they are returned to the real world and rejoin the game."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175782420463676/image.png?ex=65876150&is=6574ec50&hm=148ec4731d7021f7b51c03efef04ee62d0a40509962bc8f2e54f426f37f25120&=&format=webp&quality=lossless"
+	return f'multiline \n!embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image} \n!init begin \n!i madd "Krampus"'
+
+elif draw == 18:
+	card = "Reign"
+	F = "A shadow appears before you. A mighty armoured figure that lumbers towards you. Your companions are frozen in place and you must face it alone. If you successfully defeat it, it will now protect you until it is destroyed, following your orders.  If you fall to it, you do not die but instead find your maximum HP reduced by 10 permanently."
+	baglib.modify_item(baglist, item="Reign", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183175852767330364/image.png?ex=65876161&is=6574ec61&hm=9ac8b900f3c4765e03c6dfa2ce7d549776c71b94948ff10bdea5f36742eb929c&=&format=webp&quality=lossless"
+	return f'multiline \n!embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image} \n!init begin \n!i madd "Animated Armor"'
+
+elif draw == 19:
+	card = "Ruin"
+	F = "The holder of the card loses their possessions. All of them, armour, weapons and gear. Magic items will not be taken, but other than those, the character will be left unarmed and naked (you may wish to preserve their dignity by allowing them to retain their underwear, like in a video game)."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176100105433118/image.png?ex=6587619c&is=6574ec9c&hm=46ffa9ef461e55edd284d40545c2389abfaf6c6c21830857e63ae24d3c80fcef&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 20:
+	card = "Samaritan"
+	F = "This is a 4th level fighter that has been summoned to serve the bearer of the card. He knows nothing of current events or the area, and is fairly taciturn generally, but he will follow any orders given and fight valiantly. "
+	baglib.modify_item(baglist, item="Samaritan", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176173606416454/image.png?ex=658761ae&is=6574ecae&hm=b892cf20efa1a8a3510668b21bfffe2915fcc941ec5676086c020c21c7bfdf96&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 21:
+	card = "Star"
+	F = "The holder of this card receives +2 to their Intelligence ability score. "
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176173606416454/image.png?ex=658761ae&is=6574ecae&hm=b892cf20efa1a8a3510668b21bfffe2915fcc941ec5676086c020c21c7bfdf96&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 22:
+	card = "Winter Sun"
+	F = "The bearer of this card receives a wondrous item."
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176288287076422/image.png?ex=658761c9&is=6574ecc9&hm=5cd9bfd3018bbba007d70c01574c33269224642e0e2f8cd42463c28d421dfe59&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 23:
+	card = "Winter Wine"
+	F = "A stoppered bottle of (presumably) the wine from the card (and from Lord Midwinter’s banquet) appears before you. This is a healing potion that will replenish the drinker and all of their companions for 3d8 hit points. "
+	baglib.modify_item(baglist, item="Winter Wine", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176351210016878/image.png?ex=658761d8&is=6574ecd8&hm=de5797b1b7db3e71ce94375e247fd627818e7b24068e2b4209008cf9ab0a9a48&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+elif draw == 24:
+	card = "Wise Man"
+	F = "Any question that the bearer of the cards asks will be answered truly (although not necessarily clearly. It is likely to be vague or frustratingly obscure - references to hedgerows and remembering laughter etc)."
+	baglib.modify_item(baglist, item="Wise Man", quantity=1, bag_name="Deck of Merry Things Cards", create_on_fail=True)
+	baglib.save_bags(baglist)
+	image = "https://media.discordapp.net/attachments/1183171407316791476/1183176434970263604/image.png?ex=658761ec&is=6574ecec&hm=e20a8086e3fb869799d8d9e7aaa4f61490419a896a5b52b48b72e06411088fd0&=&format=webp&quality=lossless"
+	return f'embed -title "{ch.name} draws {card} from the Deck of Merry Things!" -f "{card}|{F}" -image {image}'
+
+else:
+	return f'embed -title "Oops" -f "Oops|It went wrong. {roll}"'
+</drac2>
