@@ -1,0 +1,26 @@
+<drac2>
+prof = proficiencyBonus
+sab = proficiencyBonus + spell
+lvl = 4
+c = combat()
+rs = c.get_combatant("Reaper")
+a  = &ARGS&
+
+
+try:
+	lvl = int(a[0])
+except:
+	lvl = 4
+
+ma = floor(lvl / 2)
+
+crithp = (lvl*10)
+
+try:
+	init = int(combat().me.init)
+except:
+	return f'"You must be in combat!"'
+
+return f'multiline \n!cast "Spirit of Death" -l {lvl} \n!i madd "Reaper Spirit" -p {init} -name "Reaper" -hp {crithp} \n!i effect Reaper "Spirit of Death" -b {sab} -d {lvl} adv -desc "Multiattack {ma}"'
+
+</drac2>
