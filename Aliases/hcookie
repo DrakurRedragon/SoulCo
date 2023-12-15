@@ -1,0 +1,16 @@
+embed 
+<drac2>
+cnt=(get_gvar("ec00cfcc-7c63-4439-a941-86edcacce6b6"))
+cnta=cnt.count('link')
+randcook = roll("1d"+cnta+"-1")
+rc=load_json(get_gvar('ec00cfcc-7c63-4439-a941-86edcacce6b6'))
+g=load_json(get_gvar('b614b2e0-11ee-4a88-ba67-1c5c1dada61c'))
+gcnt=(get_gvar('b614b2e0-11ee-4a88-ba67-1c5c1dada61c'))
+gcnta=gcnt.count('holidaywish')
+r=roll("1d"+gcnta+"-1")
+
+</drac2> 
+-title "<name> reads their Holiday Wish - {{g[r]['holidaywish']}}!"
+-desc "{{g[r]['effect']}}"
+-thumb <image> -color <color>
+-image "{{rc[randcook]['link']}}"
