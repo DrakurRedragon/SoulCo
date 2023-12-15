@@ -1,0 +1,1 @@
+{{character().mod_cc("Arrow", -1, True) if character().cc("Arrow").value > character().cc("Arrow").min else err("You are out of ammunition.")}} -f "Arrow|{{character().cc_str("Arrow")}}"
