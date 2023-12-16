@@ -71,3 +71,4 @@ T = f"{name} drank two potions!"
 -f "Rolling 1d100... {tableroll} !"
 -f "{{F}}"
 -thumb https://images-ext-1.discordapp.net/external/ohvxFnIhZafiOxyN6nJ0oYL51ZH1c209StAyiDHxPWk/https/i.pinimg.com/564x/05/a4/73/05a47304918aedfa72c4e2f561087f75.jpg
+-footer "!potionmix | created by @DrakurRedragon"
