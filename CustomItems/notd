@@ -1,0 +1,69 @@
+<drac2>
+#cc format for reference: create_cc(name, minVal, maxVal, reset, dispType, reset_to, reset_by, title, desc)
+cc="Necklace of the Damned"
+ch=character()
+foot = "!notd | created by DrakurRedragon for TrashPanda"
+F = "Necklace of the Damned|Granted for services to Vanalir and her Mistress, the Necklace of the damned is a powerful magical item.  Upon reducing a creature to 0 hit points, the necklace siphons a bit of the life essence from the creature, adding one charge to it.  While the item has any charges, it provides +1 to spell save DCs spell attack rolls.  This bonus increases to +2 at 10th level and +3 at 15th level.  Usage: bolster, cast, call."
+F2 = "Usage| snippet: `notd` for the bonus to spells \n\n   It has a maximum of 3 charges, which can be used as follows: \n\n 1 charge can be consumed as a bonus action to add 1d10 + proficiency bonus temporary HP. `bolster` \n\n 1 charge can be consumed while casting a damaging spell to treat every die roll of 1 as 2 for that casting only. `cast` \n\n All 3 charges can be consumed as an action to conjure forth a single skeleton or zombie from the life essence contained therein.  This creature is treated as if it was created by a casting of Animate Dead.  The caster can elect, as a bonus action, to consume this specific undead to refund a single charge. `call skeleton` or `call zombie`. \n\n Use `!notd consume` when reducing a creature to 0 to charge a counter."
+pic = "https://media.discordapp.net/attachments/1177374529450950678/1178374420985806950/image0.jpg"
+
+ch.create_cc_nx(name=cc, minVal=0, maxVal=3, reset=None, dispType="star", title=cc, desc="Necklace of the Damned", initial_value=0)
+
+if not &ARGS&:
+	return f'embed -title "Necklaces of the Damned" -f "{F}" -f "{F2}" -footer "{foot}" -thumb {pic}'
+
+#bonus set
+
+if level < 10:
+	itembonus = 1
+elif level < 15:
+	itembonus = 2
+else:
+	itembonus = 3
+
+a = &ARGS&
+
+if a[0].lower() == "bolster":
+	if ch.get_cc(cc) < 1:
+		return f'embed -title "Bolster: Not Enough Charges" -desc "1 charge can be consumed as a bonus action to add 1d10 + proficiency bonus temporary HP." -f "There arent enough charges to use this!" -f "{F}" -footer "{foot}" -thumb {pic}'
+	else:
+		tmphp = roll('1d10')+proficiencyBonus
+		ch.mod_cc(cc, -1)
+		if ch.temp_hp > tmphp:
+			return f'embed -title "Bolster: Temp HP Higher" -desc "1 charge can be consumed as a bonus action to add 1d10 + proficiency bonus temporary HP." -f "Your temp HP was higher.  Value not changed." -footer "{foot}" -thumb {pic}'
+		else:
+			ch.set_temp_hp(tmphp)
+			ch.mod_cc(cc, -1)
+			return f'embed -title "Bolster" -desc "1 charge can be consumed as a bonus action to add 1d10 + proficiency bonus temporary HP."'
+
+elif a[0].lower() == "cast":
+	if ch.get_cc(cc) < 1:
+		return f'embed -title "Cast: Not Enough Charges" -desc "1 charge can be consumed while casting a damaging spell to treat every die roll of 1 as 2 for that casting only." -f "There arent enough charges to use this!" -f "{F}" -footer "{foot}" -thumb {pic}'
+	else:
+		ch.mod_cc(cc, -1)
+		return f'cast {a[1]} {a} -mi 2 -phrase "Using the Necklace, charges left: {ch.get_cc(cc)}"'
+
+elif a[0].lower() == "call":
+	if ch.get_cc(cc) < 3:
+		return f'embed -title "Call: Not Enough Charges" -desc "All 3 charges can be consumed as an action to conjure forth a single skeleton or zombie from the life essence contained therein.  This creature is treated as if it was created by a casting of Animate Dead.  The caster can elect, as a bonus action, to consume this specific undead to refund a single charge." -f "There arent enough charges to use this!" -f "{F}" -footer "{foot}" -thumb {pic}'
+	else:
+		try:
+			init = int(combat().me.init)
+		except:
+			return f'embed -title "Necklace of the Damned: Call" -desc "You must be in combat to use this." -footer "{foot}" -thumb {pic}'	
+		try:
+			critter = a[1].lower()
+		except:
+			return f'embed -title "Necklace of the Damned: Call" -desc "Please select `call skeleton` or `call zombie`." -footer "{foot}" -thumb {pic}'	
+		if critter in {'skeleton', 'zombie'}:
+			critter = a[1].lower()
+			ch.mod_cc(cc, -3)
+		else:
+			return f'embed -title "Necklace of the Damned: Call" -desc "Please select `call skeleton` or `call zombie`." -footer "{foot}" -thumb {pic}'	
+		return f'multiline \n!i madd {critter} -p {init} -name "{name}s {critter}" \n!embed -title "Necklace of the Damned: Call" -desc "{critter} added to combat!" -footer "{foot}" -thumb {pic}'
+elif a[0].lower() == "consume":
+	ch.mod_cc(cc, 1)
+	return f'embed -title "Necklace of the Damned: Consume" -desc "The life force is consumed.  New charges: {ch.get_cc(cc)}" -footer "{foot}" -thumb {pic}'
+else:
+	return f'embed -title "Necklaces of the Damned" -f "{F}" -footer "{foot}"'
+</drac2>
