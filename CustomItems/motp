@@ -1,0 +1,95 @@
+<drac2>
+ch=character()
+sbook=ch.spellbook
+foot="!motp | created by DrakurRedragon for ChristheSith"
+pic = ""
+T = "Masque of the Puppeteer"
+F = "Masque of the Puppeteer|Granted for services to Vanalir and her Mistress, this masque enhances the power of the puppeteer in several different ways, both by letting them pull the strings of their enemies and being granted sight beyond sight. \n\n They also possess an ability to wrap their strings as an action around an ally or enemy to control or enhance.  If used on an enemy, they must make a charisma saving throw against the wearer's Spell Save DC.  If they fail, they have disadvantage on all skill checks, Strength and Dexterity saving throws, and all attack rolls.  If used on an ally, you can instead grant them advantage on all skill checks, Strength and Dexterity saving throws, and all attack rolls.  Either effect lasts for 1 round, and you cannot have more than one creature manipulated this way."
+F2 = "Masque the Puppeteer Spells|The masque grants Darkvision of 60ft and the Mage Hand cantrip immediately.  At 5th level, it grants the caster the spell Hold Person, treating it as always prepared.  At 6th level, the wearer can use a Flash of Genius use to cast See Invisibility.  At 8th level, they can cast it with a spell splot, treating it as always prepared.  At 10th level, the wearer can use a Flash of Genius use to double the darkvision range and gain the ability to see in magical darkness.  At 12th level, they can use the Arcane Eye spell with a Flash of Genius, or using a spell slot (treating the spell as always prepared) at 16th level.  At 15th level, they are treated as always having the Hold Monster spell prepared. At 18th level, they can expend all remaining uses of the their Flash of Genius to cast True Seeing."
+FU = "Usage|`!motp cast see` for See Invisibility \n`!motp cast eye` for Arcane Eye \n`!motp cast true` for True Seeing \n`!motp sight` for a description of the increased Darkvsion \n`!motp control -t badguy` to inflict the disadvantage \n`!motp enhance -t ally` to provide the advantage."
+
+#spells add
+if not "Mage Hand" in sbook:
+	return f'multiline \n!embed -title "Spell not found" -desc "Mage Hand not found in spellbook, adding." -footer "{foot}" -thumb {pic}\n!sb add "Mage Hand"'
+if not "hold person" in sbook:
+	if level > 4:
+		return f'multiline \n!embed -title "Spell not found" -desc "Hold Person not found in spellbook, adding." -footer "{foot}" -thumb {pic}\n!sb add "Hold Person"'
+if not "See Invisibility" in sbook:
+	if level > 7:
+		return f'multiline \n!embed -title "Spell not found" -desc "See Invisibility not found in spellbook, adding." -footer "{foot}" -thumb {pic}\n!sb add "See Invisibility"'
+if not "Arcane Eye" in sbook:
+	if level > 15:
+		return f'multiline \n!embed -title "Spell not found" -desc "Arcane Eye not found in spellbook, adding." -footer "{foot}" -thumb {pic}\n!sb add "Arcane Eye"'
+if not "Hold Monster" in sbook:
+	if level > 14:
+		return f'multiline \n!embed -title "Spell not found" -desc "Hold Monster not found in spellbook, adding." -footer "{foot}" -thumb {pic}\n!sb add "Hold Monster"'
+
+
+if not &ARGS&:
+	return f'embed -title "Masque of the Puppeteer" -f "{F}" -f "{F2}" -f "{FU}" -footer "{foot}" -thumb {pic}'
+
+#args parsing
+
+a=&ARGS&
+cast_args="""&*&"""
+
+#bonus set
+
+if level < 10:
+	itembonus = 1
+elif level < 15:
+	itembonus = 2
+else:
+	itembonus = 3
+
+if a[0].lower() == "cast":
+	if a[1].lower() == "see":
+		if ch.get_cc("Flash of Genius") > 0:
+			ch.mod_cc("Flash of Genius", -1)
+			return f'cast "see invisibility" -i {cast_args}'
+		else:
+			return f'You do not have enough uses of Flash of Genius remaining.'
+	if a[1].lower() == "eye":
+		if ch.get_cc("Flash of Genius") > 0:
+			ch.mod_cc("Flash of Genius", -1)
+			return f'cast "arcane eye" -i {cast_args}'
+		else:
+			return f'You do not have enough uses of Flash of Genius remaining.'
+	if a[1].lower() == "true":
+		if ch.get_cc("Flash of Genius") > 0:
+			ch.mod_cc("Flash of Genius", -(ch.get_cc("Flash of Genius")))
+			return f'cast "True Seeing" -i {cast_args}'
+		else:
+			return f'You do not have enough uses of Flash of Genius remaining.'
+elif a[0].lower() == "sight":
+	if level < 10:
+		return f'This feature unlocks at level 10.'
+	if ch.get_cc("Flash of Genius") > 0:
+		ch.mod_cc("Flash of Genius", -1)		
+		return f'embed -title "Masque of the Puppeteer" -f "Sight beyond Sight|By spending a use of Flash of Genius as an action, the wearer doubles their darkvision range and can see in magical darkness for 10 minutes." -footer "{foot}"'
+	else:
+		return f'You don not have enough uses of Flash of Genius remaining.'
+elif a[0].lower() == "control":
+	sdc = 8 + proficiencyBonus + spell + itembonus
+	argsp = argparse(a)
+	combatant=argsp.last('t')
+	c=combat()
+	target=c.get_combatant(combatant)
+	saveroll = roll("1d20")
+	savebon = target.saves.get("charisma").value
+	totalsave = saveroll + savebon
+	if totalsave >= sdc:
+		return f'embed -title "Masque of the Puppeteer - Control" -f "Charisma Save!|DC: {sdc} \n\n {saveroll} + {savebon} = {totalsave}. \n\n Success!" -f "{F}" -footer "{foot}"'
+	else:
+		target.add_effect("Pulled Strings",duration=1,passive_effects={"attack_advantage": -1, "save_dis": ["strength","dexterity"],"check_dis": ["all"]})
+		return f'embed -title "Masque of the Puppeteer - Control" -f "Charisma Save!|DC: {sdc} \n\n {saveroll} + {savebon} = {totalsave}. \n\n Failure!" -f "{F}" -footer "{foot}"'
+elif a[0].lower() == "enhance":
+	argsp = argparse(a)
+	combatant=argsp.last('t')
+	c=combat()
+	target=c.get_combatant(combatant)
+	target.add_effect("Pulled Strings",duration=1,passive_effects={"attack_advantage": 1, "save_adv": ["strength","dexterity"],"check_adv": ["all"]})
+	return f'embed -title "Masque of the Puppetteer - Enhance" -f "{F}" -footer "{foot}"'
+else:
+	return f'embed -title "Masque of the Puppeteer" -f "{F}" -f "{F2}" -f "{FU}" -footer "{foot}" -thumb {pic}'
+</drac2>
