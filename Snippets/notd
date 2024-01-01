@@ -1,0 +1,10 @@
+{{<drac2>
+if level<10:
+    spelldc=8+proficiencyBonus+spell+1
+    bon=1
+elif level<15:
+    spelldc=8+proficiencyBonus+spell+2
+    bon=2
+else:
+    spelldc=8+proficiencyBonus+spell+3
+    bon=3</drac2>}} {{f'-dc "{spelldc}" -f "The Necklace of the Damned|This item increases the dc for spells by +1 until the wielder is level 10, then it increases to +2 until the wielder is level 15, then it increases to +3 while the item has charges." -b "{bon}"'}}
