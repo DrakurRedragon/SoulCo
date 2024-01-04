@@ -1,0 +1,35 @@
+<drac2>
+if not &ARGS&:
+    return f'embed -title "Snowball Fight" -desc "A fun little contest involving snowballs...no one is going to take it *that* seriously, right?" -f "Usage|`!snowball -t opponent` to throw a snowball!  Its a simple attack roll using your proficiency bonus and either your strength or dex mod, whichever is higher.  Targets AC is simply 10 + Dex mod.  No special spells, unarmored defense, armor, shields...just simply snow throwing fun!" -foot "!snowball | created by <@&1045082772378767500>Redragon for the Yuletide festival on Soul."'
+c=combat()
+a = &ARGS&
+argsp = argparse(a)
+combatant=argsp.last('t')
+target=c.get_combatant(combatant)
+tname=target.name
+
+snowac=10+(target.stats.get_mod("dexterity"))
+
+if strengthMod > dexterityMod:
+    bon=strengthMod
+else:
+    bon=dexterityMod
+
+att=roll("1d20") + proficiencyBonus + bon
+
+if att >= snowac:
+    if target.get_effect("Hit x2"):
+        efname = "Hit Thrice, THEY'RE OUT!"
+        target.remove_effect("Hit x2")
+        target.add_effect("Hit x3, Out", duration=None)    
+    elif target.get_effect("Hit"):
+        efname = "Hit Twice"
+        target.remove_effect("Hit")
+        target.add_effect("Hit x2", duration=None)
+    else:
+        efname = "Hit"
+        target.add_effect("Hit", duration=None)
+    return f'multiline \n!embed -title "{tname} hit!" -desc "{tname} has been hit be a snowball!  They have now been {efname}!" -f -foot "!snowball | created by <@&1045082772378767500>Redragon for the Yuletide festival on Soul." -thumb <image> -image "https://media1.tenor.com/m/qDEZGcFwVasAAAAC/snowball-carrot.gif"'
+else:
+    return f'embed -title "You missed!" -desc "You missed!  How could you miss, he (she or they) was 3 feet in front of you!" -foot "!snowball | created by <@&1045082772378767500>Redragon for the Yuletide festival on Soul." -image "https://i.kym-cdn.com/photos/images/newsfeed/001/848/354/874.gif" -thumb <image>'
+</drac2>
