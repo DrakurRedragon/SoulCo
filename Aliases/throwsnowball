@@ -1,0 +1,8 @@
+<drac2>
+nm = ctx.author.display_name
+if not &ARGS&:
+    return f'embed -title "{nm} throws a snowball!" -image "https://media1.tenor.com/m/qDEZGcFwVasAAAAC/snowball-carrot.gif" -footer "!throwsnowball | by DrakurRedragon"'
+else:
+    a = &ARGS&
+    return f'embed -title "{nm} throws a snowball!" -desc "It hits {a[0]}" -image "https://media1.tenor.com/m/qDEZGcFwVasAAAAC/snowball-carrot.gif" -footer "!throwsnowball | by DrakurRedragon"'
+</drac2>
