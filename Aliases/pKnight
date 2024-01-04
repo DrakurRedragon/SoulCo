@@ -1,0 +1,16 @@
+<drac2>
+
+c = combat()
+ch = character()
+
+ch.create_cc_nx(name: "Plate of Knight's Fellowship", title: "Plate of Knight's Fellowship", desc: "As a bonus action, you can call forth a Warrior Spirit (use Knight's statistics) to an unoccupied space within 30 feet.  This summon lasts for 1 minute or until it is reduced to 0 hit points.  It has one charge that resets at dawn.", initial_value: 1, reset_to: 1, maxVal: 1, minVal: 0, reset: "long", dispType: "star")
+
+try:
+	init = int(combat().me.init)
+except:
+	return f'"You must be in combat!"'
+
+ch.mod_cc("Plate of Knight's Fellowship",-1)
+return f'i madd "Knight" -p {init}'
+
+</drac2>
