@@ -1,0 +1,42 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Staff of Defense"
+help = 0
+a  = &ARGS&
+
+try:
+	errhand = a[0].lower()
+except:
+	help = 1
+
+pic = ch.get_cvar("sDefense",default=None)
+
+if pic == None:
+	pic = "https://media.discordapp.net/attachments/1071973561419440151/1203107903733629079/latest.png"
+
+ch.create_cc_nx(cc, 0, 10, "long", "bubble", None, "1d6+4", cc, "Staff of Defense", 10)
+
+if help == 1:
+	return f'embed -title "Staff of Defense" -f "Staff of Defense|`!sDefense` \n Usage:\n `!sDefense armor` - cast Mage Armor for one charge.  \n `!sDefense shield` - cast Shield for two charges.  Use `-amt 5` to restore the hit points as appropriate (changing 5 to the proper number). \n `!sDefense image imageurl` - Replace imageurl with the link to an image, and it will change the thumbnail to the image specfied.  This is per character." -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "!sDefense - Created by @DrakurRedragon for SoulCo"'
+else:
+	use = a[0].lower()
+	cast_args="""&*&"""
+
+if use == "armor":
+	ch.mod_cc(cc, -1)
+	return f'cast "Mage Armor" -i -thumb {pic} -phrase "Using the Staff of Defense" {cast_args}'
+elif use == "shield":
+	ch.mod_cc(cc, -2)
+	return f'cast "Shield" -i -thumb {pic} -phrase "Using the Staff of Defense" {cast_args}'
+elif use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar("sDefense",cvarpic)
+	except:
+		pic = "https://media.discordapp.net/attachments/1071973561419440151/1203107903733629079/latest.png"		
+else:
+	return f'embed -title "Staff of Defense" -f "Staff of Defense|`!sDefense` \n Usage:\n `!sDefense armor` - cast Mage Armor for one charge.  \n `!sDefense shield` - cast Shield for two charges.  Use `-amt 5` to restore the hit points as appropriate (changing 5 to the proper number). \n `!sDefense image imageurl` - Replace imageurl with the link to an image, and it will change the thumbnail to the image specfied.  This is per character." -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "!sDefense - Created by @DrakurRedragon for SoulCo"'
+</drac2>
