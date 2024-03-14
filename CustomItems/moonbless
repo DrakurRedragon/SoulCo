@@ -1,4 +1,4 @@
-!alias moonbless <drac2>
+<drac2>
 #variables
 ch=character()
 cc="Moon's Blessing"
@@ -6,9 +6,10 @@ cvarname="MoonBlessing"
 aliasname="!moonbless"
 pic="https://images.mysoulco.com/albums/Items/638460131527524800.png"
 itemdesc="Granted for services to Vanalir and her Mistress, this great axe grants benefits to its wielder's magical and martial capabilities. It functions as both a +2 Weapon while also granting +2 to spell save DCs and spell attack rolls. \n\n In addition, Moons Blessing can store a single first or second level spell in it. The caster casts the spell as normal, but the spell doesn't take effect, instead being stored in Moons Blessing. This spell can then be cast 3 times from the weapon before disappearing from it. The spell can be emptied from the weapon at any time as well."
+foot="!moonbless | Made by DrakurRedragon for thetiniestbin on SoulCo"
 
 if not &ARGS&:
-        return  f'embed -title "{cc}" -desc "{itemdesc}" -f "**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast." -thumb "{pic}"'
+        return  f'embed -title "{cc}" -desc "{itemdesc}" -f "**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast." -thumb "{pic}" -footer "{foot}"'
 
 a = &ARGS&
 act = a[0].lower()
@@ -19,12 +20,12 @@ if act == "store":
     spell = a[1]
     ch.set_cvar(cvarname,spell)
     ch.create_cc(cc, 0, 3, None, "number", None, None, cc, "Casts remaining for {cc}", 3)
-    return f'embed -title "{cc}" -desc "{itemdesc}" -f "{spell} cast into {cc}!" -thumb "{pic}"'
+    return f'embed -title "{cc}" -desc "{itemdesc}" -f "{spell} cast into {cc}!" -thumb "{pic}" -footer "{foot}"'
 elif act == "cast":
     try:
         ccnum=ch.get_cc(cc)
     except:
-        return  f'embed -title "{cc}" -desc "{itemdesc}" -f "No Spell Stored!|**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast." -thumb "{pic}"'
+        return  f'embed -title "{cc}" -desc "{itemdesc}" -f "No Spell Stored!|**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast." -thumb "{pic}" -footer "{foot}"'
     if ch.get_cc(cc) > 1:
         spell = ch.get_cvar(cvarname)
         ch.mod_cc(cc, -1)
@@ -35,5 +36,5 @@ elif act == "cast":
         ch.delete_cvar(cvarname)
         return f'cast "{spell}" {cast_args} -i -phrase "Using {cc}, Final charge, the spell is discharged!" -thumb "{pic}"'
 else:
-    return  f'embed -title "{cc}" -desc "{itemdesc}" -f "**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast. **Charges:** {ch.cc_str(cc)}"'
+    return  f'embed -title "{cc}" -desc "{itemdesc}" -f "**Use:** `{aliasname} store <spellname>` to add, `{aliasname} cast` to cast. **Charges:** {ch.cc_str(cc)}" -footer "{foot}"'
 </drac2>
