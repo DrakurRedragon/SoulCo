@@ -1,1 +1,69 @@
+name: Runic Torrent
+automation:
+  - type: text
+    text: >-
+      Upon reaching 14th level, you can channel runic energy to overpower even
+      the staunchest defenses. When you cast a spell, you can expend 2 charged
+      runes to cause the spell to deal force damage instead of its usual damage
+      types. Additionally, all creatures targeted by the spell or within the
+      spell’s area must succeed on a Strength saving throw against your spell
+      save DC or be knocked prone or pushed up to 15 feet away from the spell’s
+      point of origin (your choice).
 
+
+      Once you use this feature, you can’t do so again until you complete a short or long rest.
+
+
+      Use `-choice prone` to use the prone ability or `-choice push` to push them (you will need to ask the DM to move them).  Use `arctorr` as a snippet to change the spell to force damage.
+    title: Effect
+  - type: condition
+    condition: choice == "prone"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: str
+            fail:
+              - type: ieffect2
+                name: Prone
+                duration: null
+                effects:
+                  attack_advantage: "-1"
+                attacks: []
+                buttons:
+                  - label: Stand Up
+                    automation:
+                      - type: remove_ieffect
+                    verb: stands up
+                    style: null
+                    defaultDC: null
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                end: false
+                conc: false
+                desc: A prone creature's only movement option is to crawl, unless it stands up
+                  and thereby ends the condition
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+            success: []
+            dc: spell_dc
+    onFalse:
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: str
+            fail:
+              - type: text
+                text: Target pushed up to 15 feet away from the spell's point of origin.
+                title: Effect
+            success: []
+            dc: spell_dc
+    errorBehaviour: "false"
+_v: 2
+proper: true
+verb: uses
