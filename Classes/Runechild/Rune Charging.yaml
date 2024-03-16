@@ -1,0 +1,49 @@
+name: Rune Charging
+automation:
+  - type: variable
+    name: cc
+    value: choice
+    onError: "0"
+  - type: condition
+    condition: choice == "convert"
+    onTrue:
+      - type: variable
+        name: cc
+        value: "2"
+      - type: counter
+        counter:
+          id: 1031
+          typeId: 222216831
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: warn
+    onFalse: []
+    errorBehaviour: "false"
+  - type: counter
+    counter: Inert Essence Runes
+    amount: cc
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: counter
+    counter: Charged Essence Runes
+    amount: -cc
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: text
+    text: >-
+      At the end of a turn during which you spent one or more sorcery points, a
+      number of your essence runes equal to the number of sorcery points you
+      spent begin to glow with stored energy, becoming charged runes. You use
+      these charged runes to power your Runechild subclass features. Also, as a
+      bonus action, you may spend a sorcery point to convert two essence runes
+      into two charged runes.
+
+
+      If you have 5 or more charged runes, you emit bright light in a 5 foot radius and dim light for an additional 5 feet.
+
+
+      Use `-choice` to specify how many sorcery points were spent, i.e. `-choice 5` for 5 points spent.  If you use the bonus action, use `-choice convert`.
+    title: Charging Runes!
+_v: 2
+proper: true
+verb: uses
