@@ -1,0 +1,120 @@
+name: Arcane Exemplar
+automation:
+  - type: counter
+    counter: Charged Essence Runes
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+    fixedValue: true
+  - type: counter
+    counter: Inert Essence Runes
+    amount: "-1"
+    allowOverflow: false
+    errorBehaviour: warn
+    fixedValue: true
+  - type: counter
+    counter: Arcane Exemplar
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+    fixedValue: true
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Arcane Exemplar
+        duration: null
+        effects: null
+        attacks:
+          - attack:
+              name: Exemplar Heal
+              automation:
+                - type: target
+                  target: self
+                  effects:
+                    - type: text
+                      text: Whenever you cast a spell of 1st level or higher, you regain hit points
+                        equal to the spell’s level.  Use `-choice` for the spell
+                        level, so `-choice 4` for a 4th level spell.
+                      title: Effect
+                    - type: damage
+                      damage: -{choice}
+                      overheal: false
+              _v: 2
+              verb: uses
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        buttons:
+          - label: Extend Exemplar
+            automation:
+              - type: counter
+                counter: Charged Essence Runes
+                amount: "1"
+                allowOverflow: false
+                errorBehaviour: raise
+                fixedValue: true
+              - type: counter
+                counter: Inert Essence Runes
+                amount: "-1"
+                allowOverflow: false
+                errorBehaviour: warn
+                fixedValue: true
+            verb: extends their form.
+            style: "3"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: End Exemplar
+            automation:
+              - type: target
+                target: self
+                effects:
+                  - type: ieffect2
+                    name: Stunned
+                    duration: "2"
+                    effects: null
+                    attacks: []
+                    buttons: []
+                    end: true
+                    conc: false
+                    desc: You are stunned
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+              - type: remove_ieffect
+            verb: ends their form.
+            style: "1"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        end: false
+        conc: false
+        desc: Fly speed 60, resistance to all spell damage, creatures have disadvantage
+          vs your spells, heal when casting spells for HP equal to spell level
+        stacking: false
+        save_as: null
+        parent: null
+        target_self: false
+        tick_on_caster: false
+  - type: text
+    text: >-
+      Starting at 18th level, you can use a bonus action and expend a charged
+      rune to become a being of pure magical energy. While in your exemplar
+      form, you gain the following benefits:
+
+
+      You have a flying speed of 60 feet.
+
+      Creatures have disadvantage on saving throws against your sorcerer spells.
+
+      You have resistance to damage dealt by spells.
+
+      Whenever you cast a spell of 1st level or higher, you regain hit points equal to the spell’s level.
+
+
+      Your exemplar form lasts until the end of your turn. However, you can expend a charged rune at the end of your turn (no action required) to extend the duration until the end of your next turn. When your exemplar form ends, you are stunned until the end of your next turn.
+    title: Effect
+_v: 2
