@@ -1,0 +1,39 @@
+name: Sigilic Augmentation
+automation:
+  - type: counter
+    counter: "Sigilic Augmentation: Saving Throw"
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+    fixedValue: true
+  - type: counter
+    counter: Charged Essence Runes
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+    fixedValue: true
+  - type: counter
+    counter: Inert Essence Runes
+    amount: "-1"
+    allowOverflow: false
+    errorBehaviour: warn
+    fixedValue: true
+  - type: text
+    text: >-
+      At 6th level, you can channel your runes to temporarily bolster your
+      physical capabilities. When you make a Strength, Dexterity, or
+      Constitution ability check, you can expend a charged rune as a reaction to
+      gain advantage on the roll.
+
+
+      In addition, when you are forced to make a Strength, Dexterity, or Constitution saving throw, you can use your reaction and expend a charged rune to gain advantage on the saving throw. Once you use this feature in this way, you cannot use it in this way again until you complete a long rest.
+    title: Sigilic Augmentation
+  - type: roll
+    dice: 1d20
+    name: save
+    hidden: false
+    displayName: New Save Roll
+_v: 2
+proper: true
+verb: utilizes
+activation_type: 3
