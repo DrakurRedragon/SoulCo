@@ -1,0 +1,440 @@
+name: Glyphs of Aegis
+automation:
+  - type: counter
+    counter: Charged Essence Runes
+    amount: lastCounterRequestedAmount
+    allowOverflow: false
+    errorBehaviour: raise
+  - type: variable
+    name: amt
+    value: lastCounterRequestedAmount
+  - type: counter
+    counter: Inert Essence Runes
+    amount: -amt
+    allowOverflow: false
+    errorBehaviour: warn
+    fixedValue: true
+  - type: condition
+    condition: not targets
+    onTrue:
+      - type: roll
+        dice: "{amt}d6"
+        name: damred
+        hidden: false
+        displayName: Damage Reduced
+      - type: variable
+        name: origdam
+        value: choice
+        onError: "0"
+      - type: condition
+        condition: origdam > damred
+        onTrue:
+          - type: variable
+            name: red
+            value: damred
+        onFalse:
+          - type: variable
+            name: red
+            value: origdam
+        errorBehaviour: "false"
+      - type: target
+        target: self
+        effects:
+          - type: damage
+            damage: -{red}
+            overheal: false
+      - type: text
+        text: >-
+          Starting at 1st level, you can release the stored arcane power within your
+          runes to absorb or deflect threatening attacks. Whenever you take
+          damage, you can expend any number of charged runes as a reaction. Roll
+          a number of d6s equal to the number of runes you expended, and reduce
+          the damage by the total.
+
+
+          When you reach 6th level, you can touch a creature as an action and expend up to 3 charged runes to transfer your protective power to it for up to 1 hour. The next time that creature takes damage within the next hour, it rolls 1d6 per charged rune spent and reduces the damage by the total. You can’t transfer this power to a creature already under the effect of Glyph of Aegis.
+
+
+          Your Glyph of Aegis die becomes a d8 at 14th level.
+
+
+          Specify `-choice` for the amount of damage taken and `-amt` for number of runes you wish to spend.
+        title: Effect
+    onFalse:
+      - type: condition
+        condition: amt < 2
+        onTrue:
+          - type: condition
+            condition: SorcererLevel < 14
+            onTrue:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 1d6
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            onFalse:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 1d8
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            errorBehaviour: "false"
+        onFalse: []
+        errorBehaviour: "true"
+      - type: condition
+        condition: amt == 2
+        onTrue:
+          - type: condition
+            condition: SorcererLevel < 14
+            onTrue:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 2d6
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            onFalse:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 2d8
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            errorBehaviour: "false"
+        onFalse: []
+        errorBehaviour: neither
+      - type: condition
+        condition: amt == 3
+        onTrue:
+          - type: condition
+            condition: SorcererLevel < 14
+            onTrue:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 3d6
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            onFalse:
+              - type: target
+                target: all
+                effects:
+                  - type: ieffect2
+                    name: ""
+                    duration: null
+                    effects: null
+                    attacks:
+                      - attack:
+                          name: Bestowed Glyph
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: roll
+                                  dice: 3d8
+                                  name: damred
+                                  hidden: false
+                                  displayName: Damage Reduction
+                                - type: variable
+                                  name: origdam
+                                  value: choice
+                                  onError: "0"
+                                - type: condition
+                                  condition: origdam > damred
+                                  onTrue:
+                                    - type: variable
+                                      name: red
+                                      value: damred
+                                  onFalse:
+                                    - type: variable
+                                      name: red
+                                      value: origdam
+                                  errorBehaviour: "false"
+                                - type: damage
+                                  damage: -{red}
+                                  overheal: false
+                                - type: text
+                                  text: Damage reduced by {red} from the Bestowed Glyph of Aegis.
+                                  title: Effect
+                            - type: remove_ieffect
+                          _v: 2
+                          verb: protects with
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    buttons: []
+                    end: false
+                    conc: false
+                    desc: null
+                    stacking: false
+                    save_as: null
+                    parent: null
+                    target_self: false
+                    tick_on_caster: false
+            errorBehaviour: "false"
+        onFalse: []
+        errorBehaviour: neither
+      - type: text
+        text: >-
+          Starting at 1st level, you can release the stored arcane power within your
+          runes to absorb or deflect threatening attacks. Whenever you take
+          damage, you can expend any number of charged runes as a reaction. Roll
+          a number of d6s equal to the number of runes you expended, and reduce
+          the damage by the total.
+
+
+          When you reach 6th level, you can touch a creature as an action and expend up to 3 charged runes to transfer your protective power to it for up to 1 hour. The next time that creature takes damage within the next hour, it rolls 1d6 per charged rune spent and reduces the damage by the total. You can’t transfer this power to a creature already under the effect of Glyph of Aegis.
+
+
+          Your Glyph of Aegis die becomes a d8 at 14th level.
+        title: Effect
+    errorBehaviour: "true"
+_v: 2
+verb: protects with
