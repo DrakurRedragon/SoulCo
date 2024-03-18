@@ -1,0 +1,63 @@
+name: Acrobatics Lesson
+automation:
+  - type: condition
+    condition: BardLevel >= 5
+    onTrue:
+      - type: condition
+        condition: BardLevel >= 10
+        onTrue:
+          - type: condition
+            condition: BardLevel >= 15
+            onTrue:
+              - type: variable
+                name: barddie
+                value: "12"
+            onFalse:
+              - type: variable
+                name: barddie
+                value: "10"
+            errorBehaviour: "false"
+        onFalse:
+          - type: variable
+            name: barddie
+            value: "8"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: barddie
+        value: "6"
+  - type: counter
+    counter:
+      id: 75
+      typeId: 12168134
+    amount: "1"
+    errorBehaviour: raise
+  - type: roll
+    dice: 1d{barddie}
+    name: Bardic
+  - type: text
+    text: A slick rogue once gave you some pointers on zigging and zagging. When you
+      or an ally makes a Dexterity saving throw, you may expend one use of your
+      Bardic Inspiration, rolling a Bardic Inspiration die and adding the result
+      to the saving throw. An ally must be within 60 feet of you and able to see
+      and hear you to benefit from this trick.
+  - type: condition
+    condition: BardLevel > 5
+    onTrue:
+      - type: text
+        text: >-
+          At 6th level, if the target succeeds the saving throw against an effect
+          that would deal half damage on a successful save, the target takes no
+          damage instead.
+
+
+          (Ask your DM to make the change to HP)
+    onFalse: []
+  - type: condition
+    condition: BardLevel > 13
+    onTrue:
+      - type: text
+        text: At 14th level, even if the target fails their saving throw they only take
+          half damage from the effect.
+    onFalse: []
+_v: 2
