@@ -1,0 +1,31 @@
+name: Ring of the Ram
+automation:
+  - type: counter
+    counter: Ring of the Ram
+    amount: lastCounterRequestedAmount
+    errorBehaviour: raise
+  - type: variable
+    name: dice
+    value: lastCounterRequestedAmount*2
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: "{dice}d10 [force]"
+        miss: []
+        attackBonus: "7"
+  - type: text
+    text: >-
+      This ring has 3 charges, and it regains 1d3 expended charges daily at
+      dawn. While wearing the ring, you can use an action to expend 1 to 3 of
+      its charges to make a ranged spell attack against one creature you can see
+      within 60 feet of you. The ring produces a spectral ram's head and makes
+      its attack roll with a +7 bonus. On a hit, for each charge you spend, the
+      target takes 2d10 force damage and is pushed 5 feet away from you.  Use
+      `-amt #` to specify the number of charges used. 
+
+
+      Charges used: {lastCounterRequestedAmount}
+_v: 2
