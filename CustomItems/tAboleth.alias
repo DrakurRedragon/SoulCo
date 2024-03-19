@@ -1,0 +1,78 @@
+<drac2>
+#variable declaration
+
+ch=character()
+pic="https://media.discordapp.net/attachments/1179856322422915122/1184600107631525909/rin4.png?ex=658c8fd2&is=657a1ad2&hm=e3967434e3e271cd187c4b09e9cbb61f8f221200c8d59015d77b6fd3cc0d8c1b&"
+foot="Created by @DrakurRedragon"
+
+
+
+#save dc
+if level > 14:
+	tBonus=3
+elif level > 9:
+	tBonus=2
+else:
+	tBonus=1
+
+savedc=8+proficiencyBonus+charismaMod+tBonus
+
+stuff="Granted for services to Vanalir and her Mistress, this curious artifact taps into the power of the Aboleth.  3 gems adorn the tiara, each one capable of attempting to enslave a target as an action.  If the target fails a DC {savedc} Wisdom save, it is enslaved.  It can repeat the save each time it takes damage, or if it is more than 1 mile from the Tiara at any time.  Each gem can be used once per short rest, successful or not. \n If the CR or level of the creature is less than 1/2 the wearer's level (maximum 9), the wearer can keep the creature enslaved and bring them to future encounters.  If it exceeds that, the enslavement lasts only until the end of the current encounter.  The wearer can also willingly release any creature bound to the tiara.  If the creature succeeds its save after being enslaved, that gem cannot be used again until the next dawn."
+
+usage="`!tAboleth` returns this and shows you the current creatures enslaved by the crown. \n`!tAboleth enslave` is used to attempt to enslave a creature.  If used outside of initiative, it displays the save DC to be rolled.  If used in initiative, it can be targeted with `-t otherguy` and will automatically roll the save and apply the effect. \n`!tAboleth catch # critter` is used to attach a creature to a gem for future use.  Replace # with the gem number.  Replace critter with the creature name, such as Goblin, Orc, or Troll. \n`!tAboleth release #` will empty the creature from the gem number specified.  `!tAboleth choose #` will add the creature in the specified slot to combat.  This must be followed up with `!tAboleth mark -t critter` to add the effect to allow the DM to roll its save."  
+
+#cvar pull
+gem1=ch.get_cvar("tAboleth1",default="Empty")
+gem2=ch.get_cvar("tAboleth2",default="Empty")
+gem3=ch.get_cvar("tAboleth3",default="Empty")
+
+if not &ARGS&:
+	return f'embed -title "The Aboleth Tiara" -thumb {pic} -f "The Aboleth Tiara|{stuff}" -f "Usage|{usage}" -f "Gem 1|{gem1}" -f "Gem 2|{gem2}" -f "Gem 3|{gem3}" -footer "{foot}"'
+
+a = &ARGS&
+argsp = argparse(a)
+
+if a[0].lower() == "enslave":
+	if combat()== None:
+		return f'embed -title "The Aboleth Tiara Enslaves" -thumb {pic} -f "Save vs. Charm|The target must make a DC {savedc} Wisdom Save or be enslaved by the wearer of the Tiara.  They may make a Wisdom Save agains the same DC every time they take damage, or if they are ever more than 1 mile away from the tiara and its wearer." -footer "{foot}"'
+	else:
+		c=combat()
+		combatant=argsp.last('t')
+		target=c.get_combatant(combatant)
+		targsave=target.saves.get('wis').value
+		targsaveroll=roll("1d20")
+		totalsave=targsaveroll+targsave
+		if totalsave >= savedc:
+			return f'embed -title "The Aboleth Tiara Enslaves" -thumb {pic} -f "Save vs. Charm|The target must make a DC {savedc} Wisdom Save or be enslaved by the wearer of the Tiara.  They may make a Wisdom Save agains the same DC every time they take damage, or if they are ever more than 1 mile away from the tiara and its wearer." -f "Rolling!|Wisdom Save DC {savedc} \n 1d20({targsaveroll}) + {targsave} = {totalsave} \n Success!" -footer "{foot}"'
+		else:
+			target.add_effect("Enslaved",desc="Enslaved, DC"+savedc,buttons=[{"label": "Resist Enslave","verb": "tries to resist","style": 4,"automation": [{"type": "target","target": "self","effects": [{"type": "save","stat": "wis","dc": savedc,"success": [{"type": "remove_ieffect","removeParent": "if_no_children"}],"fail": []}]}]}])
+			return f'embed -title "The Aboleth Tiara Enslaves" -thumb {pic} -f "Save vs. Charm|The target must make a DC {savedc} Wisdom Save or be enslaved by the wearer of the Tiara.  They may make a Wisdom Save agains the same DC every time they take damage, or if they are ever more than 1 mile away from the tiara and its wearer." -f "Rolling!|Wisdom Save DC {savedc} \n 1d20({targsaveroll}) + {targsave} = {totalsave} \n Failure!" -footer "{foot}"'
+elif a[0].lower() == "catch":
+	gemnum=a[1]
+	critter=a[2]
+	ch.set_cvar("tAboleth"+gemnum,critter)
+	return f'embed -title "The Aboleth Tiara Permanently Enslaves" -thumb {pic} -f "Gem {gemnum}|{critter} has been stored in Gem {gemnum}" -footer "{foot}"'
+elif a[0].lower() == "release":
+	gemnum=a[1]
+	critter=ch.get_cvar("tAboleth"+gemnum,default="Nothing")
+	ch.delete_cvar("tAboleth"+gemnum)
+	return f'embed -title "The Wearer of the Aboleth Tiara Releases" -thumb {pic} -f "Gem {gemnum}|{critter} was released!" -footer "{foot}"'
+elif a[0].lower() == "choose":
+	gemnum=a[1]
+	critter=ch.get_cvar("tAboleth"+gemnum,default="Nothing")
+	if critter == "Nothing":
+		return f'embed -title "The Aboleth Tiara says no" -thumb {pic} -f "Gem {gemnun}|Gem {gemnum} doesnt have a creature stored!  Run !tAboleth to see what is stored." -footer "{foot}"'
+	else:
+		return f'multiline \n!i madd {critter} -name {critter} \n!embed -title "The Aboleth Tiara calls its minion" -f "{critter} added|Make sure to use `!tAboleth mark -t {critter}` to add the effect to them." -foot "{foot}"'
+elif a[0].lower() == "mark":
+	if combat()== None:
+		return f'You must be in combat to use this!'
+	else:
+		c=combat()
+		combatant=argsp.last('t')
+		target=c.get_combatant(combatant)
+		target.add_effect("Enslaved",desc="Enslaved, DC"+savedc,buttons=[{"label": "Resist Enslave","verb": "tries to resist","style": 4,"automation": [{"type": "target","target": "self","effects": [{"type": "save","stat": "wis","dc": savedc,"success": [{"type": "remove_ieffect","removeParent": "if_no_children"}],"fail": []}]}]}])
+		return f'embed -title "The Aboleth Tiara Enslaves" -thumb {pic} -f "Slave to the Crown|The target is a slave to the crown. The DC for the Wisdom Save is {savedc}.  They may make a Wisdom Save against the same DC every time they take damage, or if they are ever more than 1 mile away from the tiara and its wearer." -footer "{foot}"'
+else:
+	return f'embed -title "The Aboleth Tiara" -thumb {pic} -f "The Aboleth Tiara|{stuff}" -f "Usage|{usage}" -f "Gem 1|{gem1}" -f "Gem 2|{gem2}" -f "Gem 3|{gem3}" -footer "{foot}"'
+</drac2>
