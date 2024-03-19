@@ -1,0 +1,65 @@
+name: Vis Divina Gauntlets
+automation:
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, these gauntlets were
+      passed down from father to son.  They possess the power to augment their
+      wearer's fortitude, even going as far as to drastically increase their
+      speed and stamina for brief periods as well.  They possess the ability to
+      strike soundly as well, in a method to exploit the weaknesses of an
+      enemy...should they be known first, of course.
+
+
+      These gauntlets provide a +2 to Constitution.  They can be used once per round to make a special unarmed attack that deals damage equal to half the wielders proficiency bonus (rounded down) in d6s of an element of the wielder's choice.  At 15th level, the wielder can also cast haste on themselves as a bonus action, concentrating on it as per the spell.  When the spell ends, however, it does not inflict the lethargy usually associated with the spell ending.
+  - type: condition
+    condition: choice == "haste"
+    onTrue:
+      - type: counter
+        counter: Vis Divina Haste
+        amount: "1"
+        errorBehaviour: raise
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Hasted by the Gauntlets
+            conc: true
+            duration: "10"
+            end: true
+            save_as: hasted
+      - type: spell
+        id: 2138
+        parent: hasted
+    onFalse:
+      - type: condition
+        condition: choice in
+          '{"acid","bludgeoning","cold","fire","force","lightning","necrotic","piercing","poison","psychic","radiant","slashing","thunder"}'
+        onTrue:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: variable
+                    name: dam
+                    value: proficiencyBonus/2
+                  - type: damage
+                    damage: "{dam}d6 [{choice}]"
+                miss: []
+                attackBonus: strengthMod + proficiencyBonus + 2
+        onFalse:
+          - type: text
+            text: >-
+              Please enter a valid `-choice`.
+
+
+              Choose `-choice haste`
+
+
+              OR
+
+
+              `-choice fire` or another element from this list: acid, bludgeoning, cold, fire, force, lightning, necrotic, piercing, poison, psychic, radiant, slashing, or thunder
+_v: 2
+thumb: https://images.mysoulco.com/albums/Items/pete2.png
+proper: true
