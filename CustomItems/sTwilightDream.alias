@@ -1,0 +1,83 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Staff of the Twilight Dreamer"
+help = 0
+
+aliasnm = "!sTwilightDream"
+cvarnm = "sTwilightDream"
+s1 = ["Guiding Bolt","guiding",1]
+s2 = ["Sleep","sleep",1]
+s3 = ["Moonbeam","moonbeam",2]
+s4 = ["Dream","dream",5]
+s5 = ["Moonkissed Crown","moonkissed",8]
+helptext = cc+"|Granted for services to Vanalir and her Mistress, the Staff of the Twilight Dreamer is a blessed item, kissed by the moon goddess.  In the hands of its bearer, it grants several benefits. \n **Evening-Rest and Sleep to Meet** - While attuned, the bearer completes Long Rests in half the time.  \n **Summer Sanctuary** - While holding this staff, the bearer can choose to roll a single die of their Balm of the Summer Court pool and heal the target by that much whenever a creature ends their turn within the bearer's Twilight Sanctuary.  \n\n Usage:\n `!sTwilightDream guiding` - cast Guiding Bolt for one charge per level.  \n `!sTwilightDream sleep` - cast Sleep for one charge per level. \n `!sTwilightDream Moonbeam` - cast Moonbeam for two charges.  \n `!sTwilightDream dream` - cast Dream for 5 charges. \n `!sTwilightDream moonkissed` - cast Moonkissed Crown for 8 charges"
+foot = aliasnm+" - Created by @DrakurRedragon for SoulCo"
+
+if not &ARGS&:
+	help = 1
+
+pic = ch.get_cvar(aliasnm,default=None)
+
+if pic == None:
+	pic = "https://images.mysoulco.com/albums/Character-images/Other/Phoebe2.png"
+
+ch.create_cc_nx(cc, 0, 10, "long", "bubble", None, "1d6+4", cc, cc, 10)
+
+if help == 1:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+else:
+	a  = &ARGS&
+	use = a[0].lower()
+	cast_args="""&*&"""
+	argsp = argparse(a)
+
+if use == s1[1]:
+	if not "-l" in a:
+		lvl = s1[2]
+	else:
+		lvl = int(argsp.last("l")) 
+	if ch.get_cc(cc) < lvl:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -lvl)
+		return f'cast "{s1[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+if use == s2[1]:
+	if not "-l" in a:
+		lvl = s2[2]
+	else:
+		lvl = int(argsp.last("l")) 
+	if ch.get_cc(cc) < lvl:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -lvl)
+		return f'cast "{s2[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s3[1]:
+	if ch.get_cc(cc) < s3[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s3[2])
+		return f'cast "{s3[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s4[1]:
+	if ch.get_cc(cc) < s4[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s4[2])
+		return f'cast "{s4[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s5[1]:
+	if ch.get_cc(cc) < s5[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s5[2])
+		return f'cast "{s5[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar(cvarnm,cvarpic)
+	except:
+		pic = "https://images.mysoulco.com/albums/Character-images/Other/Phoebe2.png"		
+else:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+</drac2>
