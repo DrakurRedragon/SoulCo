@@ -1,4 +1,4 @@
-name: Hunter's Greatsword
+name: Hunter's Blade, Greatsword
 automation:
   - type: condition
     condition: level >= 10
@@ -163,7 +163,7 @@ automation:
                     errorBehaviour: "false"
                 miss: []
                 attackBonus: proficiencyBonus + weapbonus + strengthMod
-                adv: "1"
+                adv: "0"
       - type: condition
         condition: charge>1 and hit==1
         onTrue:
@@ -179,13 +179,13 @@ automation:
   - type: text
     text: >-
       Granted for services to Vanalir and her Mistress, this massive blade
-      allows its wielder to trade attacks for added power on subsequent
-      strikes.  The wielder can charge the blade up to 4 times.  They can charge
-      it as a bonus action, or they may elect to give up any number of attacks
-      when taking the attack action and adding that many charges.  If the
-      wielder can make an opportunity attack, they can instead charge the blade
-      by not making the attack as their reaction.
+      allows its wielder to charge the blade up to 4 times.  They can charge it
+      as a bonus action, or they may elect to give up any number of attacks when
+      taking the attack action and adding that many charges.  If the wielder can
+      make an opportunity attack, they can instead charge the blade by not
+      making the attack as their reaction.
 
 
-      Whenever they attack, they can expend up to 4 of those charges.  Each charge adds 1d8 force damage per charge spent.  In addition, the first charge grants advantage on the attack roll.  The second charge deals half the damage of the original attack to another target within 5 ft.  This damage is all force damage.  The 3rd charge forces the initial target to make a strength saving throw DC 8 + Strength Modifier + Proficiency Bonus or be knocked prone.  The wielder may also choose to push the target up to 10 ft away if it is no more than one size category larger than the wielder.  The 4th charge will make any roll of 18-20 a critical hit.  This cannot be increased further in any way.
+      Whenever they attack, they can expend up to 4 of those charges.  Each charge adds 1d8 force damage per charge spent.  In addition, the first charge grants advantage on the attack roll.  The second charge deals half the damage of the original attack to another target within 5 ft as force damage.  The 3rd charge forces the initial target to make a strength saving throw DC 8 + Str Modifier + PB or be knocked prone.  The wielder may also choose to push the target up to 10 ft away if it is no more than one size category larger.  The 4th charge will make any roll of 18-20 a critical hit.  This cannot be increased.
 _v: 2
+thumb: https://images.mysoulco.com/albums/Items/guild-palace-blade-mhw-wiki-guide.webp
