@@ -1,0 +1,191 @@
+name: Hunter's Greatsword
+automation:
+  - type: condition
+    condition: level >= 10
+    onTrue:
+      - type: condition
+        condition: level >= 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: variable
+    name: charge
+    value: choice
+    onError: "0"
+  - type: condition
+    condition: choice == "charge"
+    onTrue:
+      - type: counter
+        counter: True Charge Slash
+        amount: "-1"
+        allowOverflow: false
+        errorBehaviour: warn
+      - type: text
+        text: ""
+        title: Charging the Blade
+    onFalse:
+      - type: target
+        target: 1
+        effects:
+          - type: condition
+            condition: charge > 0
+            onTrue:
+              - type: attack
+                hit:
+                  - type: condition
+                    condition: charge > 0
+                    onTrue:
+                      - type: counter
+                        counter: True Charge Slash
+                        amount: charge
+                        allowOverflow: false
+                        errorBehaviour: raise
+                      - type: damage
+                        damage: 2d6 + {strengthMod} + {weapbonus} [slashing] + {charge}d8 [force]
+                        overheal: false
+                      - type: variable
+                        name: hit
+                        value: "1"
+                      - type: variable
+                        name: dmg
+                        value: lastDamage
+                      - type: condition
+                        condition: charge > 2
+                        onTrue:
+                          - type: save
+                            stat: str
+                            fail:
+                              - type: ieffect2
+                                name: Prone
+                                duration: null
+                                effects:
+                                  attack_advantage: "-1"
+                                attacks: []
+                                buttons:
+                                  - label: Stand Up
+                                    automation:
+                                      - type: remove_ieffect
+                                    verb: stands up
+                                    style: null
+                                    defaultDC: null
+                                    defaultAttackBonus: null
+                                    defaultCastingMod: null
+                                end: false
+                                conc: false
+                                desc: A prone creature's only movement option is to crawl, unless it stands up
+                                  and thereby ends the condition
+                                stacking: false
+                                save_as: null
+                                parent: null
+                                target_self: false
+                                tick_on_caster: false
+                            success: []
+                            dc: 8 + strengthMod + proficiencyBonus + weapbonus
+                        onFalse: []
+                        errorBehaviour: "false"
+                    onFalse:
+                      - type: damage
+                        damage: 2d6 + {strengthMod} + {weapbonus} [slashing]
+                        overheal: false
+                    errorBehaviour: "false"
+                miss: []
+                attackBonus: proficiencyBonus + weapbonus + strengthMod
+                adv: "1"
+            onFalse:
+              - type: attack
+                hit:
+                  - type: condition
+                    condition: charge > 0
+                    onTrue:
+                      - type: counter
+                        counter: True Charge Slash
+                        amount: charge
+                        allowOverflow: false
+                        errorBehaviour: raise
+                      - type: damage
+                        damage: 2d6 + {strengthMod} + {weapbonus} [slashing] + {charge}d8 [force]
+                        overheal: false
+                      - type: variable
+                        name: hit
+                        value: "1"
+                      - type: variable
+                        name: dmg
+                        value: lastDamage
+                      - type: condition
+                        condition: charge > 2
+                        onTrue:
+                          - type: save
+                            stat: str
+                            fail:
+                              - type: ieffect2
+                                name: Prone
+                                duration: null
+                                effects:
+                                  attack_advantage: "-1"
+                                attacks: []
+                                buttons:
+                                  - label: Stand Up
+                                    automation:
+                                      - type: remove_ieffect
+                                    verb: stands up
+                                    style: null
+                                    defaultDC: null
+                                    defaultAttackBonus: null
+                                    defaultCastingMod: null
+                                end: false
+                                conc: false
+                                desc: A prone creature's only movement option is to crawl, unless it stands up
+                                  and thereby ends the condition
+                                stacking: false
+                                save_as: null
+                                parent: null
+                                target_self: false
+                                tick_on_caster: false
+                            success: []
+                            dc: 8 + strengthMod + proficiencyBonus + weapbonus
+                        onFalse: []
+                        errorBehaviour: "false"
+                    onFalse:
+                      - type: damage
+                        damage: 2d6 + {strengthMod} + {weapbonus} [slashing]
+                        overheal: false
+                    errorBehaviour: "false"
+                miss: []
+                attackBonus: proficiencyBonus + weapbonus + strengthMod
+                adv: "1"
+      - type: condition
+        condition: charge>1 and hit==1
+        onTrue:
+          - type: target
+            target: 2
+            effects:
+              - type: damage
+                damage: "{dmg}/2 [force]"
+                overheal: false
+        onFalse: []
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, this massive blade
+      allows its wielder to trade attacks for added power on subsequent
+      strikes.  The wielder can charge the blade up to 4 times.  They can charge
+      it as a bonus action, or they may elect to give up any number of attacks
+      when taking the attack action and adding that many charges.  If the
+      wielder can make an opportunity attack, they can instead charge the blade
+      by not making the attack as their reaction.
+
+
+      Whenever they attack, they can expend up to 4 of those charges.  Each charge adds 1d8 force damage per charge spent.  In addition, the first charge grants advantage on the attack roll.  The second charge deals half the damage of the original attack to another target within 5 ft.  This damage is all force damage.  The 3rd charge forces the initial target to make a strength saving throw DC 8 + Strength Modifier + Proficiency Bonus or be knocked prone.  The wielder may also choose to push the target up to 10 ft away if it is no more than one size category larger than the wielder.  The 4th charge will make any roll of 18-20 a critical hit.  This cannot be increased further in any way.
+_v: 2
