@@ -76,7 +76,7 @@ if num == 0:
 else:
     T = f"{name} adds to their {desc}"
 if oops == 1:
-    rewards = "Choose from: newholm, springport, or underground"
+    rewards = "Choose from: newholm, springport, vanalir, or underground"
     currentcc = "The format is !rep newholm 1 to add."
 
 else:
