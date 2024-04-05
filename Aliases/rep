@@ -1,17 +1,35 @@
-embed
 <drac2>
 #variables
 ch=character()
-a  = &ARGS&
-usage=a[0].lower()
+chname=ch.name
 rewards = "Rewards: None"
 oops = 0
 T = 0
 currentcc = 0
+badge = ch.image
 
+try: 
+    van=ch.get_cc("Rep - Vanalir")
+except:
+    van=0
+try:
+    new=ch.get_cc("Rep - Newholm")
+except:
+    new=0
+try:
+    spr=ch.get_cc("Rep - Springport")
+except:
+    spr=0
+try:
+    und=ch.get_cc("Rep - Underground")
+except:
+    und=0
+if not &ARGS&:
+    return f'embed -title "{chname}s Reputation" -desc "For the rewards, run the individual `!rep organization` command." -f "Reputation summary|Newholm Rep: {new}\n Springport Rep: {spr}\n Underground Rep: {und}\n Vanalir Rep: {van}"'
 
 #if logic
-
+a = &ARGS&
+usage=a[0].lower()
 if len(a) == 1:
     num = 0
 if len (a) == 2:
@@ -32,7 +50,8 @@ if usage == "newholm":
     if ch.get_cc(cc) > 24:
         rewards = "Rewards: Mount, Exclusive IC Area, Exclusive Quests (if you have not claimed your reward, please go to Pemberley Manor to claim)"
     if ch.get_cc(cc) > 49:
-        rewards = "Rewards: Mount, Exclusive IC Area, Exclusive Quests, Tract of Land (if you have not claimed your reward, please go to Pemberley Manor to claim)"
+        rewards = "Rewards: Mount, Exclusive IC Area, Exclusive Quests, Tract of Land (if you have not claimed your reward, please go to Pemberley Manor to claim), GM Determined Homebrew Item"
+    badge = "https://images.mysoulco.com/albums/Items/nb2.webp"
 
 elif usage == "springport":
     cc = "Rep - Springport"
@@ -47,12 +66,14 @@ elif usage == "springport":
         rewards = "Rewards: Mount, Voucher for +1 Weapon of choice, One-Time Voucher for Raise Dead, spellcasting offered at Honorward Retreat (if you have not claimed your reward, please go to Honorward Retreat to claim)"
     if ch.get_cc(cc) > 74:
         rewards = "Rewards: Mount, Voucher for +1 Weapon of choice, One-Time Voucher for Raise Dead, spellcasting offered at Honorward Retreat, Honorary Title with Springport faction (if you have not claimed your reward, please go to Honorward Retreat to claim)"
+    badge = "https://images.mysoulco.com/albums/Items/sp4.webp"
 
 elif usage == "underground":
     cc = "Rep - Underground"
     desc = "Reputation with the Underground"
     ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
     ch.mod_cc(cc, num)
+    badge = "https://images.mysoulco.com/albums/Items/under5.webp"
 
 elif usage == "summer":
     cc = "Rep - Summer Court"
@@ -63,6 +84,41 @@ elif usage == "summer":
 elif usage == "vanalir":
     cc = "Rep - Vanalir"
     desc = "Reputation with all of Vanalir"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+    if van >= 20:
+        rewards = "Exotic Mount, to be granted."
+    if van >= 40:
+        rewards = "Exotic Mount, to be granted, 25% off all international travel rates."
+    if van >= 60:
+        rewards = "Exotic Mount, to be granted, 25% off all international travel rates, free Faeyis Feat."
+    if van >= 80:
+        rewards = "Exotic Mount, to be granted, 25% off all international travel rates, free Faeyis Feat, 20x20 plot of land in a location of YOUR choosing (with GM approval and creation)."
+    if van >= 100:
+        rewards = "Exotic Mount, to be granted, 25% off all international travel rates, free Faeyis Feat, 20x20 plot of land in a location of YOUR choosing (with GM approval and creation), a permanent boon."
+    badge = "https://images.mysoulco.com/albums/Items/van2.webp"
+
+elif usage == "aonui":
+    cc = "Rep - Aonui"
+    desc = "Reputation with Aonui"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+elif usage == "lothbrok":
+    cc = "Rep - Lothbrok"
+    desc = "Reputation with Lothbrok"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+elif usage == "benden":
+    cc = "Rep - Benden"
+    desc = "Reputation with Benden"
+    ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
+    ch.mod_cc(cc, num)
+
+elif usage == "ceh":
+    cc = "Rep - Cehueloyán"
+    desc = "Reputation with Cehueloyán"
     ch.create_cc_nx(cc, None, None, "none", "Number", None, None, cc, desc, 0)
     ch.mod_cc(cc, num)
 
@@ -78,13 +134,9 @@ else:
 if oops == 1:
     rewards = "Choose from: newholm, springport, vanalir, or underground"
     currentcc = "The format is !rep newholm 1 to add."
-
 else:
     currentcc=ch.get_cc(cc)
 
+return f'embed -title "{T}" -f "{rewards}" -f "Current Rep: {currentcc}" -thumb "{badge}" -footer "!rep [Organization] | by @ Drakurredragon"'
 
 </drac2>
--title "{{T}}"
--f "{{rewards}}"
--f "Current Rep: {{currentcc}}"
--footer "!rep [Organization] | by @ Drakurredragon"
