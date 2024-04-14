@@ -1,0 +1,18 @@
+<drac2>
+cnt=(get_gvar("20f59bb9-b8f4-43e2-ab97-cda0b72b3e38"))
+cnta=cnt.count('giflink')
+randgif = roll("1d"+cnta+"-1")
+nm=ctx.author.display_name
+g=load_json(get_gvar('20f59bb9-b8f4-43e2-ab97-cda0b72b3e38'))
+T=nm + " hurls a fireball!"
+D=nm + " hurls a fireball!"
+I=g[randgif]['giflink']
+F="!cfire <victim> | made by DrakurRedragon for Thasekzeer"
+
+if not &ARGS&:
+	return f'embed -title "{T}" -desc "{D}" -image "{I}" -footer "{F}"'
+else:
+	a= &ARGS&
+	D2=nm + " hurls a fireball at " + a[0] + "!"
+	return f'embed -title "{T}" -desc "{D2}" -image "{I}" -footer "{F}"'
+</drac2>
