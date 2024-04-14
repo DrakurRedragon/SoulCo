@@ -1,0 +1,42 @@
+<drac2>
+title = "Cartomancer, Hidden Ace"
+cc = "Cartomancer: Hidden Ace - Imbue Card"
+cc2 = "Cartomancer: Hidden Ace - Flourish Imbued Card"
+foot = "!cartace | Written by DrakurRedragon for Soulco"
+cvar = "cartace"
+ch = character()
+cvarresult = ch.get_cvar(cvar,default="None")
+desc = "When you finish a long rest, you can choose one spell from your class’s spell list and imbue that spell into a card. The chosen spell must have a casting time of 1 action, and it must be a level for which you have spell slots. The card remains imbued with this spell for 8 hours. While the card is imbued with the spell, you can use a bonus action to flourish the card and cast the spell within. The card then immediately loses its magic."
+usage = "Usage|`!cartace store` to store your spell.  \n\n `!cartace cast` to cast the spell."
+
+if not &ARGS&:
+	return f'embed -title "{title}" -f "{title}|{desc}" -f "Stored Spell|{cvarresult}" -f "{usage}" -footer "{foot}"'
+
+a = &ARGS&
+act = a[0]
+cast_args="""&*&"""
+
+if act == "store":
+	if ch.get_cc(cc) > 0:
+		spell = a[1]
+		ch.set_cvar(cvar,spell)
+		ch.mod_cc(cc, -1)
+		return f'embed -title "{title}" -f "Spell stored!|{spell} has been stored in your cards.  Use `!cartace cast` to use the spell."  -f "{cc}|{ch.get_cc(cc)} -footer "{foot}"'
+	else:
+		return f'embed -title "{title}" -f "Not enough uses of imbue left!|Uses Left: {ch.get_cc(cc)}" -footer "{foot}"'
+
+elif act == "cast":
+	if ch.get_cc(cc2) > 0:
+		spell = cvarresult
+		if spell == "None":
+			return f'embed -title "{title}" -f "No spell set!  Use `!cartace store spellname` to store a spell." -footer "{foot}"'
+		else:
+			ch.mod_cc(cc2,-1)
+			ch.delete_cvar(cvar)
+			return f'cast {spell} -i {cast_args} -f "{title}|Cast using Cartomancer as a bonus action" -footer "{foot}"'
+	else:
+		return f'embed -title "{title}" -f "Not enough uses of flourish left!|Uses left: {ch.get_cc(cc)}" -footer "{foot}"'
+else:
+	return f'embed -title "{title}" -f "{title}|{desc}" -f "Stored Spell|{cvarresult}" -f "{usage}" -footer "{foot}"'
+	
+</drac2>
