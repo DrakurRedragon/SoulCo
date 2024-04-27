@@ -1,0 +1,109 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Voyager's Staff"
+help = 0
+
+aliasnm = "!sVoyager"
+cvarnm = "sVoyager"
+s1 = ["Banishment","banish",4]
+s2 = ["Blink","blink",3]
+s3 = ["Misty Step","misty",2]
+s4 = ["Passwall","passwall",5]
+s5 = ["Teleport","teleport",7]
+helptext = cc+"|You gain a +1 bonus to attack and damage rolls made with this magic quarterstaff. While you hold it, you gain a +1 bonus to spell attack rolls.\n\n This staff has 10 charges. While holding it, you can use an action to expend 1 or more of the staff's charges to cast one of the following spells from it, using your spell save DC: Banishment (4 charges), Blink (3 charges), Misty Step (2 charges), Passwall (5 charges), or Teleport (7 charges). \n\n The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, the staff vanishes forever."
+usage = "Usage|"+s1[0]+" - `"+aliasnm+" "+s1[1]+"` \n "+s2[0]+" - `"+aliasnm+" "+s2[1]+"` \n "+s3[0]+" - `"+aliasnm+" "+s3[1]+"` \n "+s4[0]+" - `"+aliasnm+" "+s4[1]+"` \n "+s5[0]+" - `"+aliasnm+" "+s5[1]+"` \n `"+aliasnm+" image url` - Set your own custom image."
+foot = aliasnm+" - Created by @DrakurRedragon for SoulCo"
+breakroll = vroll("1d20")
+lastchargebreak = "Last Charge used|The last charge was used: "+breakroll+" \n The item disappears."
+lastchargesafe = "Last Charge used|The last charge was used: "+breakroll+" \n The staff remains."
+
+if not &ARGS&:
+	help = 1
+
+pic = ch.get_cvar(aliasnm,default=None)
+
+if pic == None:
+	pic = "https://images.mysoulco.com/albums/Items/vstaff1.webp"
+
+ch.create_cc_nx(cc, 0, 10, "long", "bubble", None, "1d6+4", cc, cc, 10)
+
+if help == 1:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "{usage}" -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+else:
+	a  = &ARGS&
+	use = a[0].lower()
+	cast_args="""&*&"""
+	argsp = argparse(a)
+
+if use == s1[1]:
+	if ch.get_cc(cc) < s1[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s1[2])
+		if ch.get_cc(cc) == 0:
+			if breakroll.total == 1:
+				return f'cast "{s1[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargebreak}"'
+			else:
+				return f'cast "{s1[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargesafe}"'
+		else:
+			return f'cast "{s1[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+if use == s2[1]:
+	if ch.get_cc(cc) < s2[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s2[2])
+		if ch.get_cc(cc) == 0:
+			if breakroll.total == 1:
+				return f'cast "{s2[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargebreak}"'
+			else:
+				return f'cast "{s2[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargesafe}"'
+		else:
+			return f'cast "{s2[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s3[1]:
+	if ch.get_cc(cc) < s3[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s3[2])
+		if ch.get_cc(cc) == 0:
+			if breakroll.total == 1:
+				return f'cast "{s3[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargebreak}"'
+			else:
+				return f'cast "{s3[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargesafe}"'
+		else:
+			return f'cast "{s3[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s4[1]:
+	if ch.get_cc(cc) < s4[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s4[2])
+		if ch.get_cc(cc) == 0:
+			if breakroll.total == 1:
+				return f'cast "{s4[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargebreak}"'
+			else:
+				return f'cast "{s4[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargesafe}"'
+		else:
+			return f'cast "{s4[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == s5[1]:
+	if ch.get_cc(cc) < s5[2]:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -s5[2])
+		if ch.get_cc(cc) == 0:
+			if breakroll.total == 1:
+				return f'cast "{s5[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargebreak}"'
+			else:
+				return f'cast "{s5[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args} -f "{lastchargesafe}"'
+		else:
+			return f'cast "{s5[0]}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+elif use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar(cvarnm,cvarpic)
+	except:
+		pic = "https://images.mysoulco.com/albums/Items/vstaff1.webp"		
+else:
+	return f'embed -title "{cc}" -f "{helptext}" -f "{Usage}" -thumb {pic}  -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+</drac2>
