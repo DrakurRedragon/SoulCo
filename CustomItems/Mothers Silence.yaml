@@ -1,0 +1,127 @@
+name: Mother's Silence
+automation:
+  - type: condition
+    condition: choice == "embrace"
+    onTrue:
+      - type: counter
+        counter: Mother's Silence
+        amount: "3"
+        errorBehaviour: raise
+      - type: variable
+        name: used
+        value: "1"
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: str
+            fail:
+              - type: ieffect2
+                name: Grappled by Shadow
+                tick_on_caster: true
+                end: false
+                duration: "1"
+                desc: Grappled - Speed 0
+            success: []
+            dc: 8 + proficiencyBonus + dexterityMod
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == "gaze"
+    onTrue:
+      - type: counter
+        counter: Mother's Silence
+        amount: "2"
+        errorBehaviour: raise
+      - type: variable
+        name: used
+        value: "1"
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: ieffect2
+                name: Blinded
+                effects:
+                  attack_advantage: "-1"
+                duration: "2"
+                tick_on_caster: true
+                end: true
+              - type: condition
+                condition: lastSaveRollTotal <= lastSaveDC - 5
+                onTrue:
+                  - type: ieffect2
+                    name: Paralyzed
+                    duration: "2"
+                    end: true
+                    tick_on_caster: true
+                onFalse: []
+            success: []
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == "judgement"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + 3 + 1d6 [necrotic]
+              - type: text
+                text: If this attack reduces the target to 0 hit points, the body is completely
+                  disintegrated, leaving nothing behind.
+            miss: []
+            attackBonus: proficiencyBonus + dexterityMod + 3
+            adv: "1"
+    onFalse: []
+  - type: condition
+    condition: used == 1
+    onTrue: []
+    onFalse:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + 3 [slashing] + 1d6 [necrotic]
+            miss: []
+            attackBonus: proficiencyBonus + dexterityMod + 3
+    errorBehaviour: "false"
+  - type: text
+    text: >
+      Granted for services to Vanalir and her Mistress, Mother's Silence is a
+      weapon designed for the quietest of souls...one devoted to a Mother.  It
+      is a +3 Scimitar that deals an additional 1d6 necrotic damage, but it also
+      has 10 charges, regaining 1d6+2 at midnight.  Each of the 3 abilities has
+      a passive effect and an active effect that costs charges.  When the active
+      ability is used, the passive ability is suppressed until the end of a
+      short rest.  Even while the passive is suppressed, the active ability can
+      be used again.
+
+
+      Mother's Embrace
+
+      Passive: grants advantage on all Stealth checks.  Also grants a +5 bonus on stealth checks.  This bonus does not stack with any other stealth checks.
+
+      Active: Whenever you deal damage with this weapon, you may choose to spend 3 charges.  The target must make a Strength saving throw DC 8 + proficiencyBonus + dexterityMod or be Grappled by shadows until the end of their next turn.  While grappled in this way, the target cannot use their reaction. (`-choice embrace`)
+  - type: text
+    text: >-
+      Mother's Gaze
+
+      Passive: Blindsight of 20 ft.
+
+      Active: When you are hidden, you may, as an action, stop hiding and force a target to meet your gaze while expending 2 charges.  That target, assuming it can see you and is not immune to the blinded condition, must make a Wisdom saving throw.  If it fails, the target is blinded until the end of your next turn as a pair of spectral eyes appear that only you can see.  If the target fails by five or more, it is paralyzed. (`-choice gaze`)
+
+
+      Mother's Judgement
+
+      Passive: Whenever you miss a weapon attack, you may make an additional weapon attack as part of the same action.  This may only happen once per turn.
+
+      Active: Whenever you hit a creature with an attack you have advantage on, you may spend 6 charges.  Doing so will cause the attack to deal all necrotic damage.  If this damage reduces the target to 0 hp, the body is disintegrated and you gain Temporary HP equal to your level + your dex mod. (`-choice judgement`)
+_v: 2
+proper: true
