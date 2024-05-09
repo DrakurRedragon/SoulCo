@@ -1,0 +1,20 @@
+<drac2>
+c = combat()
+ch = character()
+ccname = "Zephyr's whisper"
+ccdesc = "Once per day, resetting at dawn, it can be used to call upon an ancient archer spirit from the past. As an action, the wielder can summon an Archer to any space they can see within 60 ft. This creature rolls its own initiative and acts friendly to the wielder and their party. It lasts for 10 minutes or until it is reduced to 0 hp.  The wielder can issue telepathic commands to the spectral archer."
+foot = "!zephyrwhisper, created by DrakurRedragon"
+
+ch.create_cc_nx(ccname,0,1,"long","star",1,None,ccname,ccdesc)
+
+try:
+	init = int(combat().me.init)
+except:
+	return f'embed -title "{ccname}" -f "{ccname}|{ccdesc}" -desc "Charges: {ch.get_cc(ccname)}" -footer "{foot}"'
+
+if ch.get_cc(ccname) > 0:
+	ch.mod_cc(ccname,-1)
+	return f'multiline \n!embed -title "{ccname}" -f "{ccname}|{ccdesc}" -desc "Charges: {ch.get_cc(ccname)}" -footer "{foot}" \n!i madd "Archer" -name "Archer Spirit"'
+else: 
+	return f'embed -title "{ccname}" -f "{ccname}|{ccdesc}" -desc "Charges: {ch.get_cc(ccname)}, not enough charges" -footer "{foot}"'
+</drac2>
