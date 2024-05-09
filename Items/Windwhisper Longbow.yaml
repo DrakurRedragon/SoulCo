@@ -1,0 +1,40 @@
+name: Windwhisper Longbow
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {dexterityMod}
+          - type: roll
+            dice: 1d100
+            name: Disadvantage
+          - type: condition
+            condition: Disadvantage > 25
+            onTrue:
+              - type: ieffect2
+                name: Whispered Wind
+                duration: "1"
+                end: true
+                desc: Speed reduced by 10 ft.
+            onFalse:
+              - type: ieffect2
+                name: Whispered Gale
+                duration: "1"
+                end: true
+                effects:
+                  attack_advantage: "-1"
+                desc: Speed reduced by 10 ft.  Disadvantage on attack rolls
+        miss: []
+        attackBonus: dexterityMod + proficiencyBonus
+  - type: text
+    text: This bow glows with air runes of ancient beings, almost begging for a
+      target.  When an enemy is struck by an arrow from this bow, their speed is
+      reduced by 10 ft until the end of their next turn.  This reduction can
+      only occur once per creature per turn (so it can't be stacked on one
+      creature).  There is a 25% chance that the target also suffers
+      disadvantage on their attack rolls until the start of their next turn.
+_v: 2
+proper: false
+thumb: https://images.mysoulco.com/albums/Items/IMG_3990.png
