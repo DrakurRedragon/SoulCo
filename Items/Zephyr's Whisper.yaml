@@ -1,0 +1,23 @@
+name: Zephyr's Whisper
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {dexterityMod} + 1
+        miss: []
+        attackBonus: proficiencyBonus + dexterityMod + 1
+  - type: text
+    text: >-
+      This slender, almost ethereal bow is made from the wood of the Fey Grove
+      entwined with the clouds above the Elysium Rise. It creates arrows of when
+      drawn, requiring no ammunition of its own. It offers a +1 to attack rolls
+      and damage rolls.
+
+
+      Once per day, resetting at dawn, it can be used to call upon an ancient archer spirit from the past. As an action, the wielder can summon an Archer to any space they can see within 60 ft. This creature rolls its own initiative and acts friendly to the wielder and their party. The wielder can issue telepathic commands to the spectral archer ( `!zephyrwhisper`)
+_v: 2
+proper: false
+thumb: https://images.mysoulco.com/albums/Items/IMG_3996.png
