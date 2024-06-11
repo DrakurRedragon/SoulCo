@@ -1,0 +1,101 @@
+<drac2>
+opalroll = vroll("4d10")
+fireopalroll = vroll("3d10")
+rubyroll = vroll("2d10")
+diamondroll = vroll("1d10")
+ch=character()
+ccdiamond = "Helm of Brilliance: Diamond"
+ccruby = "Helm of Brilliance: Ruby"
+ccfireopal = "Helm of Brilliance: Fire Opal"
+ccopal = "Helm of Brilliance: Opal"
+firstrun = 0
+T = "Helm of Brilliance"
+foot = "!hBrilliance | Created by DrakurRedragon for Soul Co"
+pic = ch.get_cvar("hBrilliance",default=None)
+if pic == None:
+	pic = "https://www.dndbeyond.com/avatars/thumbnails/19/108/315/315/636382331175923563.jpeg"
+
+try:
+	ch.get_cc("Helm of Brilliance: Diamond")
+except:	
+	firstrun = 1
+
+ch.create_cc_nx(ccdiamond,0,diamondroll.total,"none","number",None,None,ccdiamond,ccdiamond,diamondroll.total)
+ch.create_cc_nx(ccruby,0,rubyroll.total,"none","number",None,None,ccruby,ccruby,rubyroll.total)
+ch.create_cc_nx(ccfireopal,0,fireopalroll.total,"none","number",None,None,ccfireopal,ccfireopal,fireopalroll.total)
+ch.create_cc_nx(ccopal,0,opalroll.total,"none","number",None,None,ccopal,ccopal,opalroll.total)
+
+if firstrun == 1:
+	return f'embed -title "{T}" -f "Rolls|Diamonds: {diamondroll}\n Rubies: {rubyroll}\n Fire Opals: {fireopalroll}\n Opals: {opalroll}" -footer "{foot}" -thumb "{pic}"' 
+if not &ARGS&:
+	return f'embed -title "{T}" -f "This dazzling helm is set with 1d10 diamonds, 2d10 rubies, 3d10 fire opals, and 4d10 opals. Any gem pried from the helm crumbles to dust. When all the gems are removed or destroyed, the helm loses its magic." -f "Diamonds|Can be used to cast Prismatic Spray \nGems Left: {ch.get_cc(ccdiamond)}" -f "Rubies|Can be used to cast Wall of Fire \nGems Left: {ch.get_cc(ccruby)}" -f "Fire Opals|Can be used to cast fireball \nGems Left: {ch.get_cc(ccfireopal)}" -f "Opals|Can be used to cast Daylight \nGems Left: {ch.get_cc(ccopal)}" -f "Usage|`!hBrilliance wall` - Casts Wall of Fire.\n`!hBrilliance fireball` - Casts Fireball.\n`!hBrilliance prismatic` - Casts Prismatic Spray\n`!hBrilliance daylight` - Casts Daylight.\n`!hBrilliance combat` - Creates an initiative effect that gives you attacks for the diamond and fire opal as well as resistance for the ruby, assuming you have the necessary gems.\n`!hBrilliance image [url]` - sets the picture to a custom one; you must provide the valid image link." "{foot}" -thumb "{pic}"'
+a = &ARGS&
+if a[0] == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar("hBrilliance",cvarpic)
+	except:
+		pic = "https://www.dndbeyond.com/avatars/thumbnails/19/108/315/315/636382331175923563.jpeg"
+	return f'embed -title "{T}" -footer "{foot}" -thumb "{pic}" -f "Image Set!|Image link is {pic}"'
+if a[0] == "delete":
+	return f'multiline \n!cc delete "Helm of Brilliance: Diamond" \n!cc delete "Helm of Brilliance: Ruby" \n!cc delete "Helm of Brilliance: Fire Opal"\n!cc delete "Helm of Brilliance: Opal"\n!embed -title "{T}" -f "All counters deleted." -footer "{foot}" -thumb "{pic}"'
+cast_args="""&*&"""
+if a[0] == "wall":
+	if ch.get_cc(ccruby) > 0:
+		ch.mod_cc(ccruby,-1)
+		return f'cast "Wall of Fire" -i -dc 18 {cast_args} -phrase "Rubies left: {ch.cc_str(ccruby)}"'
+	else:
+		return f'embed -title "{T}" -footer "{foot}" -thumb "{pic}" -f "Not enough Charges!"'
+if a[0] == "daylight":
+	if ch.get_cc(ccopal) > 0:
+		ch.mod_cc(ccopal,-1)
+		return f'cast "Daylight" -i -dc 18 {cast_args} -phrase "Opals left: {ch.cc_str(ccopal)}"'
+	else:
+		return f'embed -title "{T}" -footer "{foot}" -thumb "{pic}" -f "Not enough Charges!"'
+if a[0] == "prismatic":
+	if ch.get_cc(ccdiamond) > 0:
+		ch.mod_cc(ccdiamond,-1)
+		return f'cast "Prismatic Spray" -i -dc 18 {cast_args} -phrase "Diamond left: {ch.cc_str(ccdiamond)}"'
+	else:
+		return f'embed -title "{T}" -footer "{foot}" -thumb "{pic}" -f "Not enough Charges!"'
+if a[0] == "fireball":
+	if ch.get_cc(ccfireopal) > 0:
+		ch.mod_cc(ccfireopal,-1)
+		return f'cast "Fireball" -i -dc 18 {cast_args} -phrase "Fire Opals left: {ch.cc_str(ccfireopal)}"'
+	else:
+		return f'embed -title "{T}" -footer "{foot}" -thumb "{pic}" -f "Not enough Charges!"'
+if a[0] == "combat":
+	c = combat()
+	combatant = c.get_combatant(ch.name)
+	combatant.add_effect(
+		"Helm of Brilliance",
+		attacks=[{
+			"attack": {"name":"Taken Fire Damage","automation":[{"type":"counter","counter":"Helm of Brilliance: Diamond","amount":"0","allowOverflow":"false","errorBehaviour":"ignore"},{"type":"variable","name":"diam","value":"lastCounterRemaining","onError":"0"},{"type":"counter","counter":"Helm of Brilliance: Ruby","amount":"0","allowOverflow":"false","errorBehaviour":"ignore"},{"type":"variable","name":"ruby","value":"lastCounterRemaining","onError":"0"},{"type":"counter","counter":"Helm of Brilliance: Fire Opal","amount":"0","allowOverflow":"false","errorBehaviour":"ignore"},{"type":"variable","name":"firop","value":"lastCounterRemaining","onError":"0"},{"type":"counter","counter":"Helm of Brilliance: Opal","amount":"0","allowOverflow":"false","errorBehaviour":"ignore"},{"type":"variable","name":"opal","value":"lastCounterRemaining","onError":"0"},{"type":"variable","name":"fullcount","value":"firop+diam+opal+ruby"},{"type":"roll","dice":"1d20","name":"UhOh","hidden":"false"},{"type":"condition","condition":"UhOh == 1","onTrue":[{"type":"text","text":"Roll a d20 if you are wearing the helm and take fire damage as a result of failing a saving throw against a spell. On a roll of 1, the helm emits beams of light from its remaining gems. Each creature within 60 feet of the helm other than you must succeed on a DC 17 Dexterity saving throw or be struck by a beam, taking radiant damage equal to the number of gems in the helm. The helm and its gems are then destroyed.\n\nReuse this attack with `-choice fail`.","title":"Effect"}],"onFalse":[{"type":"text","text":"Roll a d20 if you are wearing the helm and take fire damage as a result of failing a saving throw against a spell. On a roll of 1, the helm emits beams of light from its remaining gems. Each creature within 60 feet of the helm other than you must succeed on a DC 17 Dexterity saving throw or be struck by a beam, taking radiant damage equal to the number of gems in the helm. The helm and its gems are then destroyed.","title":"Effect"}],"errorBehaviour":"false"},{"type":"condition","condition":"choice == \"fail\"","onTrue":[{"type":"target","target":"all","effects":[{"type":"save","stat":"dex","fail":[{"type":"damage","damage":"{fullcount}[radiant]","overheal":"false"}],"success":[],"dc":"17"}]},{"type":"text","text":"Roll a d20 if you are wearing the helm and take fire damage as a result of failing a saving throw against a spell. On a roll of 1, the helm emits beams of light from its remaining gems. Each creature within 60 feet of the helm other than you must succeed on a DC 17 Dexterity saving throw or be struck by a beam, taking radiant damage equal to the number of gems in the helm. The helm and its gems are then destroyed.","title":"Effect"}],"onFalse":[],"errorBehaviour":"false"}],"_v":2}
+		}]
+	)
+	if ch.get_cc(ccruby) > 0:
+		combatant.add_effect(
+			"Helm of Brilliance - Ruby Resistance",
+			passive_effects={
+				"resistances": ["fire"]
+				},
+			parent=combatant.get_effect("Helm of Brilliance")
+		)
+	if ch.get_cc(ccdiamond) > 0:
+		combatant.add_effect(
+			"Helm of Brilliance - Diamond Aura",
+			attacks=[{
+				"attack": {"_v": 2,"name": "Radiant Damage","automation": [{"type": "target","target": "each","effects": [{"type": "damage","damage": "1d6[radiant]"}]},{"type":"text","text":"As long as it has at least one diamond, the helm emits dim light in a 30-foot radius when at least one undead is within that area. Any undead that starts its turn in that area takes 1d6 radiant damage.","title":"Diamond Aura"}]}
+			}],
+			parent=combatant.get_effect("Helm of Brilliance")
+		)
+	if ch.get_cc(ccfireopal) > 0:
+		combatant.add_effect(
+			"Helm of Brilliance - Fire Opal Weapon Damage",
+			attacks=[{
+				"attack": {"_v": 2,"name": "Fire Damage","automation": [{"type": "target","target": "each","effects": [{"type": "damage","damage": "1d6[fire]"}]},{"type":"text","text":"As long as the helm has at least one fire opal, you can use an action and speak a command word to cause one weapon you are holding to burst into flames. The flames emit bright light in a 10-foot radius and dim light for an additional 10 feet. The flames are harmless to you and the weapon. When you hit with an attack using the blazing weapon, the target takes an extra 1d6 fire damage. The flames last until you use a bonus action to speak the command word again or until you drop or stow the weapon.","title":"Fire Opal Flaming Weapon"}]}
+			}],
+			parent=combatant.get_effect("Helm of Brilliance")
+		)
+	return f'embed -title "{T}" -footer "{foot}" -thunb "{pic}" -f "Effects added!|All relevant effects have been added, granting separate attacks for the fire opal weapon damage as well as the aura.  It also adds an effect to grant you resistance to fire.  There is an attack added if you fail a save vs. fire damage, called Taken Fire Damage, that will roll the d20 for you.  If you fail, run it again with `-choice fail`, targeting every creature within range."'
+</drac2>
