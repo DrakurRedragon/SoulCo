@@ -1,0 +1,58 @@
+name: Armed Combat Lessons
+automation:
+  - type: counter
+    counter:
+      id: 75
+      typeId: 12168134
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: condition
+        condition: BardLevel < 6
+        onTrue:
+          - type: ieffect2
+            name: Armed Combat Lesson
+            duration: "100"
+            desc: Benefit from your fighting style for 10 minutes.  Use the `fs` snippet for
+              your fighting style
+        onFalse:
+          - type: condition
+            condition: BardLevel < 14
+            onTrue:
+              - type: ieffect2
+                name: Armed Combat Lesson
+                duration: "100"
+                desc: Benefit from your fighting style for 10 minutes.  Use the `fs` snippet for
+                  your fighting style.  In addition, you may attack twice when
+                  using the attack action instead of once.
+            onFalse:
+              - type: ieffect2
+                name: Armed Combat Lesson
+                effects:
+                  ac_bonus: "1"
+                duration: "100"
+                desc: Benefit from your fighting style for 10 minutes.  Use the `fs` snippet for
+                  your fighting style.  In addition, you may attack twice when
+                  using the attack action instead of once.  Gain +1 to your AC
+                  for the duration
+        errorBehaviour: "true"
+  - type: text
+    text: >-
+      A seasoned fighter taught you how to use a simple combat stance to wield
+      your weapons more effectively. When you select this option, choose from
+      the following Fighting Styles:
+
+
+      Archery, Dueling, Great Weapon Fighting or Two-Weapon Fighting.  Roll your bardic inspiration die and add that to your attack roll or damage roll.  Once you use this ability, you gain the fighting style for 10 minutes.  Use the snippets `fsa`, `fsd`, `fsgwf`, or `fstwf` for the fighting style.  Use `aclb` for attack roll bonus or `acld` for damage rolls.
+
+
+      At 6th level, you learn how to use your stance to chain your attacks together in deadly combination. While your Fighting Style is active, you may attack twice, instead of once, when taking the Attack action on your turn.
+
+
+      At 14th level you have learned to shore up any weaknesses in your stance. You gain +1 to your AC for the effect's duration.
+_v: 2
+proper: true
+verb: remembers their
+activation_type: 2
