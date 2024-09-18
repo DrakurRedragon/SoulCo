@@ -1,0 +1,79 @@
+name: Venomous Mark
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: ieffect2
+        name: Marking {target.name}
+        duration: "10"
+        effects: null
+        attacks:
+          - attack:
+              name: Shift Mark
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: ieffect2
+                      name: Marked by {name}
+                      duration: null
+                      effects: null
+                      attacks: []
+                      buttons: []
+                      end: false
+                      conc: false
+                      desc: Spell attacks from {name} against {target.name} deal an additional 1d6
+                        poison damage
+                      stacking: false
+                      save_as: null
+                      parent: marking
+                      target_self: false
+                      tick_on_caster: false
+              _v: 2
+              proper: true
+              verb: uses
+              activation_type: 3
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        buttons: []
+        end: false
+        conc: false
+        desc: Spell attacks from {name} against {target.name} deal an additional 1d6
+          poison damage
+        stacking: false
+        save_as: marking
+        parent: null
+        target_self: true
+        tick_on_caster: true
+      - type: ieffect2
+        name: Marked by {name}
+        duration: null
+        effects: null
+        attacks: []
+        buttons: []
+        end: false
+        conc: false
+        desc: Spell attacks from {name} against {target.name} deal an additional 1d6
+          poison damage
+        stacking: false
+        save_as: null
+        parent: marking
+        target_self: false
+        tick_on_caster: false
+  - type: text
+    text: >-
+      Also at 1st level, as a bonus action, choose one creature you can see
+      within 30 feet of you. The target is cursed for 1 minute. The curse ends
+      early if the target dies, you die, or you are incapacitated. Until the
+      curse ends, you deal an extra 1d6 poison damage to the target whenever you
+      hit it with a spell attack. (You can only apply this damage once per spell
+      even if there are multiple spell attack instances, such as with eldritch
+      blast.)
+
+
+      If the target drops to 0 hit points before the curse ends, you can use a bonus action on a subsequent turn of yours to curse a new creature. Only one creature can be affected with a venomous mark at any given time.
+    title: Venomous Mark
+_v: 2
+verb: marks their target with
+activation_type: 3
