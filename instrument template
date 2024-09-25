@@ -12,9 +12,17 @@ help = 0
 # spellname = ["Daylight","Cure Wounds","Haste","Fly","Levitate","Invisibility"]
 # spelltrigger = ["daylight","cure","haste","fly","levitate","invisibility"]
 
-# helptext = cc+"|This does stuff"
-usage = "Usage|" + " \n `"+aliasnm+" image url` - Set your own custom image."
-foot = aliasnm+" - Created by @drakurredragon for Crizoke on SoulCo"
+# helptext = cc+"|"
+
+foot = aliasnm+" - Created by @drakurredragon for SoulCo"
+
+usebuild = ""
+for z in spelltrigger:
+	usename = spellname[spelltrigger.index(z)]
+	usebuild = usebuild + "`" + aliasnm + " " + z + "` - " + usename + "\n"
+
+usage = "Usage|" + usebuild + " \n `"+aliasnm+" image url` - Set your own custom image."
+
 if not &ARGS&:
 	help = 1
 
