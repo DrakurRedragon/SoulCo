@@ -1,0 +1,57 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Harmonic Lute of Celestial Oaks"
+help = 0
+
+aliasnm = "!luteoak"
+cvarnm = "luteoak"
+
+spellname = ["Daylight","Cure Wounds (4th level)","Haste","Fly","Levitate","Invisibility"]
+spelltrigger = ["daylight","cure","haste","fly","levitate","invisibility"]
+
+helptext = cc+"|This does stuff"
+usage = "Usage|" + " \n `"+aliasnm+" image url` - Set your own custom image."
+foot = aliasnm+" - Created by @drakurredragon for Crizoke on SoulCo"
+if not &ARGS&:
+	help = 1
+
+pic = ch.get_cvar(aliasnm,default=None)
+
+if pic == None:
+	pic = "https://images.mysoulco.com/albums/Items/lute.jpg"
+
+for x in spellname:
+	ccname = cc + " - " + x
+	ch.create_cc_nx(ccname,0,1,"long","bubble", None, 1, ccname, ccname, 1)
+
+if help == 1:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "{usage}" -footer "{foot}"'
+else:
+	a  = &ARGS&
+	use = a[0].lower()
+	cast_args="""&*&"""
+	argsp = argparse(a)
+
+try:
+	y = spelltrigger.index(a[0])
+	spell = spellname[y]
+	cc = cc + " - " + spell
+except:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic} -f "{usage}" -footer "{foot}"'
+
+if use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar(cvarnm,cvarpic)
+	except:
+		pic = "https://images.mysoulco.com/albums/Items/lute.jpg"	
+else:
+	if ch.get_cc(cc) < 1:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -1)
+		return f'cast "{spell}" -l 4 -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+</drac2>
