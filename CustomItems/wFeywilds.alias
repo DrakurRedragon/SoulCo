@@ -1,0 +1,79 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Wand of the Feywild's Embrace"
+help = 0
+
+aliasnm = "!wFeywilds"
+cvarnm = "WandFeywilds"
+spellname = ["Healing Touch","Wither and Bloom","Aura of Vitality"]
+spelltrigger = ["heal","wither","aura"]
+spellcost = [2,3,3]
+
+helptext = cc+"|Granted for services to Vanalir and her Mistress, the Wand of the Feywilds was crafted form the heart of an ancient tree.  The handle of the wand is wrapped in fey-leather and tunes the wielder to the natural world and all living things within it."
+
+foot = aliasnm+" - Created by @drakurredragon for DragonGodTW on SoulCo"
+
+usebuild = ""
+for z in spelltrigger:
+	usename = spellname[spelltrigger.index(z)]
+	usebuild = usebuild + "`" + aliasnm + " " + z + "` - " + usename + " - " + spellcost[spelltrigger.index(z)] + " charges\n"
+usage = "Usage|" + usebuild + " \n `"+aliasnm+" image url` - Set your own custom image."
+
+pic = ch.get_cvar(aliasnm,default=None)
+
+if pic == None:
+	pic = "https://images.mysoulco.com/albums/Items/wandfeywild.jpg"
+
+ch.create_cc_nx(cc, 0, 8, "long", "bubble", None, "1d6+1", cc, cc, 8)
+
+if not &ARGS&:
+	help = 1
+
+if help == 1:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "{usage}" -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+else:
+	a  = &ARGS&
+	use = a[0].lower()
+	cast_args="""&*&"""
+	argsp = argparse(a)
+
+try:
+	y = spelltrigger.index(a[0])
+	spell = spellname[y]
+	cost = spellcost[y]
+except:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic} -f "{usage}" -footer "{foot}"'
+
+if use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar(cvarnm,cvarpic)
+	except:
+		pic = "https://images.mysoulco.com/albums/Items/wandfeywild.jpg"	
+elif use == "heal":
+	if ch.get_cc(cc) < cost:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -cost)
+		healroll=vroll("3d8+3")
+		try:
+			c=combat()
+			combatant=argsp.last('t')
+			target=c.get_combatant(combatant)
+		except:
+			target=argsp.last('t')
+		try:
+			target.modify_hp(healroll.total,ignore_temp=True,overflow=False)
+		except:
+			target=argsp.last('t')
+		return f'embed -title "{cc}" -f "{target} healed|{healroll}\n\n {target} regains {healroll.total} HP" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+else:
+	if ch.get_cc(cc) < cost:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -cost)
+		return f'cast "{spell}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+</drac2>
