@@ -21,7 +21,7 @@ if ch.levels.get("Fighter") < 10:
 	crit=20
 else:
 	crit=19
-</drac2>}} -criton {{crit}} -d 1d{{dam}} -f "Launch|You can jump a max of {{ft}} ft.
+</drac2>}} adv -criton {{crit}} -d 1d{{dam}} -f "Launch|You can jump a max of {{ft}} ft.
 
 Launch:
 {{ch.cc_str(cc)}}"
