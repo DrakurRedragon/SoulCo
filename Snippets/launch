@@ -1,0 +1,27 @@
+{{<drac2>
+ch=character()
+cc="Launch"
+if not ch.get_cc(cc):
+	err("No uses of Launch remaining, please rest before using")
+elif ch.get_cc(cc)<1:
+	err("No uses of Launch remaining, please rest before using.")
+else:
+	ch.mod_cc(cc,-1)
+if ch.levels.get("Fighter") < 7:
+	ft = 15
+else:
+	ft = 30
+if ch.levels.get("Fighter") < 10:
+	dam=8
+elif ch.levels.get("Fighter") < 18:
+	dam=10
+else:
+	dam=12
+if ch.levels.get("Fighter") < 10:
+	crit=20
+else:
+	crit=19
+</drac2>}} -criton {{crit}} -d 1d{{dam}} -f "Launch|You can jump a max of {{ft}} ft.
+
+Launch:
+{{ch.cc_str(cc)}}"
