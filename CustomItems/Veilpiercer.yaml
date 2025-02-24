@@ -1,0 +1,277 @@
+name: Veilpiercer
+automation:
+  - type: condition
+    condition: level > 14
+    onTrue:
+      - type: variable
+        name: weapbonus
+        value: "3"
+    onFalse:
+      - type: condition
+        condition: level > 9
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "1"
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + {weapbonus} [magical piercing]
+                overheal: false
+            miss: []
+            attackBonus: weapbonus + proficiencyBonus + dexterityMod
+      - type: text
+        text: A weapon of magical energy given form by the ring on Yuki's finger, this
+          weapon can function as both a melee weapon or a ranged weapon.  The
+          melee deals 1d8 + dexterityMod + 2 slashing damage, while the ranged
+          attack deals 1d8 + dexterityMod + 2 piercing damage.  If not provided
+          ammunition, it generates its own from the same energy and will given
+          form.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "melee"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + {weapbonus} [magical slashing]
+                overheal: false
+            miss: []
+            attackBonus: weapbonus + proficiencyBonus + dexterityMod
+      - type: text
+        text: A weapon of magical energy given form by the ring on Yuki's finger, this
+          weapon can function as both a melee weapon or a ranged weapon.  The
+          melee deals 1d8 + dexterityMod + 2 slashing damage, while the ranged
+          attack deals 1d8 + dexterityMod + 2 piercing damage.  If not provided
+          ammunition, it generates its own from the same energy and will given
+          form.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "echoattack"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d6 + {dexterityMod} + {weapbonus} [magical piercing]
+                overheal: false
+            miss: []
+            attackBonus: weapbonus + proficiencyBonus + dexterityMod
+      - type: text
+        text: When a ranged weapon attack is made with this weapon, if Yuki's echo is
+          manifested, the echo makes an attack against another creature within
+          30 ft of Yuki's target.  This attack makes its own attack roll and
+          deals 1d6 + Yuki's Dexterity + {weapbonus} damage but does not benefit
+          from any other effects that increase Yuki's damage except for the
+          curse feature.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "cursedwill"
+    onTrue:
+      - type: counter
+        counter: Curse Points
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: ieffect2
+            name: Cursed by Yuki
+            duration: "10"
+            effects: null
+            attacks: []
+            buttons: []
+            end: false
+            conc: false
+            desc: Target takes an additional 1d6 necrotic from the Yuki's Bow
+            stacking: true
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Yuki's Cursing Will
+            duration: null
+            effects: null
+            attacks: []
+            buttons: []
+            end: false
+            conc: false
+            desc: Yuki takes 1d6 necrotic damage for each level of curse she's inflicted
+            stacking: true
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+      - type: text
+        text: When striking an enemy with this weapon using a melee weapon attack, you
+          can choose to also inflict a curse on that target.  You can have a
+          number of curses equal to your proficiency bonus, and a single
+          creature can be cursed multiple times.  The curse afflicts both the
+          target AND Yuki, causing the target to take an additional 1d6 necrotic
+          damage from all attacks from the bow.  Yuki takes an additional 1d6
+          necrotic damage from ALL sources.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "spellsteal"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: counter
+            counter: Curse Points
+            amount: "1"
+            allowOverflow: false
+            errorBehaviour: raise
+          - type: check
+            ability: arcana
+            dc: 10 + lastCounterRequestedAmount
+            success: []
+            fail: []
+          - type: text
+            text: As a reaction, when a creature within 60 feet of you casts a spell, you
+              can summon your Echo to intercept it. Roll a Charisma (Arcana)
+              check against a DC of 10 + the spell’s level.  On a success, you
+              gain the ability to cast that spell once using the bow within the
+              next 10 minutes.  Doing so will cause you to be cursed yourself a
+              number of levels equal to the level of the spell.  You can use
+              this ability once per short rest, and you cannot use it on a spell
+              above 5th level.
+            title: Effect
+          - type: ieffect2
+            name: Yuki's Cursed Will x{lastCounterRequestedAmount}
+            duration: null
+            effects: null
+            attacks: []
+            buttons: []
+            end: false
+            conc: false
+            desc: Yuki takes 1d6 extra necrotic damage for each level of curse
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "volley"
+    onTrue:
+      - type: counter
+        counter: Bladed Bow - Volley
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: roll
+        dice: 4d8 [magical piercing]
+        name: voldam
+        hidden: false
+        displayName: Volley Damage
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{voldam}"
+                overheal: false
+            success:
+              - type: damage
+                damage: "{voldam}/2"
+                overheal: false
+      - type: text
+        text: 1/day, if the echo is manifested, Yuki and the echo can instead attack in
+          concert.  As an action, both the echo and Yuki rain down spectral
+          arrows in a 30 ft cone originating from either the echo or Yuki.  Each
+          creature must make a dexterity save against your spell save DC or take
+          4d8 piercing damage.  A creature passing the save takes half damage
+          instead.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "help"
+    onTrue:
+      - type: text
+        text: >-
+          A weapon of magical energy given form by the ring on Yuki's finger, this
+          weapon can function as both a melee weapon or a ranged weapon.  The
+          melee deals 1d8 + dexterityMod + 2 slashing damage, while the ranged
+          attack deals 1d8 + dexterityMod + 2 piercing damage.  If not provided
+          ammunition, it generates its own from the same energy and will given
+          form.
+
+
+          Use `-choice melee` for a melee attack.
+        title: Veilpiercer
+      - type: text
+        text: "`-choice echoattack`: When a ranged weapon attack is made with this
+          weapon, if Yuki's echo is manifested, the echo makes an attack against
+          another creature within 30 ft of Yuki's target.  This attack makes its
+          own attack roll and deals 1d6 + dexterity modifier + {weapbonus}
+          damage but does not benefit from any other effects that increase
+          Yuki's damage except for the curse feature detailed below."
+        title: Echo Attack
+      - type: text
+        text: "`-choice curse`: When striking an enemy with this weapon using a melee
+          weapon attack, you can choose to also inflict a curse on that
+          target.  You can have a number of curses equal to your proficiency
+          bonus, and a single creature can be cursed multiple times.  The curse
+          afflicts both the target AND Yuki, causing the target to take an
+          additional 1d6 necrotic damage from all attacks from the bow.  Yuki
+          takes an additional 1d6 necrotic damage from ALL sources."
+        title: Cursed Will
+      - type: text
+        text: "`-choice spellsteal`: As a reaction, when a creature within 60 feet of
+          you casts a spell, you can summon your Echo to intercept it. Roll a
+          Charisma (Arcana) check against a DC of 10 + the spell’s level.  On a
+          success, you gain the ability to cast that spell once using the bow
+          within the next 10 minutes.  Doing so will cause you to be cursed
+          yourself a number of levels equal to the level of the spell.  You can
+          use this ability once per short rest, and you cannot use it on a spell
+          above 5th level."
+        title: Spell Steal
+      - type: text
+        text: "`-choice volley`: 1/day, if the echo is manifested, Yuki and the echo can
+          instead attack in concert.  As an action, both the echo and Yuki rain
+          down spectral arrows in a 30 ft cone originating from either the echo
+          or Yuki.  Each creature must make a DC (8+wisdomMod+proficiencyBonus)
+          dexterity save or take 4d8 piercing damage.  A creature passing the
+          save takes half damage instead."
+        title: Volley
+    onFalse: []
+    errorBehaviour: "false"
+_v: 2
+proper: true
+verb: strikes with
+thumb: https://images.mysoulco.com/albums/Items/IMG_6290.jpg
