@@ -14,7 +14,7 @@ automation:
       Once you use this feature, you can’t do so again until you complete a short or long rest.
 
 
-      Use `-choice prone` to use the prone ability or `-choice push` to push them (you will need to ask the DM to move them).  Use `arctorr` as a snippet to change the spell to force damage.
+      Use `-choice prone` to use the prone ability or `-choice push` to push them (you will need to ask the DM to move them).  Use `runictorrent` as a snippet to change the spell to force damage.
     title: Effect
   - type: condition
     condition: choice == "prone"
