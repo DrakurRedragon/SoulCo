@@ -1,0 +1,48 @@
+<drac2>
+
+# inputs
+
+ch = character()
+foot = "!friend - written by DrakurRedragon for Soul Co"
+baseset = "NotSet,NotSet,NotSet,NotSet"
+
+# help
+
+if not &ARGS&:
+    return f'embed -title "Friends" -desc  "Everyone Needs a Friend!" -f "Usage:|`!friend` - shows this. \n `!friend #` - shows that friend. \n `!friend set name/image/creature/desc #` - sets the name, image, creature, or description.  You will have to run this 4 times per friend." -footer "{foot}"'
+
+a = &ARGS&
+
+if a[0] == "set":
+    cvarnm = "friend"+a[2]
+    ch.set_cvar_nx(cvarnm,baseset)
+    compan = list(ch.get_cvar(cvarnm).split(","))
+    compannm = compan[0]
+    companimg = compan[1]
+    compancrit = compan[2]
+	compandesc = compan[3]
+    if a[1] == "name":
+        compannm = a[3]
+    elif a[1] == "image":
+        companimg = a[3]
+    elif a[1] == "creature":
+        compancrit = a[3]
+	elif a[1] == "desc":
+		compandesc = a[3]
+    else:
+        return f'embed -title "Friends" -desc  "Everyone Needs a Friend!" -f "Usage:|`!friend` - shows this. \n `!friend #` - shows that friend. \n `!friend set name/image/creature #` - sets the name, image, or creature.  You will have to run this 3 times per friend." -footer "{foot}"'
+	cvarcreate = f'{compannm},{companimg},{compancrit},{compandesc}'
+    ch.set_cvar(cvarnm,cvarcreate)
+    return f'embed -title "{ch.name}s Friend" -f "Friend {a[2]}|Name: {compannm} the {compancrit}" -image "{companimg}" -desc "{compandesc}" -footer "{foot}"'
+elif a[0].isdigit():
+    cvarnm = "friend"+a[0]
+    ch.set_cvar_nx(cvarnm,baseset)
+    compan = list(ch.get_cvar(cvarnm).split(","))
+    compannm = compan[0]
+    companimg = compan[1]
+    compancrit = compan[2]
+	compandesc = compan[3]
+    return f'embed -title "{ch.name}s Friend" -f "Friend {a[0]}|Name: {compannm} the {compancrit}" -image "{companimg}" -desc "{compandesc}" -footer "{foot}"'
+else:
+    return f'embed -title "Friends" -desc  "Everyone Needs a Friend!" -f "Usage:|`!friend` - shows this. \n `!friend #` - shows that friend. \n `!friend set name/image/creature #` - sets the name, image, or creature.  You will have to run this 3 times per friend." -footer "{foot}"'
+</drac2>
