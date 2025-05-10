@@ -1,0 +1,1 @@
+!cc create "Acheron Blade: Dark Blessing" -title "Acheron Blade: Dark Blessing" -desc "While holding the sword, you can use an action to give yourself 1d4 + 4 temporary hit points. This property can’t be used again until the next dusk. (-choice dark)" -min 0 -max 1 -reset long
