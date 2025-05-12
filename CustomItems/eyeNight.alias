@@ -1,0 +1,63 @@
+<drac2>
+
+#inputs
+
+ch = character()
+cc = "Eye of Eternal Night"
+help = 0
+
+aliasnm = "!eyeNight"
+cvarnm = "eyeNight"
+spellname = ["Veil of Lunacy","Vespers of the Night Goddess","Nocturnal Torment","Nyctha's Spear"]
+spelltrigger = ["veil","vespers","nocturnal","spear"]
+spellcost = [2,3,4,6]
+
+helptext = cc+"|Granted for services to Vanalir and her Mistress, the Eye of Eternal Night is a powerful item gifted to only the most devoted of followers of the Goddess of Night. \n\n The Glimmering Eye of Eternal Night is a small, spherical object that fits perfectly within the eye socket. When worn, it merges seamlessly with the wearer's anatomy. Under the cover of night, the Eye radiates a soft, ghostly glow, betraying its powerful connection to the Goddess of Night, Nýchta. \n\n This magical eye has charges equal to the your proficiency bonus. While holding it, you can use an action to activate one of the spells below and expend the charge needed for the spell. The eye regains all expended charges after a prayer session to the Goddess of the Night, nýchta which must be at least 3 hours long."
+
+foot = aliasnm+" - Created by @drakurredragon for SoulCo"
+if not &ARGS&:
+	help = 1
+
+usebuild = ""
+for z in spelltrigger:
+	usename = spellname[spelltrigger.index(z)]
+	usebuild = usebuild + "`" + aliasnm + " " + z + "` - " + usename + " - " + spellcost[spelltrigger.index(z)] + " charges\n"
+usage = "Usage|" + usebuild + " \n `"+aliasnm+" image url` - Set your own custom image."
+
+pic = ch.get_cvar(aliasnm,default=None)
+
+if pic == None:
+	pic = "https://images.mysoulco.com/albums/Items/kitskiss_smooth_vector_fantasy_cartoon_dnd_cartoon_high_res_hig_662c09c2-44b6-48ac-93e7-8c06a625da84.png"
+
+ch.create_cc_nx(cc, 0, proficiencyBonus, "long", "bubble", None, proficiencyBonus, cc, cc, proficiencyBonus)
+
+if help == 1:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic}  -f "{usage}" -f "Charges|{ch.cc_str(cc)}" -footer "{foot}"'
+else:
+	a  = &ARGS&
+	use = a[0].lower()
+	cast_args="""&*&"""
+	argsp = argparse(a)
+
+try:
+	y = spelltrigger.index(a[0])
+	spell = spellname[y]
+	cost = spellcost[y]
+except:
+	return f'embed -title "{cc}" -f "{helptext}" -thumb {pic} -f "{usage}" -footer "{foot}"'
+
+if use == "image":
+	try:
+		cvarpic = str(a[1])
+		ch.set_cvar(cvarnm,cvarpic)
+	except:
+		pic = "https://images.mysoulco.com/albums/Items/kitskiss_smooth_vector_fantasy_cartoon_dnd_cartoon_high_res_hig_662c09c2-44b6-48ac-93e7-8c06a625da84.png"	
+else:
+	if ch.get_cc(cc) < cost:
+		return f'embed -title "{cc}" -desc "Not enough charges" -f "Charges|{ch.cc_str(cc)}" -thumb {pic} -footer "{foot}"'
+	else:
+		ch.mod_cc(cc, -cost)
+		return f'cast "{spell}" -i -thumb {pic} -phrase "Using the {cc}.  Charges Remaining: {ch.cc_str(cc)}" {cast_args}'
+
+
+</drac2>

@@ -1,0 +1,61 @@
+<drac2>
+#variable declaration
+
+ch=character()
+pic="https://images.mysoulco.com/albums/Items/IMG_5123-1-.jpg"
+foot="Created by @DrakurRedragon"
+
+
+stuff="Granted for services to Vanalir and her Mistress, this curious extradimensinoal space holds all manner of creatures in their own little habitats.  The one who carries it can enter it through an activation taking 10 minutes and inside find all of the creatures theyve placed within it as well as the food and proper care items for each.  In addition, the bearer can designate up to 8 Medium sized creatures that can be called from the case to assist them, taking an action in combat.  They can instead designate a large creature for 2 slots or a huge creature for 4 slots."
+
+usage="`!ccoc` returns the current contents of the Curious Case of Creatures. \n`!ccoc catch # critter` is used to attach a creature to the active slots for future use.  Replace # with the slot number.  Replace critter with the creature name, such as Lion, Tiger, or Bear. \n`!ccoc release #` will empty the creature from the gem number specified.  `!ccoc choose #` will add the creature in the specified slot to combat." 
+
+if not ch.get_cvar("ccoc"):
+	ch.set_cvar("ccoc","Empty,Empty,Empty,Empty,Empty,Empty,Empty,Empty")
+#cvar pull
+slotparse = ch.get_cvar("ccoc").split(",")
+slotdict={
+"slot1": slotparse[0],
+"slot2": slotparse[1],
+"slot3": slotparse[2],
+"slot4": slotparse[3],
+"slot5": slotparse[4],
+"slot6": slotparse[5],
+"slot7": slotparse[6],
+"slot8": slotparse[7]
+}
+
+if not &ARGS&:
+	return f'embed -title "The Curious Case of Creatures" -thumb {pic} -f "The Curious Case of Creatures|{stuff}" -f "Usage|{usage}" -f "Slot 1|{slotdict["slot1"]}" -f "Slot 2|{slotdict["slot2"]}"  -f "Slot 3|{slotdict["slot3"]}"  -f "Slot 4|{slotdict["slot4"]}"  -f "Slot 5|{slotdict["slot5"]}"  -f "Slot 6|{slotdict["slot6"]}"  -f "Slot 7|{slotdict["slot7"]}"  -f "Slot 8|{slotdict["slot8"]}"'
+
+a = &ARGS&
+argsp = argparse(a)
+
+if a[0].lower() == "catch":
+	gemnum=str(a[1])
+	critter=a[2]
+	if gemnum in ("1","2","3","4","5","6","7","8"):
+		slotdict["gemnum"] = critter
+	else:
+		return f'embed -title "{name}" -f "You oopsed!  Please make sure to select a slot number, 1-8.  You chose: {gemnum}." -footer "{foot}"'
+	dictread = slotdict["slot1"] + "," + slotdict["slot2"] + "," + slotdict["slot3"] + "," + slotdict["slot4"] + "," + slotdict["slot5"] + "," + slotdict["slot6"] + "," + slotdict["slot7"] + "," + slotdict["slot8"]
+	ch.set_cvar("ccoc",dictread)
+	return f'embed -title "{name} places the critter in their active pockets!" -thumb {pic} -f "Slot {gemnum}|{critter} has been stored in Slot {gemnum}" -footer "{foot}"'
+elif a[0].lower() == "release":
+	gemnum=str(a[1])
+	critter = slotdict[gemnum]
+	slotdict[gemnum] = "Empty"
+	return f'embed -title "{name} removes the creature from their active pockets" -thumb {pic} -f "Slot {gemnum}|{critter} was released!" -footer "{foot}"'
+	dictread = slotdict["slot1"] + "," + slotdict["slot2"] + "," + slotdict["slot3"] + "," + slotdict["slot4"] + "," + slotdict["slot5"] + "," + slotdict["slot6"] + "," + slotdict["slot7"] + "," + slotdict["slot8"]
+	ch.set_cvar("ccoc",dictread)
+elif a[0].lower() == "choose":
+	gemnum=str(a[1])
+	slotuse = "slot"+gemnum
+	critter = slotdict[slotuse]
+	if slotdict[gemnum] == "Empty":
+		return f'embed -title "No one is there!" -thumb {pic} -f "Slot {gemnun}|Slot {gemnum} doesnt have a creature stored!  Run !ccoc to see what is stored." -footer "{foot}"'
+	else:
+		return f'multiline \n!i madd {critter} -name {critter} \n!embed -title "{name} calls forth their critter" -f "{critter} added!" -foot "{foot}"'
+else:
+	return f'embed -title "The Curious Case of Creatures" -thumb {pic} -f "The Curious Case of Creatures|{stuff}" -f "Usage|{usage}" -f "Slot 1|{slot1}" -f "Slot 2|{slot2}" -f "Slot 3|{slot3} -f "Slot 4|{slot4} -f "Slot 5|{slot5} -f "Slot 6|{slot6} -f "Slot 7|{slot7} -f "Slot 8|{slot8}" -footer "{foot}"'
+</drac2>

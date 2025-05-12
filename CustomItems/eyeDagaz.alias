@@ -1,0 +1,65 @@
+<drac2>
+ch=character()
+cc = "Eye of Dagaz"
+cc1 = "Eye of Dagaz - Haste"
+cc2 = "Eye of Dagaz - Recover"
+aliasnm = "!eyeDagaz"
+foot = aliasnm + " - Created by DrakurRedragon for Jed"
+pic = "https://images.mysoulco.com/albums/Items/93bd79de1280691f0b2c594a28920957.jpg"
+cvarnm = "eyeDagaz"
+
+helptext = cc + "|Granted for services to Vanalir and her Mistress, the Eye of Dagaz was created by brilliant human wizard ages ago. He spent a lot of time making and perfecting it. Rumor has it that it was created by the wizard as a gift for his daughter, who struggled in magic but was hard worker. Due to unforeseen circumstances, the daughter never got to use the magic item. The wizard was too focused on making the magical item for her daughter that he failed to realize his daughter's ailing body. \n\n The item allows the wielder to cast Haste once per day without needing concentration, but when it subsides, the user takes two levels of exhaustion. \n\n The Eye also allows a user to recover spell slots equalling a total of 5 once per day, but this also causes 2 levels of exhaustion."
+
+usage = cc + " Usage|Use `!eyeDagaz haste` to cast haste without concentration. \n\n `!eyeDagaz recover 1 1 2` - Recover spell slots.  Enter each spell slot you wish to restore one after the other, repeating if needed."
+
+ch.create_cc_nx(cc1, 0, 1, "long", "bubble", None, 1, cc, cc, 1)
+ch.create_cc_nx(cc2, 0, 1, "long", "bubble", None, 1, cc, cc, 1)
+
+if not &ARGS&:
+	return f'embed -title "{cc}" -f "{helptext}" -f "{usage}" -footer "{foot}" -thumb {pic}'
+
+use = &ARGS&
+
+if use[0] == "recover":
+	ss=[0,0,0,0,0]
+	try:
+		ss[0] = int(use[1])
+	except:
+		ss[0] = 0
+	try:
+		ss[1] = int(use[2])
+	except:
+		ss[1] = 0
+	try:
+		ss[2] = int(use[3])
+	except:
+		ss[2] = 0
+	try:
+		ss[3] = int(use[4])
+	except:
+		ss[3] = 0
+	try:
+		ss[4] = int(use[5])
+	except:
+		ss[4] = 0
+	if ss[0]+ss[1]+ss[2]+ss[3]+ss[4] > 5:
+		return f'embed -title "{cc2}" -f "{cc2}|Attempting to recover more than 5 spell slots.  Please choose slots equal to or less than 5." -footer "{foot}" -thumb {pic}'
+	if ch.get_cc(cc2) == 0:
+			return f'embed -title {cc2} -f "{cc2}|Attempting to recover spell slots, but no uses of {cc2} remain." -footer {foot} -thumb {pic}'
+	else:
+		ssrec = ""
+		ch.mod_cc(cc2,-1)
+		for x in ss:
+			if ch.spellbook.get_slots(x) < ch.spellbook.get_max_slots(x):
+					ch.spellbook.set_slots(x,ch.spellbook.get_slots(x)+1,pact=False)
+					ssrec = ssrec + "Slot " + x + " recovered.  "
+		return f'embed -title "{cc2}" -f "{cc2}|{ssrec}" -f "{ssrec}, {ss}" -footer "{foot}" -thumb {pic}'
+elif use[0] == "haste":
+	if ch.get_cc(cc1) > 0:
+		ch.mod_cc(cc1,-1)
+		return f'cast haste -t {ch.name} -i -phrase "Using the Eye of Dagaz" -noconc'
+	else:
+		return f'embed -title "{cc1}" -f "{cc1}|Attempting to cast Haste with the Eye of Dagaz.  No counter remaining." -footer "{foot}" -thumb {pic}'
+else:
+	return f'embed -title "{cc}" -f "{helptext}" -f "{usage}" -footer "{foot}" -thumb {pic}'
+</drac2>
