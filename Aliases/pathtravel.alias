@@ -1,0 +1,24 @@
+<drac2>
+ch=character()
+tableroll = vroll("1d6")
+if tableroll == 1:
+    result = "Memory Fragment|Forget an NPC, Place, or Spell for a day"
+elif tableroll == 2:
+    result = "Oathburn|Disadvantage on all Oath-related actions for 2 posts"
+elif tableroll == 3:
+    result = "Temporal Ripple|Age forward or backward slightly (flavor only)"
+elif tableroll == 4:
+    result = "Echo Mark|Visibly makred by the journey for 7 days"
+elif tableroll == 5:
+    result = "Voice Splinter|A shadow of your voice speaks aloud"
+elif tableroll == 6:
+    result = "Shadow Passenger|A duplicate fragment wanders elsewhere"
+if not &ARGS&:
+    return f'embed -t {ch.name} travels the shards! -f "The Pathwound Networks take their toll|{result}" -footer "!pathtravel - Written for The Shattered Oathlands by DrakurRedragon"'
+else:
+    try:
+        a = int(&ARGS&)
+    except:
+        return "Provide a single number for your shard length distance"
+
+    

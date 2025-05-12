@@ -1,0 +1,84 @@
+embed
+<drac2>
+ch = character()
+hpstr = ch.hp_str()
+levellist =""
+ch.set_cvar_nx("subclass","{}")
+g = load_json(ch.get_cvar("subclass"))
+if any("Artificer" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Artificer " + "(" + g["ArtificerLevel"]  + ") " + ArtificerLevel + "\n"
+    except:
+        levellist = levellist + "Artificer " + ArtificerLevel + "\n"
+if any("Barbarian" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Barbarian " + "(" + g["BarbarianLevel"]  + ") " + BarbarianLevel + "\n"
+    except:
+        levellist = levellist + "Barbarian " + BarbarianLevel + "\n"
+    levellist = levellist + "Barbarian " + "(" + g["BarbarianLevel"]  + ") " + BarbarianLevel + "\n"
+if any("Bard" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Bard " + "(" + g["BardLevel"]  + ") " + BardLevel + "\n"
+    except:
+        levellist = levellist + "Bard " + BardLevel + "\n"   
+if any("Blood Hunter" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Blood Hunter " + "(" + g["BloodHunterLevel"]  + ") " + BloodHunterLevel + "\n"
+    except:
+        levellist = levellist + "Blood Hunter " + BloodHunterLevel + "\n"
+if any("Cleric" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Cleric " + "(" + g["ClericLevel"]  + ") " + ClericLevel + "\n"
+    except:
+        levellist = levellist + "Cleric " + ClericLevel + "\n"
+if any("Druid" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Druid " + "(" + g["DruidLevel"]  + ") " + DruidLevel + "\n"
+    except:
+        levellist = levellist + "Druid " + DruidLevel + "\n"
+if any("Fighter" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Fighter " + "(" + g["FighterLevel"]  + ") " + FighterLevel + "\n"
+    except:
+        levellist = levellist + "Fighter " + FighterLevel + "\n"
+if any("Monk" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Monk " + "(" + g["MonkLevel"]  + ") " + MonkLevel + "\n"
+    except:
+        levellist = levellist + "Monk " + MonkLevel + "\n"
+if any("Paladin" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Paladin " + "(" + g["PaladinLevel"]  + ") " + PaladinLevel + "\n"
+    except:
+        levellist = levellist + "Paladin " + PaladinLevel + "\n"
+if any("Ranger" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Ranger " + "(" + g["RangerLevel"]  + ") " + RangerLevel + "\n"
+    except:
+        levellist = levellist + "Ranger " + RangerLevel + "\n"
+if any("Rogue" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Rogue " + "(" + g["RogueLevel"]  + ") " + RogueLevel + "\n"
+    except:
+        levellist = levellist + "Rogue " + RogueLevel + "\n"
+if any("Sorcerer" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Sorcerer " + "(" + g["SorcererLevel"]  + ") " + SorcererLevel + "\n"
+    except:
+        levellist = levellist + "Sorcerer " + SorcererLevel + "\n"
+if any("Warlock" in x for x in character().levels):
+    try: 
+        levellist = levellist + "Warlock " + "(" + g["WarlockLevel"]  + ") " + WarlockLevel + "\n"
+    except:
+        levellist = levellist + "Warlock " + WarlockLevel + "\n"
+if any("Wizard" in x for x in character().levels):  
+    try: 
+        levellist = levellist + "Wizard " + "(" + g["WizardLevel"]  + ") " + WizardLevel + "\n"
+    except:
+        levellist = levellist + "Wizard " + WizardLevel + "\n"
+</drac2>
+-f "**{{ch.name}}** is signing up for a Quest!|**Quest:** &*&" 
+-f "Levels|{{levellist}}"
+-f "HP:|{{hpstr}}"
+-thumb {{ch.image}}
+-footer "!sup - Written for The Shattered Oathlands by DrakurRedragon"
