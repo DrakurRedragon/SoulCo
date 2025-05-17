@@ -1,0 +1,7 @@
+<drac2>
+ch=character()
+if ch.levels.get("Fighter",default=0) > 17:
+    return f'adv -d 2d6 -f "Iron Punisher|Melee attacks you make this turn are at advantage, but all attacks are made against you at advantage.  If you are 18th level or higher, you also add 2d6 damage to your attack."'
+else:
+    return f'adv -f "Iron Punisher|Melee attacks you make this turn are at advantage, but all attacks are made against you at advantage.  If you are 18th level or higher, you also add 2d6 damage to your attack."'
+</drac2>

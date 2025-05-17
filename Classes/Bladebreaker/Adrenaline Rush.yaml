@@ -1,0 +1,42 @@
+name: Second Wind (Blade Breaker)
+automation:
+  - type: counter
+    counter:
+      id: 1091
+      typeId: 222216831
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: damage
+        damage: -1d10-{FighterLevel} [heal]
+        overheal: false
+      - type: condition
+        condition: FighterLevel < 15
+        onTrue:
+          - type: text
+            text: You have a limited well of stamina that you can draw on to protect
+              yourself from harm. On your turn, you can use a bonus action to
+              regain hit points equal to 1d10 + your fighter level.
+            title: Second Wind
+        onFalse:
+          - type: counter
+            counter: Maneuver Points
+            amount: "- (FighterLevel/2)"
+            allowOverflow: false
+            errorBehaviour: warn
+          - type: text
+            text: >-
+              You have a limited well of stamina that you can draw on to protect
+              yourself from harm. On your turn, you can use a bonus action to
+              regain hit points equal to 1d10 + your fighter level.
+
+
+              At 15th level, the thrill of battle resonates magically within your body. When you use your Second Wind, you also regain maneuver points equal to half your fighter level.
+            title: Second Wind - Adrenaline Rush
+        errorBehaviour: "true"
+_v: 2
+proper: true
+verb: uses their
