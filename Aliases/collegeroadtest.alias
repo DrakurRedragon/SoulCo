@@ -1,0 +1,2 @@
+gvarload = get_gvar("436f32cc-b1f9-483c-a148-3b5554da798b")
+return f'attack import {gvarload}'

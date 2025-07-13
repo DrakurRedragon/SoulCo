@@ -1,0 +1,46 @@
+name: Lantern of the Last Line
+automation:
+  - type: target
+    target: self
+    effects:
+      - type: counter
+        counter: dummy
+        amount: "0"
+        errorBehaviour: ignore
+      - type: variable
+        name: healamt
+        value: lastCounterRequestedAmount
+        onError: "0"
+      - type: damage
+        damage: -{healamt}/2
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: cha
+        fail:
+          - type: ieffect2
+            name: Silenced
+            duration: "1"
+            end: true
+            desc: Silenced by the Lantern of the Last Line
+        success: []
+        dc: "13"
+  - type: text
+    text: >-
+      This small paper lantern, painted in layers of theatrical mask motifs,
+      casts shadows that seem to whisper back your own words. Once per long
+      rest, as a reaction when you are hit by an attack or fail a saving throw,
+      you may cause the lantern to flare briefly:
+
+
+      You gain resistance to all damage from the triggering source until the start of your next turn, and the attacker must succeed on a DC 13 Charisma saving throw or be silenced until the end of their next turn.
+
+
+      (Use `-amt damage` for the resistance effect.  Use `-t` to target the enemy who struck you.)
+_v: 2
+proper: true
+verb: resists with their
+activation_type: 4
+thumb: https://images.mysoulco.com/albums/Oathlands-Misc./wlant1.png
+phrase: “The scene ends only when I say so.”
