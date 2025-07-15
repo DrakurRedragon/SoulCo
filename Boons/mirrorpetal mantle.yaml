@@ -1,0 +1,49 @@
+!attack import name: Boon of the Mirrorpetal Mantle
+automation:
+  - type: counter
+    counter: Mirrorpetal Mantle
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Protected by Mirrorpetals
+        desc: "Protected by the Mirrorpetal Bloom.  +1 AC and "
+        duration: "10"
+        effects:
+          ac_bonus: "1"
+        attacks:
+          - attack:
+              _v: 2
+              name: Mirrorpetal Dance
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: save
+                      stat: cha
+                      fail:
+                        - type: ieffect2
+                          name: Charmed by {caster.name}
+                          duration: "1"
+                          end: true
+                      success: []
+                      dc: "13"
+                - type: text
+                  text: Once during this time, when an enemy misses her with an attack, she may
+                    use her reaction to draw the beauty further to charm her
+                    enemy, forcing them to make a DC 13 Charisma save or be
+                    charmed until the end of their next turn.
+              verb: distracts her enemy with
+              activation_type: 4
+  - type: text
+    text: Once per long rest, for 1 minute, she gains +1 to her AC as the petals and
+      veil distract her enemies.  Once during this time, when an enemy misses
+      her with an attack, she may use her reaction to draw the beauty further to
+      charm her enemy, forcing them to make a DC 13 Charisma save or be charmed
+      until the end of their next turn.
+    title: Boon of the Mirrorpetal Mantle
+_v: 2
+proper: true
+verb: calls upon her
