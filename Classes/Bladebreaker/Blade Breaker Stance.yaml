@@ -1,0 +1,174 @@
+name: Blade Breaker Stance
+automation:
+  - type: condition
+    condition: choice == "iron"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Blade Breaker Stance
+            duration: null
+            effects: null
+            attacks: []
+            buttons: []
+            end: false
+            conc: false
+            desc: Iron Punisher - All your melee attacks have advantage, but all attacks
+              against you are at advantage as well. If you are 18th level or
+              higher, you also deal an extra 2d6 damage.
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "steel"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: condition
+            condition: fighterLevel > 17
+            onTrue:
+              - type: ieffect2
+                name: Blade Breaker Stance
+                duration: null
+                effects: null
+                attacks: []
+                buttons: []
+                end: false
+                conc: false
+                desc: Steel Serpent - Reach increased by 5 ft
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+            onFalse:
+              - type: ieffect2
+                name: Blade Breaker Stance
+                duration: null
+                effects: null
+                attacks: []
+                buttons: []
+                end: false
+                conc: false
+                desc: Steel Serpent - Reach increases by 5 ft on your turn
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+            errorBehaviour: "false"
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "mithral"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: ieffect2
+            name: Blade Breaker Stance
+            duration: null
+            effects:
+              save_adv:
+                - dex
+            attacks: []
+            buttons: []
+            end: false
+            conc: false
+            desc: Weightless Mithral - Advantage on Dexterity Saves. At 18th level, can use
+              dodge as a bonus action.
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "adamantine"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Blade Breaker Stance
+            duration: null
+            effects: null
+            attacks:
+              - attack:
+                  name: Adamantine Bull - Push
+                  automation:
+                    - type: target
+                      target: all
+                      effects:
+                        - type: condition
+                          condition: strengthMod > dexterityMod
+                          onTrue:
+                            - type: save
+                              stat: str
+                              fail:
+                                - type: text
+                                  text: ""
+                                  title: Target Pushed!
+                              success:
+                                - type: text
+                                  text: ""
+                                  title: Target not pushed
+                              dc: 8 + strengthMod + proficiencyBonus
+                          onFalse:
+                            - type: save
+                              stat: str
+                              fail:
+                                - type: text
+                                  text: ""
+                                  title: Target Pushed
+                              success:
+                                - type: text
+                                  text: ""
+                                  title: Target not pushed
+                              dc: 8 + dexterityMod + proficiencyBonus
+                          errorBehaviour: "false"
+                  _v: 2
+                  verb: reacts with
+                  activation_type: 4
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            buttons: []
+            end: false
+            conc: false
+            desc: Adamantine Bull - as a reaction, push a target that hit you with a melee
+              attack up to 5 ft. At 18th level, that increases to 10 ft
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Set your Blade Breaker stance (when initiative begins) and change it as
+      necessary during combat (as a bonus action).
+
+
+      `-choice iron` - Iron Punisher (also use the snippet `punisher` on your attacks while in this stance) - All your melee attacks have advantage, but all attacks against you are at advantage as well. If you are 18th level or higher, you also deal an extra 2d6 damage.
+
+
+      `-choice steel` - Steel Serpent - Your attacks have 5 ft more reach on your turn. Once you reach 18th level, this applies on all turns.
+
+
+      `-choice mithral` - Weightless Mithral - You have advantage on dexterity saves. Once you reach 18th level, you can use dodge as a bonus action
+
+
+      `-choice adamantine` - Adamantine Bull - When you are hit with a melee attack, you can use your reaction to push it away. It must make a Strength Saving throw or be pushed 5 ft away. At 18th level, this increases to 10 ft.
+    title: Bladebreaker Stance
+_v: 2
+proper: true
+verb: adjusts their

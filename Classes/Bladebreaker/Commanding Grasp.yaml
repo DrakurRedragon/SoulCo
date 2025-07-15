@@ -1,0 +1,107 @@
+name: Commanding Grasp
+automation:
+  - type: condition
+    condition: FighterLevel < 18
+    onTrue:
+      - type: counter
+        counter: Maneuver Points
+        amount: "2"
+        allowOverflow: false
+        errorBehaviour: raise
+    onFalse:
+      - type: condition
+        condition: caster.hp < (caster.max_hp/2)
+        onTrue:
+          - type: counter
+            counter: Maneuver Points
+            amount: "1"
+            allowOverflow: false
+            errorBehaviour: raise
+        onFalse:
+          - type: counter
+            counter: Maneuver Points
+            amount: "2"
+            allowOverflow: false
+            errorBehaviour: raise
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: bbmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: bbmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: str
+        fail:
+          - type: ieffect2
+            name: Grappling
+            duration: null
+            effects: null
+            attacks: []
+            buttons:
+              - label: End Grapple
+                automation:
+                  - type: remove_ieffect
+                verb: null
+                style: "2"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: grappling
+            parent: null
+            target_self: true
+            tick_on_caster: false
+          - type: ieffect2
+            name: Grappled by {name}
+            duration: null
+            effects: null
+            attacks: []
+            buttons:
+              - label: Attempt to Break Grapple (Action)
+                automation:
+                  - type: target
+                    target: self
+                    effects:
+                      - type: save
+                        stat: str
+                        fail: []
+                        success:
+                          - type: remove_ieffect
+                verb: null
+                style: "4"
+                defaultDC: bbmod
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: grappling
+            target_self: false
+            tick_on_caster: false
+        success: []
+        dc: 8 + bbmod + proficiencyBonus
+  - type: text
+    text: As an action, you can spend 2 maneuver points and attempt to grab a
+      creature at a distance. Choose a creature of your size or smaller within
+      30 feet that you can see. The target must succeed on a Strength saving
+      throw or be teleported to an unoccupied space next to you and become
+      grappled by you.
+    title: Effect
+_v: 2
+proper: true
+verb: reaches out with their

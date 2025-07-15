@@ -1,0 +1,60 @@
+name: Wall of Blades
+automation:
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: condition
+        condition: FighterLevel < 18
+        onTrue:
+          - type: counter
+            counter: Maneuver Points
+            amount: "2"
+            errorBehaviour: raise
+        onFalse:
+          - type: condition
+            condition: caster.hp < (caster.max_hp/2)
+            onTrue:
+              - type: counter
+                counter: Maneuver Points
+                amount: "1"
+                errorBehaviour: raise
+            onFalse:
+              - type: counter
+                counter: Maneuver Points
+                amount: "2"
+                errorBehaviour: raise
+      - type: text
+        text: >-
+          When you are hit with a weapon attack, you can use your reaction and spend
+          2 maneuver points to make a weapon attack against the creature
+          attacking you. You can replace your AC with the result of this attack
+          roll until the beginning of your next turn, including against the
+          triggering attack, potentially causing it to miss.
+
+
+          (Once you've made the attack roll, reuse this attack with `-choice #`, replacing # with the attack roll if you wish to use it for your AC)
+    onFalse:
+      - type: variable
+        name: changeac
+        value: choice
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Wall of Blades - AC Change
+            duration: "1"
+            effects:
+              ac_value: changeac
+      - type: text
+        text: >-
+          When you are hit with a weapon attack, you can use your reaction and spend
+          2 maneuver points to make a weapon attack against the creature
+          attacking you. You can replace your AC with the result of this attack
+          roll until the beginning of your next turn, including against the
+          triggering attack, potentially causing it to miss.
+
+
+          AC changed to {changeac}
+_v: 2
+proper: false
+activation_type: 4

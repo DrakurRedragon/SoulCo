@@ -1,0 +1,30 @@
+name: Iron Tempest
+automation:
+  - type: condition
+    condition: FighterLevel < 18
+    onTrue:
+      - type: counter
+        counter: Maneuver Points
+        amount: "4"
+        errorBehaviour: raise
+    onFalse:
+      - type: condition
+        condition: caster.hp < (caster.max_hp/2)
+        onTrue:
+          - type: counter
+            counter: Maneuver Points
+            amount: "3"
+            errorBehaviour: raise
+        onFalse:
+          - type: counter
+            counter: Maneuver Points
+            amount: "4"
+            errorBehaviour: raise
+  - type: text
+    text: As an action, you can spend 4 maneuver points and make a weapon attack
+      against a creature. Until the end of your turn, whenever you hit with a
+      weapon attack, it deals 2d6 additional damage and you can make an
+      additional {proficiencyBonus} attacks, but each bonus attack must be
+      against a different target.
+_v: 2
+proper: false
