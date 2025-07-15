@@ -1,0 +1,39 @@
+name: Boon of Mercy's Flame
+automation:
+  - type: counter
+    counter: Mercy's Flame
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: all
+    effects:
+      - type: ieffect2
+        name: Stunned by Mercy's Flame
+        duration: "1"
+        end: true
+      - type: damage
+        damage: -(-{target.hp}+1)
+  - type: target
+    target: self
+    effects:
+      - type: temphp
+        amount: "10"
+  - type: text
+    text: >-
+      Once per long rest, when Rolan reduces a creature to 0 HP with a melee
+      weapon attack, he may choose instead to leave them at 1 HP and render them
+      stunned until the end of their next turn.
+
+
+      During this stunned condition, Rolan (or an ally) has advantage on Insight checks against them.
+
+      If Rolan offers this mercy, he gains 10 temporary hit points and advantage on his next Persuasion or Religion check related to redemption or penance.
+
+
+      This is Kaelreth's echo at work—mercy offered at the blade's edge. It allows Rolan to walk the razorline between vengeance and grace.
+_v: 2
+proper: true
+verb: spares their enemy with
+activation_type: 2
+phrase: '"One hand struck. The other still reaches."'
+thumb: https://images.mysoulco.com/albums/Oathlands-Misc./rboom2.png

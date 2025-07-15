@@ -1,0 +1,67 @@
+<drac2>
+
+ch = character()
+c = combat()
+amt = 0
+shift = 0
+wage = 0
+foot = "!guild, created by DrakurRedragon for SoulCo"
+
+if not &ARGS&:
+	return f'embed -title "Guild Management" -f "Working a Job|Members use this alias to work their guild job shifts.  Note that this uses the same cooldown timer as regular `!job`, so you cannot work twice.  It will add a combat tracker for the guild master or treasurer to be able to collect the money you have earned for the guild.  It will also add the money for your own work to your coinpurse.\n\n `!guild work skill` to work." -f "Collecting|Guild masters or treasurers can run `!guild collect` to collect the money.  It will tell you how much you have earned.  If you would like to use the built in CC, you can do `!guild collect auto`." -f "Guild Dues|`!guild dues #` will tell you how much you need to pay per week for # members.  `!guild dues # auto` will automatically deduct it from the built in CC." -footer "{foot}"'
+
+a = &ARGS&
+aa = argparse(&ARGS&)
+
+if a[0] == "work":
+	cooldown = get_svar("jobCooldown",28800)
+	lastwork = ch.get_cvar("last_job",0)
+	mult = float(get_svar("wageMultiplier",.25))
+	if time() < float(cooldown) + float(lastwork):
+		return f'embed -title "Dont Overwork Yourself" -f "You just worked, return later.  You can work one job every four hours." -footer "{foot}"'
+	else:
+		current = time()
+		ch.set_cvar("last_job",current)
+	if not a[1]:
+		return "You need to select a skill."
+	else:
+		skill = ([x for x,y in ch.skills if '&2&'.lower().replace(' ','') in x.lower()]+['perception'])[0]
+		adv = aa.adv(boolwise=True)
+		reroll_number = ch.csettings.get("reroll", None)
+		minimum_check = aa.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof>=1 else None)
+		bonus = (''.join(aa.get('b', type_=lambda x: "+"+x if x[0] not in "+-" else x))) + ('+1d4' if aa.get('guidance') else '')
+		r = vroll(ch.skills[skill].d20(adv, reroll_number, minimum_check)+bonus)
+		wage = int(r.total * mult)
+		ch.coinpurse.modify_coins(0,wage,0,0,0)
+		if not combat():
+			return f'multiline\n!init begin\n!i madd goblin -name "{name} worked #" -note {wage}\n!embed -title "Guild Job Completed" -f "{skill}|{r} \n\n You completed the work for the guild, earning yourself {wage} gp.  It has been added to your coinpurse." -footer "{foot}"'
+		else:
+			return f'multiline\n!i madd goblin -name "{name} worked #" -note {wage}\n!embed -title "Guild Job Completed" -f "{skill}|{r} \n\n You completed the work for the guild, earning yourself {wage} gp.  It has been added to your coinpurse." -footer "{foot}"'
+elif a[0] == "collect":
+	for x in c.combatants:
+		amt = amt + int(x.note)
+		shift = shift + 1
+		x.set_hp(0)
+	try:
+		a[1] == "auto"
+		ch.create_cc_nx("Guild Funds", 0, None, None, None, None, None, "Guild Funds", "The amount of guild funds automatically tracked by the `!guild` alias", 0)
+		ch.mod_cc("Guild Funds",amt)
+		gf = ch.get_cc("Guild Funds")
+		return f'multiline\n!i round 0\n!embed -title "Guild Shifts" -f "Shifts Completed|{shift}" -f "Total Gold Collected|{amt} has been added to your Guild Funds CC." -f "Guild Funds|{gf}" -footer "{foot}"'
+	except:
+		return f'multiline\n!i round 0\n!embed -title "Guild Shifts" -f "Shifts Completed|{shift}" -f "Total Gold Collected|{amt}" -footer "{foot}"'
+elif a[0] == "dues":
+	dueper = get_svar("duesPerMember",500)
+	amt = int(a[1])*dueper
+	try:
+		a[2] == "auto"
+		gf = int(ch.get_cc("Guild Funds"))
+		if amt > gf:
+			return f'embed -title "Dues Owed" -f "Amount: {amt}|You dont have enough!  Current amount: {gf} gp." -footer "{foot}"'
+		else:
+			ch.mod_cc("Guild Funds", -amt)
+			gf = int(ch.get_cc("Guild Funds"))
+			return f'embed -title "Dues Owed" -f "Amount: {amt}|This has been automatically deducted from your guild funds CC.  Current funds remaining: {gf}" -footer "{foot}"'
+	except:
+		return f'embed -title "Dues Owed" -f "Amount: {amt}|Please deduct from your tracking method." -footer "{foot}"'
+</drac2>
