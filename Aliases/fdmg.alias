@@ -1,0 +1,30 @@
+!servalias fdmg <drac2>
+dmg0 = 0
+dmg1 = 0
+dmg2 = 0
+dmge = 0
+
+if not &ARGS&:
+    rollcount = 1
+else:
+    a=&ARGS&
+    rollcount = int(a[0])
+
+for i in range(rollcount):
+    xroll = roll('1d6')
+    if xroll == 1:
+        dmg1 += 1
+    elif xroll == 2:
+        dmg2 += 1
+    elif xroll == 3:
+        dmg0 += 1
+    elif xroll == 4:
+        dmg0 += 1
+    elif xroll == 5:
+        dmge += 1
+    elif xroll == 6:
+        dmge += 1
+    else:
+        return f"Invalid roll: {xroll}"
+return f'embed -title "Damage Roll" -desc "You rolled {rollcount}d6 and got:\n{dmg0} - 0 damage\n{dmg1} - 1 damage\n{dmg2} - 2 damage\n{dmge} - effects\nTotal: {dmg2 + dmg1 + dmg2 + dmge} damage and {dmge} effects." -footer "!fdmg # - rolling damage dice"'
+</drac2>

@@ -1,0 +1,30 @@
+[
+{
+"ID":1411707948954288218,
+"Room":"Reedbunk Alcoves",
+"Des":"Simple cots in curtained nooks (1 cot per alcove). Clean enough, quiet-ish.",
+"Price":12,
+"Coin":"gp"
+},
+{
+"ID":1411707948954288218,
+"Room":"Timberwatch Rooms",
+"Des":"Private rooms with cedar shutters, a writing desk, and a wool quilt. Fitted with a single twin bed.",
+"Price":28,
+"Coin":"gp"
+},
+{
+"ID":1411707948954288218,
+"Room":"Bowroom",
+"Des":"Spacious upper rooms with private latrines and bell-service. Rooms contain either one queen bed or two doubles—ask at check-in.",
+"Price":50,
+"Coin":"gp"
+},
+{
+"ID":1411707948954288218,
+"Room":"Wayfarer's Suite",
+"Des":"A private wing with a hearth, copper tub, lakeside balcony, and a single king-sized bed. Only one available.",
+"Price":100,
+"Coin":"gp"
+}
+]

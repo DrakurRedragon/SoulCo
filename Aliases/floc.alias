@@ -1,0 +1,17 @@
+!servalias floc <drac2>
+loc = ""
+xroll = roll('1d20')
+if xroll < 3:
+    loc = "Head"
+elif xroll < 9:
+    loc = "Torso"
+elif xroll < 12:
+    loc = "Left Arm"
+elif xroll < 15:
+    loc = "Right Arm"
+elif xroll < 18:
+    loc = "Left Leg"
+else:
+    loc = "Right Leg"
+return f'embed -title "Hit Location" -desc "You rolled a {xroll} and hit the {loc}." -footer "!floc - Rolling hit location"'
+</drac2>

@@ -1,0 +1,59 @@
+[{
+    "name": "The Basin",
+    "type": "Temperate Lakes & Lowlands",
+    "visibility": "Variable — clear in mornings, mist along shorelines by dusk",
+    "languages": "Common, Sylvan",
+    "DCs": {
+        "foraging": 10,
+        "identification": 15,
+        "navigation": 12
+    },
+    "special": [
+        {
+            "name": "Lake Fog",
+            "desc": "Dense fog rolls across the Basin at dawn and dusk. Visibility drops to 30 feet for {{1d4}} hours. Creatures relying on sight have disadvantage on Wisdom (Perception) checks."
+        },
+        {
+            "name": "Reflected Dreams",
+            "desc": "When moonlight strikes still Basin waters, reflections sometimes move of their own accord. A creature that stares for more than a minute must succeed on a DC 12 Wisdom saving throw or experience vivid dreams that night, granting either inspiration or one portent-like vision at DM discretion."
+        },
+        {
+            "name": "Stillwater Echo",
+            "desc": "During calm weather, voices carry across the Basin unnaturally far. Any shouted word can be heard up to 600 feet away if the listener is near open water."
+        }
+    ],
+    "weather": {
+        "temp": {
+            "winter": ["2d6 + 25", "1d6 + 15"],
+            "spring": ["3d6 + 50", "2d6 + 40"],
+            "summer": ["4d6 + 70", "3d6 + 55"],
+            "fall": ["3d6 + 45", "2d6 + 35"]
+        },
+        "wind": {
+            "10": "Still air — smoke drifts upward in thin spirals.",
+            "15": "Gentle breeze — rustling reeds and lapping waves.",
+            "19": "Brisk wind — choppy waters, loose shutters creak.",
+            "20": "Strong wind — stormfront forming, waves white-capped."
+        },
+        "precipitation": {
+            "6": "Clear skies; scattered clouds and bright sunlight.",
+            "10": "Overcast or light fog drifting over the lake.",
+            "14": "Light rain or drizzle; rippling puddles and damp air.",
+            "17": "Steady rain or sleet; distant thunder murmurs.",
+            "19": "Heavy rain or hailstorm; flooding along riverbanks.",
+            "20": "Snowfall or frost — early or late seasonal flurry."
+        }
+    },
+    "foraging": {
+        "10": "{{2d6}} freshwater fish (perch, trout, or bream)",
+        "20": "{{1d6}} river eels or frogs",
+        "30": "{{1d4}} ducks or geese",
+        "40": "{{1d6}} rabbits or small game",
+        "50": "{{1d4}} medicinal herbs (calmroot, frostleaf)",
+        "60": "{{1d4}} bushels of wild grain or edible roots",
+        "70": "1 large game animal (deer, boar)",
+        "80": "1 giant frog or giant fish",
+        "90": "1 water weird (DM discretion)",
+        "100": "1 guardian spirit of the Basin, born from Vaeloras dream"
+    }
+}]

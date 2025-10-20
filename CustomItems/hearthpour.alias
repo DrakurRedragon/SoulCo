@@ -1,0 +1,85 @@
+<drac2>
+
+ch = character()
+
+try: 
+    c=combat()
+except: 
+    c=0
+tablea = ["Heals 1d8 + 2 HP and ends one: charmed, frightened, poisoned, or 1 level of exhaustion.",
+          "Ends charmed or frightened. Advantage on Insight checks for 10 minutes.",
+          "Ends poisoned. Immune to frightened for 1 hour.",
+          "Next healing spell cast within 1 min restores max HP.",
+          "If taken before short rest, gain 1 additional hit die to spend.",
+          "Grants resistance to cold damage for 1 hour.",
+          "Immune to magical sleep. +1 to saves vs charm for 1 hour.",
+          "Heals 1d4 HP and removes blinded or deafened.",
+          "Perfect recall of any spoken phrase heard in last 24 hours for 10 minutes.",
+          "Immune to detect thoughts and similar effects for 1 hour."]
+
+if not &ARGS&:
+    return f'embed -title "Hearthpour Decanter" -thumb "https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png" -f "The decanter has 3 charges, and regains 1d3 charges daily at dawn. As an action, a creature can speak a word of comfort and pour a restorative liquid, rolling on or choosing from the Comforting Brews Table below. The decanter always produces a full serving of the chosen liquid. Use `!hearthpour random` for a random choice.  Otherwise, use `!hearthpour name`, using the name mentioned in the table.  If you are using a brew, use `!hearthpour use name` instead." -f "Brew Table|Mistmoss Draught (`mistmoss`) - Heals 1d8 + 2 HP and ends one: charmed, frightened, poisoned, or 1 level of exhaustion. 
+    Sunroot Clarity Tea (`sunroot`) - Ends charmed or frightened. Advantage on Insight checks for 10 minutes.
+    Silent Star Cordial (`silentstar`) - Ends poisoned. Immune to frightened for 1 hour.
+    Waveroot Tonic (`waveroot`) - Next healing spell cast within 1 min restores max HP.
+    Ash-Spiced Dreammilk (`ashspiced`) - If taken before short rest, gain 1 additional hit die to spend.
+    Stormrest Toddy (`stormrest`) - Grants resistance to cold damage for 1 hour.
+    Hearthwind Infusion (`hearthwind`) - Immune to magical sleep. +1 to saves vs charm for 1 hour.
+    Emberpetal Syrup (`emberpetal`) - Heals 1d4 HP and removes blinded or deafened.
+    Mirrormint Nectar (`mirrormint`) - Perfect recall of any spoken phrase heard in last 24 hours for 10 minutes.
+    Echo-Quiet Elixir (`echoquiet`) - Immune to detect thoughts and similar effects for 1 hour." -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+
+a = &ARGS&
+
+if a[0].lower() == "random":
+    brews = [mistmoss, sunroot, silentstar, waveroot, ashspiced, stormrest, hearthwind, emberpetal, mirrormint, echoquiet]
+    brew = random.choice(brews)
+else:
+    brew = a[0]
+
+if brew.lower() == "mistmoss":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Mistmoss Draught from the decanter, which heals 1d8 + 2 HP and ends one: charmed, frightened, poisoned, or 1 level of exhaustion." -f "Brew|Mistmoss Draught" -f "Effect|Heals 1d8 + 2 HP and ends one: charmed, frightened, poisoned, or 1 level of exhaustion." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+
+elif brew.lower() == "sunroot":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Sunroot Clarity Tea from the decanter, which ends charmed or frightened. You gain advantage on Insight checks for 10 minutes." -f "Brew|Sunroot Clarity Tea" -f "Effect|Ends charmed or frightened. Advantage on Insight checks for 10 minutes." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "silentstar":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Silent Star Cordial from the decanter, which ends poisoned. You become immune to frightened for 1 hour." -f "Brew|Silent Star Cordial" -f "Effect|Ends poisoned. Immune to frightened for 1 hour." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "waveroot":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Waveroot Tonic from the decanter, which ensures that the next healing spell cast within 1 minute restores maximum HP." -f "Brew|Waveroot Tonic" -f "Effect|Next healing spell cast within 1 min restores max HP." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "ashspiced":
+    return  f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Ash-Spiced Dreammilk from the decanter, which, if taken before a short rest, grants you 1 additional hit die to spend." -f "Brew|Ash-Spiced Dreammilk" -f "Effect|If taken before short rest, gain 1 additional hit die to spend." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "stormrest":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Stormrest Toddy from the decanter, which grants you resistance to cold damage for 1 hour." -f "Brew|Stormrest Toddy" -f "Effect|Grants resistance to cold damage for 1 hour." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "hearthwind":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Hearthwind Infusion from the decanter, which makes you immune to magical sleep and grants +1 to saves against charm effects for 1 hour." -f "Brew|Hearthwind Infusion" -f "Effect|Immune to magical sleep. +1 to saves vs charm for 1 hour." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "emberpetal":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Emberpetal Syrup from the decanter, which heals 1d4 HP and removes blinded or deafened conditions." -f "Brew|Emberpetal Syrup" -f "Effect|Heals 1d4 HP and removes blinded or deafened." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "mirrormint":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Mirrormint Nectar from the decanter, which grants you perfect recall of any spoken phrase heard in the last 24 hours for 10 minutes." -f "Brew|Mirrormint Nectar" -f "Effect|Perfect recall of any spoken phrase heard in last 24 hours for 10 minutes." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+elif brew.lower() == "echoquiet":
+    return f'embed -title "Hearthpour Decanter" -desc "You pour a serving of Echo-Quiet Elixir from the decanter, which makes you immune to detect thoughts and similar effects for 1 hour." -f "Brew|Echo-Quiet Elixir" -f "Effect|Immune to detect thoughts and similar effects for 1 hour." -thumb https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+else:
+    return f'embed -title "Hearthpour Decanter - invalid brew" -desc "You must choose a valid brew from the list.  Use `!hearthpour` to see the list of brews." -thumb "https://images.mysoulco.com/albums/Oathlands-Misc./hpd2.png" -footer "Created by Drakur Redragon for the Shattered Oathlands"'
+
+if a[0].lower() == "use":
+    if brew.lower() == "mistmoss":
+        
+    elif brew.lower() == "sunroot":
+        
+    elif brew.lower() == "silentstar":
+        
+    elif brew.lower() == "waveroot":
+        
+    elif brew.lower() == "ashspiced":
+        
+    elif brew.lower() == "stormrest":
+        
+    elif brew.lower() == "hearthwind":
+       
+    elif brew.lower() == "emberpetal":
+        
+    elif brew.lower() == "mirrormint":
+        
+    elif brew.lower() == "echoquiet":
+        
+</drac2>
