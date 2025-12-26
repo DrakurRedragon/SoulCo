@@ -1,0 +1,48 @@
+<drac2>
+ch = character()
+ccname = "Goodberries"
+if not &ARGS&:
+    foot = "!goodberry, created by DrakurRedragon for Hearthmere"
+    return f'embed -title "Goodberry Alias" -f "Usage|`!goodberry -t target #` to use goodberry on a target, creating # goodberries.  Each goodberry can heal 1 HP when eaten, and the berries last for 24 hours.  You must have the goodberry spell prepared or known to use this alias." -footer "{foot}"'
+a = &ARGS&
+argsp = argparse(a)
+
+if "-t" in argsp:
+    target_name = argsp.last("-t")
+else:
+    target_name = ch.name
+if "-l" in argsp:
+    lvl = int(argsp.last("-l"))
+else:
+    lvl = 1
+
+if a[0] == "cast":
+    if "-i" in argsp:
+        ch.create_cc(ccname, 0, 10, "long", "bubble", 0, None, ccname, "The number of Goodberries left",10)
+        return f'cast "Goodberry" -l {lvl} -phrase "{ch.cc(ccname)} goodberries remain." -i'
+    if ch.spellbook.can_cast("Goodberry",lvl):
+        ch.create_cc(ccname, 0, 10, "long", "bubble", 0, None, ccname, "The number of Goodberries left",10)
+        return f'cast "Goodberry" -l {lvl} -phrase "{ch.cc(ccname)} goodberries remain."'
+    else:
+        return  f'embed -title "Goodberry Alias" -desc "You cannot cast Goodberry prepared at level {lvl}."'
+if a[0] == "use":
+    if "Life" in ch.get_cvar("subclass"):
+        hpheal = 4
+    else:
+        hpheal = 1
+    try:
+        c = combat()
+        target = c.get_combatant(target_name)
+        target.modify_hp(hpheal)
+        ch.mod_cc(ccname, -1)
+        return f'embed -title "Goodberry Used" -desc "{ch.name} feeds {target.name} a goodberry and heals them for {hpheal} HP!  {ch.cc(ccname)} goodberries remain. C"'
+    except:
+        if target_name == ch.name:
+            ch.modify_hp(hpheal)
+            ch.mod_cc(ccname, -1)
+            return f'embed -title "Goodberry Used" -desc "{ch.name} eats a goodberry and heals {hpheal} HP!  {ch.cc(ccname)} goodberries remain. NONE CH"'
+        else:
+            ch.mod_cc(ccname, -1)
+            return f'embed -title "Goodberry Used" -desc "{ch.name} feeds {target_name} a goodberry and heals them for {hpheal} HP!  {ch.cc(ccname)} goodberries remain. NOTE: Target must manually adjust their HP as they are not in combat NONE TARG"'
+
+</drac2>

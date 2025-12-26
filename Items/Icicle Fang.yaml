@@ -1,0 +1,49 @@
+name: Icicle Fang
+automation:
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d4 + {weapmod} + 1[piercing] + 1[cold]
+            overheal: false
+          - type: condition
+            condition: choice == "bite"
+            onTrue:
+              - type: ieffect2
+                name: Biting Cold
+                duration: "1"
+                tick_on_caster: true
+                desc: Speed reduced by 5 ft
+            onFalse: []
+        miss: []
+        attackBonus: weapmod + proficiencyBonus + 1
+  - type: text
+    text: >-
+      This dagger is carved from ever-frozen crystal. Its edge leaves a pale rim
+      of frost in the air when it moves.
+
+
+      You gain a +1 bonus to attack and damage rolls made with this magic weapon.
+
+
+      On a hit, the target takes +1 cold damage.
+
+
+      Biting Cold: The first creature you hit with this dagger on your turn has its speed reduced by 5 feet until the start of your next turn. (use `-choice bite` to add an initative effect for reminder)
+    title: Effect
+_v: 2
+proper: true
+thumb: https://images.mysoulco.com/albums/Hearthmere-Items/fangd1.png

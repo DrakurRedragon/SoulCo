@@ -1,0 +1,229 @@
+name: Horn of the Rooted Table
+automation:
+  - type: condition
+    condition: choice == "alarm"
+    onTrue:
+      - type: counter
+        counter: Horn of the Rooted Table - Alarm
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: ieffect2
+            name: Silent Alarm
+            duration: "1"
+            effects: null
+            attacks: []
+            buttons: []
+            end: true
+            conc: false
+            desc: Adv on the next roll made
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+      - type: text
+        text: As an action, blow the horn. Up to 6 allies within 60 feet are silently
+          alerted and gain advantage on their next action.  This can be used a
+          number of times equal to the wielder's proficiency bonus, regaining
+          all uses on a long rest.
+        title: Silent Alarm
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == "feastbind"
+    onTrue:
+      - type: counter
+        counter: Horn of the Rooted Table - Feastbind
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: condition
+        condition: level > 9
+        onTrue:
+          - type: target
+            target: all
+            effects:
+              - type: ieffect2
+                name: Feastbind
+                duration: null
+                effects: null
+                attacks:
+                  - attack:
+                      name: Shared Healing
+                      automation:
+                        - type: counter
+                          counter: dummy
+                          amount: "0"
+                          allowOverflow: false
+                          errorBehaviour: ignore
+                        - type: target
+                          target: self
+                          effects:
+                            - type: damage
+                              damage: "{lastCounterRequestedAmount}"
+                              overheal: false
+                        - type: target
+                          target: all
+                          effects:
+                            - type: damage
+                              damage: -{lastCounterRequestedAmount}
+                              overheal: false
+                        - type: text
+                          text: >-
+                            For 8 hours, bonded allies may share healing (one may use their reaction
+                            to forego healing and let another nearby gain it
+                            instead). 
+
+
+                            (use `!a shared -amt # -t ally` to remove the healing from yourself and grant it targeted ally)
+                          title: Effect
+                      _v: 2
+                      proper: true
+                      verb: shares their boon with
+                      activation_type: 4
+                    defaultDC: null
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                  - attack:
+                      name: Rooted Table - Death's Denial
+                      automation:
+                        - type: target
+                          target: all
+                          effects:
+                            - type: damage
+                              damage: -(1d6+{wisdomMod})
+                              overheal: false
+                        - type: text
+                          text: Once per day, when a bonded ally falls to 0 HP, one other bonded creature
+                            within 30 feet may immediately use their reaction to
+                            heal them for 1d6 + Wisdom modifier.
+                          title: Effect
+                      _v: 2
+                      proper: true
+                      verb: calls upon their
+                      activation_type: 4
+                    defaultDC: null
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                buttons: []
+                end: false
+                conc: false
+                desc: null
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: ieffect2
+                name: Feastbind
+                duration: null
+                effects: null
+                attacks:
+                  - attack:
+                      name: Shared Healing
+                      automation:
+                        - type: counter
+                          counter: dummy
+                          amount: "0"
+                          allowOverflow: false
+                          errorBehaviour: ignore
+                        - type: target
+                          target: self
+                          effects:
+                            - type: damage
+                              damage: "{lastCounterRequestedAmount}"
+                              overheal: false
+                        - type: target
+                          target: all
+                          effects:
+                            - type: damage
+                              damage: -{lastCounterRequestedAmount}
+                              overheal: false
+                        - type: text
+                          text: >-
+                            For 8 hours, bonded allies may share healing (one may use their reaction
+                            to forego healing and let another nearby gain it
+                            instead). 
+
+
+                            (use `!a shared -amt # -t ally` to remove the healing from yourself and grant it targeted ally)
+                          title: Effect
+                      _v: 2
+                      proper: true
+                      verb: shares their boon with
+                      activation_type: 4
+                    defaultDC: null
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                buttons: []
+                end: false
+                conc: false
+                desc: null
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+        errorBehaviour: "false"
+      - type: text
+        text: >-
+          Once per long rest, if the horn is sounded within 10 feet of a shared meal
+          or cooking fire, all participants may bond:
+
+          • For 8 hours, bonded allies may share healing (one may use their reaction to forego healing and let another nearby gain it instead).
+
+          • They may also communicate short emotions or images telepathically (like flavors, memories, or a sense of direction).
+
+
+          Rare Upgrade:
+
+
+          Once per day, when a bonded ally falls to 0 HP, one other bonded creature within 30 feet may immediately use their reaction to heal them for 1d6 + Wisdom modifier.
+        title: Ceremony Effect — Feastbind
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: text
+        text: >-
+          This horn is carved from bone and dark elderwood, with little grooves like
+          cutlery marks. It smells faintly of broth and bay leaves.
+
+
+          Silent Alarm Effect (Shared Base): (`!a horn -choice alarm -t ally`)
+
+
+          As an action, blow the horn. Up to 6 allies within 60 feet are silently alerted and gain advantage on their next action.  This can be used a number of times equal to the wielder's proficiency bonus, regaining all uses on a long rest.
+
+
+          Ceremony Effect — Feastbind (`!a horn -choice feastbind -t ally`)
+
+
+          Once per long rest, if the horn is sounded within 10 feet of a shared meal or cooking fire, all participants may bond:
+
+          • For 8 hours, bonded allies may share healing (one may use their reaction to forego healing and let another nearby gain it instead).
+
+          • They may also communicate short emotions or images telepathically (like flavors, memories, or a sense of direction).
+
+
+          Rare Upgrade:
+
+
+          Once per day, when a bonded ally falls to 0 HP, one other bonded creature within 30 feet may immediately use their reaction to heal them for 1d6 + Wisdom modifier.
+        title: Effect
+    onFalse: []
+    errorBehaviour: "true"
+_v: 2
+proper: true
+verb: calls upon their
+phrase: “Food isn’t sacred for the taste—it’s sacred for who you feed.”
+thumb: https://images.mysoulco.com/albums/Hearthmere-Items/rthorn1.png
