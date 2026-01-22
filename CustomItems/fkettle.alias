@@ -1,0 +1,28 @@
+<drac2>
+#variables
+cast_args="""&*&"""
+ch=character()
+cc="Elysia's Field Kettle"
+txt = "Functions as Alchemist’s Supplies and Cook’s Utensils.\nMay be used as a spellcasting focus for artificer spells."
+txt2 = "During a short rest, you may brew a restorative draught for up to three creatures. Each creature chooses one:\n\nRegain 1d8 + your Intelligence modifier hit points, or\nGain advantage on one saving throw made before their next rest."
+txt3 = "Once per long rest, you may prepare a single infused brew. Choose a 1st-level artificer spell you know that targets a creature (e.g., cure wounds, detect magic, longstrider).\n\nDrinking the brew casts the spell (your spell DC applies).\nThe brew spoils if not used within 1 hour."
+img = "https://images.mysoulco.com/albums/Items/ad997258-c05f-4a46-83fa-b96095931e6f.jpg"
+
+#No Arguments, help text
+try:
+    a = &ARGS&
+except:
+    return f'embed -title "{cc}" -f "Elysias Field Kettle|{txt}" -f "Restful Brew|{txt2}" -f "Ember Infusion|{txt3}" -f "**Use:**|`!fkettle store <spellname>` to add a spell, `!fkettle cast` to cast." -thumb {img}'
+#Actions
+act = a[0].lower()
+if act == "store":
+    spell = a[1]
+    ch.set_cvar("ElysiasFieldKettle",spell)
+    ch.create_cc(cc, 0, 1, None, "number", None, None, cc, "Kettle's Infusion", 1)
+    return f'embed -title "{cc}" -f "{spell} has been infused into the brew!" -thumb {img}'
+elif act == "cast":
+    ch.mod_cc(cc, -1)
+    return f'cast {spell} {cast_args} -i -phrase "Using the Field Kettles Infusion" -thumb {img}'
+else:
+     return f'embed -title "{cc}" -f "Elysias Field Kettle|{txt}" -f "Restful Brew|{txt2}" -f "Ember Infusion|{txt3}" -f "**Use:**|`!fkettle store <spellname>` to add a spell, `!fkettle cast` to cast." -thumb {img}'
+</drac2>
