@@ -1,0 +1,139 @@
+name: Drekh’Maz
+automation:
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: condition
+        condition: level < 10
+        onTrue:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 2d6 + {strengthMod} [magical slashing]
+                miss: []
+                attackBonus: proficiencyBonus + strengthMod
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 2d6 + 1 + {strengthMod} [magical slashing]
+                miss: []
+                attackBonus: proficiencyBonus + strengthMod + 1
+              - type: condition
+                condition: target.hp < 0
+                onTrue:
+                  - type: variable
+                    name: kill
+                    value: "1"
+                    onError: "0"
+                onFalse: []
+                errorBehaviour: "false"
+          - type: condition
+            condition: kill == 1
+            onTrue:
+              - type: target
+                target: self
+                effects:
+                  - type: temphp
+                    amount: "{constitutionMod}"
+            onFalse: []
+            errorBehaviour: "false"
+        errorBehaviour: "true"
+    onFalse: []
+    errorBehaviour: "true"
+  - type: condition
+    condition: choice == "ancestral"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Ancestral Guidance
+            duration: "1"
+            effects:
+              ac_bonus: "2"
+    onFalse: []
+  - type: condition
+    condition: choice == "recho"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 2d6 + 1 + {strengthMod} [magical slashing]
+            miss: []
+            attackBonus: proficiencyBonus + strengthMod + 1
+            adv: "-1"
+          - type: condition
+            condition: target.hp < 0
+            onTrue:
+              - type: variable
+                name: kill
+                value: "1"
+                onError: "0"
+            onFalse: []
+            errorBehaviour: "false"
+      - type: condition
+        condition: kill == 1
+        onTrue:
+          - type: target
+            target: self
+            effects:
+              - type: temphp
+                amount: "{constitutionMod}"
+        onFalse: []
+        errorBehaviour: "false"
+    onFalse: []
+  - type: condition
+    condition: level < 10
+    onTrue:
+      - type: text
+        text: >-
+          Forged long ago in the tribal heartlands of Hearthmere, Drekh’Maz is a
+          weapon of lineage, not ornament. Its blade—jagged and massive—is
+          carved from the petrified rib of a storm-slain behemoth, ringed with
+          iron bindings etched in the old script of the Ironskin war-mothers.
+
+
+          The half-orc clans say this blade remembers—every enemy it has slain, every battle its wielder has survived. It is not just a tool of war, but a living memory of those who fell with honor. To carry it is to shoulder the voices of those who came before.
+        title: Bonecleaver of the Ancestors
+      - type: text
+        text: >-
+          - Counts as magical for overcoming resistance.
+
+          - When you reduce a creature to 0 HP, your next attack before the end of your next turn has advantage.
+
+          - Once per long rest, while raging, you may call on ancestral guidance: gain +2 AC until the start of your next turn.
+    onFalse:
+      - type: text
+        text: >
+          Forged long ago in the tribal heartlands of Hearthmere, Drekh’Maz is a
+          weapon of lineage, not ornament. Its blade—jagged and massive—is
+          carved from the petrified rib of a storm-slain behemoth, ringed with
+          iron bindings etched in the old script of the Ironskin war-mothers.
+
+
+          The half-orc clans say this blade remembers—every enemy it has slain, every battle its wielder has survived. It is not just a tool of war, but a living memory of those who fell with honor. To carry it is to shoulder the voices of those who came before.
+        title: Bonecleaver of the Ancestors, Spiritbound
+      - type: text
+        text: >-
+          - Gains a +1 to attack rolls and damage
+
+          - When you reduce a creature to 0 HP, your next attack before the end of your next turn has advantage.
+
+          - When you reduce a creature to 0 HP, gain temporary hit points equal to your Constitution modifier.
+
+          - Once per long rest, while raging, you may call on ancestral guidance: gain +2 AC until the start of your next turn. (`-choice ancestral`)
+
+          - Rage Echo: Once per turn while raging, when you miss with a melee attack, you may reroll the attack with disadvantage as a translucent spirit mimics your strike in unison. (`-choice recho`) 
+    errorBehaviour: "true"
+_v: 2
+proper: false
