@@ -1,9 +1,53 @@
 <drac2>
+ch=character()
 placelist = ["Water's Memory (The Basin)","Rootbound Secrets (The Brackenwild)","Mud-Slick Prophecy (The Gloamfen)","Echoing Stone (Stonehollow Ridges)","Ashen Oath (The Sootbarrow Marsh)","Duskbound Wind (Hollow Steppe)","Traveler's Grace (The Campsites)","Echo of All (Lucky Draw)"]
-phraselist = ["Still water never forgets what’s whispered to it.","The forest remembers your footfalls, and so do the things beneath.","The past breathes through the mud.","The stone hears what others will not.","The land remembers what was burned—and what burned it.","The wind moves faster when no one’s watching.","A fire, a cup, a quiet moment—these are the oldest spells.","Some say the dice remember who you were meant to become."]
-effectlist = ["Your dreams ripple outward. You may reroll one failed saving throw during this day.","You gain tremorsense (10 ft) until your next long rest.","Once today, you may cast Augury without components. The answer may come in the scent of rot, in flickering fenlight, or in a whispered breath.","Gain resistance to thunder damage, and your voice carries twice as far.","You deal an extra 1d10 fire damage on your first weapon hit of the day.","Gain advantage on initiative, and your movement ignores difficult terrain for 10 minutes (once per long rest).","The next time you make a skill check, you may treat a roll of 9 or lower as a 10.","Choose one effect from the list above. The dice crackle faintly, reshuffling their fates."]
+phraselist = ["Still water never forgets what’s whispered to it.","The forest remembers your footfalls and so do the things beneath.","The past breathes through the mud.","The stone hears what others will not.","The land remembers what was burned—and what burned it.","The wind moves faster when no one’s watching.","A fire; a cup; a quiet moment—these are the oldest spells.","Some say the dice remember who you were meant to become."]
+effectlist = ["Your dreams ripple outward. You may reroll one failed saving throw during this day (use `dicewater`).","You gain tremorsense (10 ft) until your next long rest.","Once today you may cast Augury without components (use `dicemud`). The answer may come in the scent of rot in flickering fenlight or in a whispered breath.","Gain resistance to thunder damage and your voice carries twice as far (use `!ldice echo`).","You deal an extra 1d10 fire damage on your first weapon hit of the day (use `diceash`).","Gain advantage on initiative (use `dicedusk`) and your movement ignores difficult terrain for 10 minutes (once per long rest).","The next time you make a skill check you may treat a roll of 9 or lower as a 10 (use `dicetravel`).","Choose one effect from the list above. The dice crackle faintly reshuffling their fates."]
+valuelist = ["water","root","mud","echo","ashen","dusk","traveler"]
+tit = "Lucky Dice of the Sevenfold Hearth"
+img = "https://images.mysoulco.com/albums/Items/340A78B2-A3AC-473E-A5C8-C2DB275220B5.png"
+foot = "!ldice - Created by DrakurRedragon for Lux"
+ch.set_cvar_nx("ldice", "NotSet,NotSet,NotSet")
 
+if not &ARGS&:
+    ldicelist = list(ch.get_cvar("ldice").split(","))
+    return f'embed -title "{tit}" -f "Usage|Use one of the following:\n`!ldice roll` to roll the dice\n`!ldice set <value>` to set the value\n`!ldice list` to list the full effects." -f "{ldicelist[0]}|{ldicelist[2]}" -desc "{ldicelist[1]}" -thumb {img} -footer "{foot}"'
 
-if act == "roll"
+a = &ARGS&
+act = a[0]
+
+if act == "roll":
     tableroll = vroll("1d8")
-    tot = tableroll.total - 1
+    if tableroll.total == 8: 
+        place = placelist[7]
+        phrase = phraselist[7]
+        effect = effectlist[7]
+        return f'embed -title "{tit}" -f "{place}|{effect}" -f "How to set (`!ldice set value`)| Use the following:\n `!ldice set water` Water\'s Memory\n `!ldice set root` Rootbound Secrets\n `!ldice set mud` Mud-Slick Prophecy\n `!ldice set echo` Echoing Stone\n `!ldice set ashen` Ashen Oath\n `!ldice set dusk` Duskbound Wind\n `!ldice set traveler` Traveler\'s Grace" -desc "{phrase}" -thumb {img} -footer "{foot}"'
+    else:
+        tot = tableroll.total - 1
+        place = placelist[tot]
+        phrase = phraselist[tot]
+        effect = effectlist[tot]
+        cvarcreate = f"{place},{phrase},{effect}"
+        ch.set_cvar("ldice",cvarcreate)
+        return f'embed -title "{tit}" -f "{tableroll}" -f "{place}|{effect}" -desc "{phrase}" -thumb {img} -footer "{foot}"'
+elif act == "set":
+    if not a[1:]:
+        return f'embed -title "{tit}" -desc "Please specify a value to set." -thumb {img} -footer "{foot}"'
+    value = a[1]
+    if value not in valuelist:
+        return f'embed -title "{tit}" -desc "Invalid value. Please choose from the following:\n{", ".join(placelist)}" -thumb {img} -footer "{foot}"'
+    y = valuelist.index(value)
+    ch.set_cvar("ldice", f"{placelist[y]},{phraselist[y]},{effectlist[y]}")
+    return f'embed -title "{tit}" -desc "Successfully set to {value}." -f "{placelist[y]}|{phraselist[y]}\n\n{effectlist[y]}" -thumb {img} -footer "{foot}"'
+elif act == "list":
+    return f'embed -title "{tit}" -f "{placelist[0]}|{phraselist[0]}\n{effectlist[0]}" -f "{placelist[1]}|{phraselist[1]}\n{effectlist[1]}" -f "{placelist[2]}|{phraselist[2]}\n{effectlist[2]}" -f "{placelist[3]}|{phraselist[3]}\n{effectlist[3]}" -f "{placelist[4]}|{phraselist[4]}\n{effectlist[4]}" -f "{placelist[5]}|{phraselist[5]}\n{effectlist[5]}" -f "{placelist[6]}|{phraselist[6]}\n{effectlist[6]}" -f "{placelist[7]}|{phraselist[7]}\n{effectlist[7]}" -thumb {img} -footer "{foot}"'
+elif act == "echo":
+    c = combat()
+    combatant = c.get_combatant(ch.name)
+    combatant.add_effect("Echoing Stone",passive_effects={"resistances": ["thunder"]})
+    return f'embed -title "{tit}" -f "Echoing Stone applied to {name}|{name} is now resistant to thunder damage." -thumb {img} -footer "{foot}"'
+else:
+    ldicelist = list(ch.get_cvar("ldice").split(","))
+    return f'embed -title "{tit}" -f "{ldicelist[0]}|{ldicelist[2]}" -desc "{ldicelist[1]}" -thumb {img} -footer "{foot}"'
+</drac2>
