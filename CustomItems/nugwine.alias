@@ -1,0 +1,430 @@
+<drac2>
+
+foot = "!nugwine - created for Nugalius by DrakurRedragon"
+FHelp = "Help|Use `!nugwine type` to use a wine on yourself.  Use it with -t to use it on others!  Using -t will likely require you to be in combat to provide the effects or healing.  For a full list of available types, use `!help nugwine`.\n\n Nug can use `!nugwine color` to roll the random red, white, or rose wine for the day."
+T = "Nugalius Magical Wines!"
+
+if not &ARGS&:
+	return f'embed -title "{T}" -footer "{foot}" -f "{FHelp}"'
+
+a = &ARGS&
+
+if a[0] in ("red", "white", "rose"):
+	tableroll = vroll("1d100")
+	table = tableroll.total
+	if table < 26:
+		rare = 0
+	elif table < 46:
+		rare = 1
+	elif table < 66:
+		rare = 2
+	elif table < 81:
+		rare = 3
+	elif table < 91:
+		rare = 4
+	else:
+		rare = 5
+	if a[0] == "red":
+		winetype = ["Healing", "Growth", "Superior Healing", "Vitality", "the Summer Court", "Random Red"]
+		winepic = ["https://images.mysoulco.com/albums/Items/wines/healing.png", "https://images.mysoulco.com/albums/Items/wines/growth.png", "https://images.mysoulco.com/albums/Items/wines/superior.png", "https://images.mysoulco.com/albums/Items/wines/vitality.png", "https://images.mysoulco.com/albums/Items/wines/summercourt.png", "https://images.mysoulco.com/albums/Items/wines/red.png"]
+		winedesc = ["allows the drinker to regain 2d4+2 hit points.", "allows the drinker to gain the Enlarge effects of enlarge/reduce for 4 hours without concentration.", "allows the drinker to regain 8d4+8 hit points.", "restores any exhaustion the drinker feels while also curing any poison or disease.", "gives the drinker advantage on all charisma checks for 1 hour.  It also grants one reroll of a failed ability check, saving throw, or attack roll during that time.", "is a random Red Wine.  There's no telling what might happen!"]
+	elif a[0] == "white":
+		winetype = ["Comprehension", "Resistance", "Heroism", "Invisibility", "the Winter Court", "Random White"]
+		winepic = ["https://images.mysoulco.com/albums/Items/wines/comprehension.png", "https://images.mysoulco.com/albums/Items/wines/resistance.png", "https://images.mysoulco.com/albums/Items/wines/heroism.png", "https://images.mysoulco.com/albums/Items/wines/invisibility.png", "https://images.mysoulco.com/albums/Items/wines/wintercourt.png", "https://images.mysoulco.com/albums/Items/wines/white.png"]
+		winedesc = ["provides the effects of the Comprehend Languages spell for 1 minute.", "grants the drinker resistance to one of five elements for 1 hour, chosen randomly upon drinking: fire, cold, acid, poison, or lightning.", "grants the drinker 10 Temporary Hit Points for 1 hour as well as the effects of the Bless spell without concentration for the same duration.", "turns the drinker and whatever they are carrying invisible for one hour or until they attack or cast a spell.", "provides the drinker with immunity to being charmed and advantage on their charisma ability checks for 1 hour.  They can also add their proficiency bonus to their Wisdom saving throws.  If they already add their profiency bonus, it is instead doubled for the duration.", "is a random White Wine.  There's no telling what might happen!"]
+	elif a[0] == "rose":
+		winetype = ["Climbing", "Fire Breath", "Invulnerability", "Speed", "the Starry Void", "Random Rose"]
+		winepic = ["https://images.mysoulco.com/albums/Items/wines/climbing.png", "https://images.mysoulco.com/albums/Items/wines/firebreath.png", "https://images.mysoulco.com/albums/Items/wines/invulnerability.png", "https://images.mysoulco.com/albums/Items/wines/speed.png", "https://images.mysoulco.com/albums/Items/wines/starryvoid.png", "https://images.mysoulco.com/albums/Items/wines/rose.png"]
+		winedesc = ["grants the drinker advantage on Athletics checks made to climb.", "gives the drinker the ability to breathe a cone of fire.  As a bonus action, the drinker can exhale fire at a target within 30 feet of them.  The target makes a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save or half on a successful one.  The effect ends after 3 uses or 1 hour.", "blesses the drinker with resistance to all forms of damage for 1 minute.", "provides the effects of the Haste spell without concentration for 1 minute.", "allows the drinker to see the future.  Roll 10d20 and apply each resulting die in any order when ability checks, attack rolls, saving throws, or even death saves are required.  All 10 must be used before normal rolls resume.", "is a random Rose Wine.  There's no telling what might happen!"]	
+	return f'embed -title "Wine Roll - {a[0]}" -f "You rolled {tableroll}|This is a Wine of {winetype[rare]}" -f "The Wine of {winetype[rare]}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n This wine {winedesc[rare]}" -footer "{foot}" -thumb {winepic[rare]}'
+elif a[0] == "randomred":
+	winerandomarray = ["healing", "growth", "superior", "vitality", "summer"]
+	winerandomnamearray = ["Healing", "Growth", "Superior Healing", "Vitality", "the Summer Court"]
+	roll1=int(roll("1d6")-1)
+	winerandomname = ""
+	winerandomtype = ""
+	if roll1 < 5:
+		winerandomtype = winerandomarray[roll1]
+		winerandomname = winerandomnamearray[roll1] 
+	else:
+		roll2 = roll("1d100")
+		if roll2 < 90:
+			winerandomtype = "polychromy"
+			winerandomname = "Polychromy"
+		else:
+			winerandomtype = "dragon"
+			winerandomname = "Dragons Majesty"
+	return f'embed -title "Random Red Wine!" -f "What do you get?|You pop the cork and find out that the wine is...a Wine of {winerandomname}!  Use `!nugwine {winerandomtype}` to use it!" -footer "{foot}" -thumb https://images.mysoulco.com/albums/Items/wines/red.png'
+elif a[0] == "randomwhite":
+	winerandomarray = ["comprehension", "resistance", "heroism", "invisibility", "winter"]
+	winerandomnamearray = ["Comprehension", "Resistance", "Heroism", "Invisibility", "the Winter Court"]
+	roll1=int(roll("1d6")-1)
+	winerandomname = ""
+	winerandomtype = ""
+	if roll1 < 5:
+		winerandomtype = winerandomarray[roll1]
+		winerandomname = winerandomnamearray[roll1] 
+	else:
+		roll2 = roll("1d100")
+		if roll2 < 90:
+			winerandomtype = "polychromy"
+			winerandomname = "Polychromy"
+		else:
+			winerandomtype = "dragon"
+			winerandomname = "Dragons Majesty"
+	return f'embed -title "Random White Wine!" -f "What do you get?|You pop the cork and find out that the wine is...a Wine of {winerandomname}!  Use `!nugwine {winerandomtype}` to use it!" -footer "{foot}" -thumb https://images.mysoulco.com/albums/Items/wines/white.png'
+elif a[0] == "randomrose":
+	winerandomarray = ["climbing", "firebreath", "invulnerability", "speed", "starry"]
+	winerandomnamearray = ["Climbing", "Fire Breath", "Invulnerability", "Speed", "the Starry Void"]
+	roll1=int(roll("1d6")-1)
+	winerandomname = ""
+	winerandomtype = ""
+	if roll1 < 5:
+		winerandomtype = winerandomarray[roll1]
+		winerandomname = winerandomnamearray[roll1] 
+	else:
+		roll2 = roll("1d100")
+		if roll2 < 90:
+			winerandomtype = "polychromy"
+			winerandomname = "Polychromy"
+		else:
+			winerandomtype = "dragon"
+			winerandomname = "Dragons Majesty"
+	return f'embed -title "Random Rose Wine!" -f "What do you get?|You pop the cork and find out that the wine is...a Wine of {winerandomname}!  Use `!nugwine {winerandomtype}` to use it!" -footer "{foot}" -thumb https://images.mysoulco.com/albums/Items/wines/rose.png'
+elif a[0] == "healing":
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		heal = vroll("2d4+2")
+		ch.modify_hp(heal.total,overflow=False)
+		return f'embed -title "Wine of Healing" -f "The Wine of Healing|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n This wine allows the drinker to regain 2d4+2 hit points." -f "Healing {ch.name}|{heal} \n\n {ch.hp_str()}" -footer "{foot}" -thumb "https://images.mysoulco.com/albums/Items/wines/healing.png"'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			heal = vroll("2d4+2")
+			target.modify_hp(heal.total,overflow=False)
+			targarray = targarray + "-f 'Healing " + target.name + "|" + heal + "\n\n" + target.hp_str() + "' "
+		return f'embed -title "Wine of Healing" -f "The Wine of Healing|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n This wine allows the drinker to regain 2d4+2 hit points." {targarray} -footer "{foot}" -thumb "https://images.mysoulco.com/albums/Items/wines/healing.png"'
+elif a[0] == "growth":
+	winename = "Growth"
+	wineeffect= "allows the drinker to gain the Enlarge effects of enlarge/reduce for 4 hours without concentration."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/growth.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{ch.name} Enlarges!|Effect applied for advantage on strength saving throws.  Use `enlarge` snippet for extra weapon damage." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Enlarged",passive_effects={"save_adv": ["strength"]})
+			targarray = targarray + "-f '" + target.name + " Enlarges!|" + "Use `enlarge` as a snippet for extra damage.  Effect applied for advantage on Saving Throws' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "superior":
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		heal = vroll("8d4+8")
+		ch.modify_hp(heal.total,overflow=False)
+		return f'embed -title "Wine of Superior Healing" -f "The Wine of Superior Healing|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n This wine allows the drinker to regain 8d4+8 hit points." -f "Healing {ch.name}|{heal} \n\n {ch.hp_str()}" -footer "{foot}" -thumb "https://images.mysoulco.com/albums/Items/wines/superior.png"'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			heal = vroll("8d4+8")
+			target.modify_hp(heal.total,overflow=False)
+			targarray = targarray + "-f 'Healing " + target.name + "|" + heal + "\n\n" + target.hp_str() + "' "
+		return f'embed -title "Wine of Superior Healing" -f "The Wine of Superior Healing|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n This wine allows the drinker to regain 8d4+8 hit points." {targarray} -footer "{foot}" -thumb "https://images.mysoulco.com/albums/Items/wines/superior.png"'
+elif a[0] == "vitality":
+	winename = "Vitality"
+	wineeffect= "Restores any exhaustion the drinker feels while also curing any poison or disease."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/vitality.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "" -footer "{foot}" -thumb {winepic}'
+	else:
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			target = t
+			targarray = targarray + "-f ' " + target + " is Rejuvenated|" + "Removes all Exhaustion, Poisons, and Diseases.' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "summer":
+	winename = "the Summer Court"
+	wineeffect= "Gives the drinker advantage on all charisma checks for 1 hour.  It also grants one reroll of a failed ability check, saving throw, or attack roll during that time."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/summercourt.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "" -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			targarray = targarray + "-f ' " + target.name + " is blessed by the Summer Court|" + " Advantage on all Charisma Checks.  Once in the next hour, can reroll one failed ability check, saving throw, or attack roll.' "
+			target.add_effect("Blessed by the Summer Court", passive_effects={"check_adv": ["charisma"]})
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "comprehension":
+	winename = "Comprehension"
+	wineeffect= "provides the effects of the Comprehend Languages spell for 1 minute."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/comprehension.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} comprehends languages!|For 1 minute, they can comprehend all spoken languages." -footer "{foot}" -thumb {winepic}'
+	else:
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			target=t
+			targarray = targarray + "-f ' " + target + " comprehends languages|" + "For 1 minute, they can comprehend all spoken languages.' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "resistance":
+	winename = "Resistance"
+	wineeffect= "grants the drinker resistance to one of five elements for 1 hour, chosen randomly upon drinking: fire, cold, acid, poison, or lightning."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/resistance.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		resisroll=vroll('1d5')
+		resisttype=["fire","lightning","cold","acid","poison"]
+		resist=resisttype[int(resisroll.total)-1]
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} gains resistance!|{name} is resistant to: \n\n {resisroll} \n\n {resist}" -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		resisroll=vroll('1d5')
+		resisttype=["fire","lightning","cold","acid","poison"]
+		resist=resisttype[resisroll.total-1]
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Wine of Resistance",passive_effects={"resistances":[resist]})
+			targarray = targarray + "-f ' " + target.name + " gains resistance!|" + target.name + "gains resistance to: \n\n" + resisroll + "\n\n" + resist + "' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "heroism":
+	winename = "Heroism"
+	wineeffect= "grants the drinker 10 Temporary Hit Points for 1 hour as well as the effects of the Bless spell without concentration for the same duration."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/heroism.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		if ch.temp_hp > 10:
+			thpinfo = "Temp HP is already higher!"
+		else:
+			ch.set_temp_hp(10)
+			thpinfo = "Temp HP set to 10!"
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} is feeling heroic!|{thpinfo} \n\n Make sure to use this with -t to get the bless effect as well." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			if target.temp_hp > 10:
+				thpinfo = "Temp HP is already higher!"
+			else:
+				target.set_temp_hp(10)
+				thpinfo = "Temp HP set to 10!"
+			target.add_effect("Wine of Heroism",passive_effects={"to_hit_bonus": "1d4", "save_bonus": "1d4"})
+			targarray = targarray + "-f ' " + target.name + " is feeling heroic|" + thpinfo + "\n\n Target is Blessed!' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "invisibility":
+	winename = "Invisibility"
+	wineeffect= "turns the drinker and whatever they are carrying invisible for one hour or until they attack or cast a spell."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/invisibility.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} disappears!|{name} is now Invisible." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Invisible",passive_effects={"attack_advantage": 1}, buttons=[{"label":"Break Invisibility","verb":"breaks their invisibility","style": 4,"automation":[{"type":"target","target":"self","effects":[{"type":"remove_ieffect"}]}]}])
+			targarray = targarray + "-f ' " + target.name + "|" + "' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "winter":
+	winename = "the Winter Court"
+	wineeffect= "provides the drinker with immunity to being charmed and advantage on their charisma ability checks for 1 hour.  They can also add their proficiency bonus to their Wisdom saving throws.  If they already add their profiency bonus, it is instead doubled for the duration  [this cannot be automated and will need to be manually added with -b or discussed with the DM for forced saves]."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/wintercourt.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} is Blessed by the Winter Court|Advantage on all Charisma checks for 1 hour, add proficiency bonus to Wisdom saves (double if already proficient), and immune to charm." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Blessed by the Winter Court", passive_effects={"check_adv": ["charisma"]})
+			targarray = targarray + "-f ' " + target.name + " is blessed by the Winter Court|" + "Advantage on all Charisma checks for 1 hour, add proficiency bonus to Wisdom saves (double if already proficient), and immune to charm.' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "climbing":
+	winename = "Climbing"
+	wineeffect= "grants the drinker advantage on Athletics checks made to climb."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/climbing.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} can climb...better!|Use `adv` on all `!c athletics` checks to climb!" -footer "{foot}" -thumb {winepic}'
+	else:
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			target=t
+			targarray = targarray + "-f ' " + target + " can climb...better!|" + "Use `adv` on all `!c althetics` checks to climb.' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "firebreath":
+	winename = "Fire Breath"
+	wineeffect= "gives the drinker the ability to breathe a cone of fire.  As a bonus action, the drinker can exhale fire at a target within 30 feet of them.  The target makes a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save or half on a successful one.  The effect ends after 3 uses or 1 hour."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/firebreath.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} can breathe fire!|Use -t in combat to add the attack effect." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Fire Breath",attacks=[{"attack":{"name": "Fire Breath","_v": 2,"verb": "unleashes","automation": [{"type": "roll", "dice": "4d6[fire]", "name": "damage",},{"type": "target","target": "all","effects": [{"type": "save","stat": "dex","fail":[{"type": "damage", "damage": "{damage}",}],"success":[{"type": "damage","damage": "{damage}/2",}],"dc": "13"}]},{"type": "text","text": "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed."}]}}])
+			targarray = targarray + "-f ' " + target.name + " can breathe fire!|Use `!a Fire Breath` to use the attack!'"
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "invulnerability":
+	winename = "Invulnerability"
+	wineeffect= "blesses the drinker with resistance to all forms of damage for 1 minute."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/invulnerability.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} feels invulnerable|Use -t in combat for the automated resistance." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Wine of Invulnerability",passive_effects={"resistances":"all"})
+			targarray = targarray + "-f ' " + target.name + "feels invulnerable!|Resistance to all damage added!" + "' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "speed":
+	winename = "Speed"
+	wineeffect= "provides the effects of the Haste spell without concentration for 1 minute."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/speed.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} feels faster!|Use -t in combat to gain the passive effects." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Hasted",desc="+2 to AC, adv on Dex saves, can take an extra action to attack once, use an object, disengage, or dash.  Cannot move or take actions for one turn once the effect fades.",duration=10,passive_effects={"ac_bonus": 2, "save_adv":["dexterity"]})
+			targarray = targarray + "-f ' " + target.name + " feels faster!|Target is hasted." + "' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "starry":
+	winename = "the Starry Void"
+	wineeffect= "allows the drinker to see the future.  Roll 10d20 and apply each resulting die in any order when ability checks, attack rolls, saving throws, or even death saves are required.  All 10 must be used before normal rolls resume."
+	winepic = "https://images.mysoulco.com/albums/Items/wines/starryvoid.png"
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		x1 = roll("1d20")
+		x2 = roll("1d20")
+		x3 = roll("1d20")
+		x4 = roll("1d20")
+		x5 = roll("1d20")
+		x6 = roll("1d20")
+		x7 = roll("1d20")
+		x8 = roll("1d20")
+		x9 = roll("1d20")
+		x10 = roll("1d20")
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} glimpses the future|Their rolls are {x1}, {x2}, {x3}, {x4}, {x5}, {x6}, {x7}, {x8}, {x9}, {x10}.  \n\n (Note: this is not automated.  You will have to inform the running DM waht each roll is going to be and keep track of this yourself." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=t
+			x1 = roll("1d20")
+			x2 = roll("1d20")
+			x3 = roll("1d20")
+			x4 = roll("1d20")
+			x5 = roll("1d20")
+			x6 = roll("1d20")
+			x7 = roll("1d20")
+			x8 = roll("1d20")
+			x9 = roll("1d20")
+			x10 = roll("1d20")
+			targarray = targarray + "-f ' " + target + " glimpses the future!|Their rolls are: " + x1 + ", " + x2 + ", " + x3 + ", " + x4 + ", " + x5 + ", " + x6 + ", " + x7 + ", " + x8 + ", " + x9 + ", " + x10 + "\n\n (Please note, there is no automation to this.  You will need to inform the running DM as to what you are using where, and you will need to keep track of these yourself.)' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "polychromy":
+	winename = "Polychromy"
+	wineeffect= "When you drink this wine, you and everything you are wearing or carrying take on a rainbow-hued appearance for 1 hour. During that time, you can use a bonus action to turn any color or combination of colors you choose. If you mimic the colors of your surroundings, your hues continually shift to match your surroundings, and you have advantage on Dexterity (Stealth) checks until you change your colors again or the wine wears off."
+	winepic = ""
+	argsp = argparse(a)
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} becomes rainbow colored!|Use `!c stealth adv`." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			target.add_effect("Rainbow Hued",passive_effects={"check_adv":["stealth"]})
+			targarray = targarray + "-f ' " + target.name + " becomes rainbow colored!|Advantage on all stealth checks!" + "' "
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+elif a[0] == "dragon":
+	winename = "Dragon's Majesty"
+	wineeffect= "When you drink this wine, you transform into a randomly colored adult dragon.  The transformation lasts for 1 hour. Any equipment you are wearing or carrying melds into your new form or falls to the ground (your choice). For the duration, you use the game statistics of the adult dragon instead of your own, but you retain your languages, personality, and memories. You can’t use a dragon’s Change Shape or its legendary or lair actions."
+	winepic = ""
+	argsp = argparse(a)
+	typeroll = vroll("1d5")
+	typearray = ["Red","Green","Blue","White","Black"]
+	type = typearray[typeroll.total-1]
+	if not argsp.last('t'):
+		ch=character()
+		return f'embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" -f "{name} transforms into a {type} dragon!|Each person will need to add themselves as a dragon to combat.  Use -t for information." -footer "{foot}" -thumb {winepic}'
+	else:
+		c=combat()
+		targarray = ""
+		gettargarray = argsp.get('t')
+		for t in gettargarray:
+			combatant = t
+			target=c.get_combatant(combatant)
+			targarray = targarray + "-f ' " + target.name + " turns into a dragon!|They have transformed into an adult " + type + " dragon!  Type `!i madd \"Adult " + type + " Dragon\" -name \"" + target.name + " Dragon\" -p " + target.init + "`' "
+		return f'multiline\n!embed -title "Wine of {winename}" -f "The Wine of {winename}|This wine has four servings in the bottle.  Once the bottle is opened, it must be used within 10 minutes of opening or the magic is lost. \n\n {wineeffect}" {targarray} -footer "{foot}" -thumb {winepic}'
+else:
+	return f'embed -title "{T}" -footer "{foot}" -f "{FHelp}"'	
+</drac2>

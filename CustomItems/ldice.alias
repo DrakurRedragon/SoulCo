@@ -1,0 +1,9 @@
+<drac2>
+placelist = ["Water's Memory (The Basin)","Rootbound Secrets (The Brackenwild)","Mud-Slick Prophecy (The Gloamfen)","Echoing Stone (Stonehollow Ridges)","Ashen Oath (The Sootbarrow Marsh)","Duskbound Wind (Hollow Steppe)","Traveler's Grace (The Campsites)","Echo of All (Lucky Draw)"]
+phraselist = ["Still water never forgets what’s whispered to it.","The forest remembers your footfalls, and so do the things beneath.","The past breathes through the mud.","The stone hears what others will not.","The land remembers what was burned—and what burned it.","The wind moves faster when no one’s watching.","A fire, a cup, a quiet moment—these are the oldest spells.","Some say the dice remember who you were meant to become."]
+effectlist = ["Your dreams ripple outward. You may reroll one failed saving throw during this day.","You gain tremorsense (10 ft) until your next long rest.","Once today, you may cast Augury without components. The answer may come in the scent of rot, in flickering fenlight, or in a whispered breath.","Gain resistance to thunder damage, and your voice carries twice as far.","You deal an extra 1d10 fire damage on your first weapon hit of the day.","Gain advantage on initiative, and your movement ignores difficult terrain for 10 minutes (once per long rest).","The next time you make a skill check, you may treat a roll of 9 or lower as a 10.","Choose one effect from the list above. The dice crackle faintly, reshuffling their fates."]
+
+
+if act == "roll"
+    tableroll = vroll("1d8")
+    tot = tableroll.total - 1
