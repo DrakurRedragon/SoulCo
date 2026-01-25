@@ -1,10 +1,24 @@
-embed
 <drac2>
 ch = character()
 hpstr = ch.hp_str()
 levellist =""
+
+notnow = " - You can't quest while jobs are nearby"
+notnowf = " - You can't quest while foraging is nearby"
+notnowfish = " - You can't quest while fishing is nearby"
+notnowm = " - You can't quest while mining is nearby"
 ch.set_cvar_nx("subclass","{}")
 g = load_json(ch.get_cvar("subclass"))
+cooldown = get_svar("jobCooldown",28800)
+fcooldown = get_svar("forageCoolTime",28800)
+fishcooldown = get_svar("fishCooldown",1800)
+minecooldown = get_svar("mineCoolTime",1800)
+lastwork = ch.get_cvar("last_job",0)
+lastforage = ch.get_cvar("last_forage",0)
+lastfish = ch.get_cvar("last_fish",0)
+lastmine = ch.get_cvar("last_mine",0)
+foot = "!sup - Written for Hearthmere by DrakurRedragon"
+
 if any("Artificer" in x for x in character().levels):
     try: 
         levellist = levellist + "Artificer " + "(" + g["ArtificerLevel"]  + ") " + ArtificerLevel + "\n"
@@ -15,7 +29,6 @@ if any("Barbarian" in x for x in character().levels):
         levellist = levellist + "Barbarian " + "(" + g["BarbarianLevel"]  + ") " + BarbarianLevel + "\n"
     except:
         levellist = levellist + "Barbarian " + BarbarianLevel + "\n"
-    levellist = levellist + "Barbarian " + "(" + g["BarbarianLevel"]  + ") " + BarbarianLevel + "\n"
 if any("Bard" in x for x in character().levels):
     try: 
         levellist = levellist + "Bard " + "(" + g["BardLevel"]  + ") " + BardLevel + "\n"
@@ -76,9 +89,14 @@ if any("Wizard" in x for x in character().levels):
         levellist = levellist + "Wizard " + "(" + g["WizardLevel"]  + ") " + WizardLevel + "\n"
     except:
         levellist = levellist + "Wizard " + WizardLevel + "\n"
+if time() < float(cooldown) + float(lastwork):
+	return f'embed -title "You cant do two things at once!" -f "You are working.  You cant quest right now." -footer "{foot} {notnow}"'
+elif time() < float(fcooldown) + float(lastforage):
+    return f'embed -title "You cant do two things at once!" -f "You are foraging.  You cant quest right now." -footer "{foot} {notnowf}"'
+elif time() < float(fishcooldown) + float(lastfish):
+    return f'embed -title "You cant do two things at once!" -f "You are fishing.  You cant quest right now." -footer "{foot} {notnowfish}"'
+elif time() < float(minecooldown) + float(lastmine):
+    return f'embed -title "You cant do two things at once!" -f "You are mining.  You cant quest right now." -footer "{foot} {notnowm}"'
+else:
+    return f'embed -title "Quest Signup" -f "**{ch.name}** is signing up for a Quest!|**Quest:** &*&" -f "Levels|{levellist}" -f "HP:|{hpstr}" -thumb {ch.image} -footer "{foot}"'
 </drac2>
--f "**{{ch.name}}** is signing up for a Quest!|**Quest:** &*&" 
--f "Levels|{{levellist}}"
--f "HP:|{{hpstr}}"
--thumb {{ch.image}}
--footer "!sup - Written for The Shattered Oathlands by DrakurRedragon"
