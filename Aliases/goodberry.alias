@@ -25,7 +25,7 @@ else:
     lvl = 1
 
 if a[0] == "cast":
-    if "-i" in argsp:
+    if "i" in argsp:
         ch.create_cc(ccname, 0, 10, "long", "bubble", 0, None, ccname, "The number of Goodberries left",10)
         return f'cast "Goodberry" -l {lvl} -phrase "{ch.cc(ccname)} goodberries remain." -i'
     if ch.spellbook.can_cast("Goodberry",lvl):
