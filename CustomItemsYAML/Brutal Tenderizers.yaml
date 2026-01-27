@@ -1,0 +1,59 @@
+_v: 2
+name: Brutal Tenderizers
+automation:
+  - type: variable
+    name: dam
+    value: "{{int(choice)}}"
+    onError: "1"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {strengthMod} + 2 [magical bludgeoning]
+          - type: condition
+            condition: dam == 2
+            onTrue:
+              - type: damage
+                damage: 2d6[magical psychic]
+              - type: text
+                text: The psychic energy lashes both Stig and his target!
+            onFalse: []
+            errorBehaviour: "false"
+          - type: variable
+            name: gotHit
+            value: "1"
+        miss: []
+        attackBonus: strengthMod + proficiencyBonus + 2
+  - type: condition
+    condition: gotHit ==1
+    onTrue:
+      - type: condition
+        condition: dam == 2
+        onTrue:
+          - type: target
+            target: self
+            effects:
+              - type: damage
+                damage: 2d6[magical psychic]
+        onFalse: []
+    onFalse: []
+  - type: text
+    text: >-
+      Granted for service to Faeyis and her Mistress, these knuckles function as
+      unarmed attacks for everything that requires an unarmed strike with +2 on
+      attack and damage rolls, and all damage it does is considered magical
+      bludgeoning.
+
+
+      Eldritch Maul. As a bonus action, you can empower the knuckles for 1 minute. For the duration, each of your melee attacks with a weapon or an unarmed strike can reach a target up to 15 feet away from you, as inky tendrils launch toward the target. In addition, your melee attacks deal an extra 1d6 force damage on a hit.  Unlike the claw tattoo, this ability does not have a limit.
+
+
+      If you are using Giant's Might, it can be used on a number of attacks this round equal to your proficiency bonus, instead of once per turn.
+
+
+      If so desired, the knuckles can resonate with near lethal amounts of psychic energy.  This can strike the target for an additional 2d6 psychic damage, but it also damages the wielder for the same amount.  This damage cannot be reduced in any way.
+proper: true
+thumb: https://images-ext-2.discordapp.net/external/RntMwbwtAbu93s6L-2Ne4ADuHigUnyNraHKYpLpPYgM/https/i.pinimg.com/564x/e9/48/7a/e9487a757b1119a23e1c6dec41e5fe92.jpg
+activation_type: 1

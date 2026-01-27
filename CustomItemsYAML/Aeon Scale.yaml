@@ -1,0 +1,137 @@
+name: Aeon Scale
+automation:
+  - type: counter
+    counter: dummy
+    amount: "1"
+    errorBehaviour: ignore
+  - type: variable
+    name: resist
+    value: lastCounterRequestedAmount
+  - type: condition
+    condition: level >= 5
+    onTrue:
+      - type: condition
+        condition: level >= 11
+        onTrue:
+          - type: condition
+            condition: level >= 17
+            onTrue:
+              - type: variable
+                name: breath
+                value: "4"
+            onFalse:
+              - type: variable
+                name: breath
+                value: "3"
+        onFalse:
+          - type: variable
+            name: breath
+            value: "2"
+    onFalse:
+      - type: variable
+        name: breath
+        value: "1"
+  - type: condition
+    condition: choice == "breath"
+    onTrue:
+      - type: counter
+        counter: Aeon Scale Breath
+        amount: "1"
+        fixedValue: true
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: roll
+            dice: "{breath}d8"
+            name: dmg
+            displayName: Time Breath Damage
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: "{dmg} [force]"
+              - type: ieffect2
+                name: Poisoned
+                effects:
+                  attack_advantage: "-1"
+                  check_dis:
+                    - all
+                duration: "10"
+                end: true
+                buttons:
+                  - label: Resist Poison
+                    automation:
+                      - type: target
+                        target: self
+                        effects:
+                          - type: save
+                            stat: dex
+                            fail: []
+                            success:
+                              - type: remove_ieffect
+                    style: "1"
+            success:
+              - type: damage
+                damage: "{dmg}/2 [force]"
+            dc: 8 + constitutionMod + proficiencyBonus
+          - type: text
+            text: You gain a breath weapon like that of the Time Dragons. You exhale a wave
+              of shimmering light in a 15-foot cone. Each creature in the area
+              must make a Constitution save equal to 8 + your Constitution
+              modifier + your proficiency bonus. A creature takes 2d8 damage on
+              a failed save and becomes poisoned, and half as much damage on a
+              successful one. The damage increases to 3d8 at 11th level, and 4d8
+              at 17th level. You can use this breath weapon a number of times
+              equal to half your proficiency bonus (rounded down), you can’t use
+              it again until you complete a long rest.
+    onFalse:
+      - type: condition
+        condition: choice == "reactive"
+        onTrue:
+          - type: text
+            text: At 11th level you gain the ability to make a reactive strike. You can make
+              an opportunity attack as a reaction on passing a saving throw or
+              when an enemy hits you with an attack.  If whatever you are
+              reacting to caused you to lose concentration on a spell, this
+              attack can be made with advantage.
+        onFalse:
+          - type: condition
+            condition: choice == "slip"
+            onTrue:
+              - type: counter
+                counter: Aeon Scale Time Slip
+                amount: "1"
+                fixedValue: true
+                errorBehaviour: raise
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: -{resist}/2 [resisted]
+              - type: text
+                text: "The wielder halves the damage it takes from an attack made against it,
+                  provided it can see the attacker. The wielder can then
+                  immediately teleport, along with any equipment it is wearing
+                  or carrying, up to 30 feet to an unoccupied space it can see.
+                  Use -amt # to specify the damage taken (it will halve it and
+                  add the remainder back)."
+            onFalse:
+              - type: text
+                text: >-
+                  Granted for services to Vanalir and her Mistress, the Aeon Scale is a
+                  scale from a legendary beast, an ancient dragon.  The scale
+                  retains a measure of the original creature's spirit,
+                  manifesting as a miniature version of itself, though lacking
+                  the sapience of its parent.  This creature seems similar to a
+                  fire lizard of Benden, but it is loyal to whomever ties their
+                  magic to that of the scale.  This spirit functions as a
+                  Familiar.
+
+
+                  The scale grants a breath weapon of a Time Dragon (`-choice breath`) that can be used to replace an attack, a Reactive Strike at 11th level (`-choice reactive`) that allows an opportunity attack when the wielder passes a saving throw or gets hit by an attack, and the Time Slip (`-choice slip`) ability at 15th level that allows the wielder to use a reaction to halve damage received and teleport up to 30 ft.  At 20th level, the wielder can wild shape into an Adult Time Dragon, except it only lasts for 1 minute and causes a level of exhaustion when reverting back.
+    title: Aeon Scale
+_v: 2
+proper: true
+verb: calls upon their
+thumb: https://images.mysoulco.com/albums/Items/c35cdc5d5cbd6f15e982a4d31b58815f.webp

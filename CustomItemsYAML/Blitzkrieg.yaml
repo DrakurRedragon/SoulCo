@@ -1,0 +1,178 @@
+name: Blitzkrieg
+automation:
+  - type: variable
+    name: breath
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: condition
+    condition: level >4
+    onTrue:
+      - type: condition
+        condition: level > 10
+        onTrue:
+          - type: condition
+            condition: level > 16
+            onTrue:
+              - type: variable
+                name: breathWeapon
+                value: "4"
+            onFalse:
+              - type: variable
+                name: breathWeapon
+                value: "3"
+            errorBehaviour: "false"
+        onFalse:
+          - type: variable
+            name: breathWeapon
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: breathWeapon
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: level > 9
+    onTrue:
+      - type: condition
+        condition: level > 14
+        onTrue:
+          - type: variable
+            name: weaponBonus
+            value: "3"
+          - type: variable
+            name: lightningDamage
+            value: "8"
+        onFalse:
+          - type: variable
+            name: weaponBonus
+            value: "2"
+          - type: variable
+            name: lightningDamage
+            value: "6"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weaponBonus
+        value: "1"
+      - type: variable
+        name: lightningDamage
+        value: "4"
+    errorBehaviour: "false"
+  - type: variable
+    name: weaponMod
+    value: charismaMod
+  - type: target
+    target: all
+    effects:
+      - type: condition
+        condition: breath == 1
+        onTrue:
+          - type: roll
+            dice: "{breathWeapon}d10"
+            name: breathDamage
+            hidden: false
+            displayName: Breath Weapon Damage
+          - type: counter
+            counter: Blitzkrieg Breath Weapon
+            amount: "1"
+            allowOverflow: false
+            errorBehaviour: raise
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{breathDamage} [lightning]"
+                overheal: false
+            success:
+              - type: damage
+                damage: "{breathDamage}/2 [lightning]"
+                overheal: false
+            dc: 8 + proficiencyBonus + constitutionMod
+        onFalse:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d6 + {weaponMod} + {weaponBonus} [magical piercing] +
+                  1d{lightningDamage}[lightning]
+                overheal: false
+              - type: condition
+                condition: lastAttackDidCrit == True
+                onTrue:
+                  - type: damage
+                    damage: 1d4 [thunder]
+                    overheal: false
+                  - type: save
+                    stat: con
+                    fail:
+                      - type: ieffect2
+                        name: Deafened
+                        duration: "10"
+                        effects: null
+                        attacks: []
+                        buttons: []
+                        end: false
+                        conc: false
+                        desc: null
+                        stacking: false
+                        save_as: null
+                        parent: null
+                    success: []
+                    dc: 8 + proficiencyBonus + constitutionMod
+                  - type: condition
+                    condition: level > 7
+                    onTrue:
+                      - type: ieffect2
+                        name: Prone
+                        duration: null
+                        effects:
+                          attack_advantage: "-1"
+                        attacks: []
+                        buttons:
+                          - label: Stand Up
+                            automation:
+                              - type: remove_ieffect
+                            verb: stands up
+                            style: null
+                            defaultDC: null
+                            defaultAttackBonus: null
+                            defaultCastingMod: null
+                        end: false
+                        conc: false
+                        desc: A prone creature's only movement option is to crawl, unless it stands up
+                          and thereby ends the condition
+                        stacking: false
+                        save_as: null
+                        parent: null
+                    onFalse: []
+                    errorBehaviour: "false"
+                onFalse: []
+                errorBehaviour: "false"
+            miss: []
+            attackBonus: weaponBonus + proficiencyBonus + weaponMod
+        errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Faeyis and her Mistress, Blitzkrieg is a
+      shortsword steeped in draconic power.  It deals 1d6 + {weaponMod} +
+      {weaponBonus} [magical piercing] + 1d{lightningDamage}[lightning] damage
+      on a successful hit, and 1/day allows the use of a 30 ft line of lightning
+      breath weapon, dealing {breathWeapon}d10 damage.  On a crit, it deals an
+      additional 2d4 thunder damage, and the target must succeed on a
+      Constitution saving throw or be deafened.  At level 8, the crit effect
+      will also cause a Huge or smaller creature to go prone.  
+
+
+      At 5th level, the lightning contained therein can be used to supercharge its wielder, allowing them to take another action on their turn.  This can be used 1/long rest, and the action cannot be used to cast spells.
+
+
+      At 10th level, this effect can be further pronounced, allowing its wielder to duplicate the haste spell on themselves 1/long rest.
+    title: Effect
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1100029365200375890/1100043564920098926/Arugal_1_adobe_express.jpeg?width=652&height=671
+
+
+!cc create "Blitzkrieg Breath Weapon" -title "Blitzkrieg Breath Weapon" -min 0 -max 1 -value 1 -type bubble -reset long -desc "As part of the Blitzkrieg weapon, this allows the use of the breath weapon."
+!cc create "Blitzkrieg Action Surge" -min 0 -max 1 -value 1 -type bubble -reset long -desc "Lightning surges through the wielder, allowing them to take another action this turn.  This action cannot be used to cast a spell."
+!cc create "Blitzkrieg Haste" -min 0 -max 1 -value 1 -type bubble -reset long -desc "Lightning surges further through the wielder, allowing them to duplicate the effects of the haste spell on themselves"

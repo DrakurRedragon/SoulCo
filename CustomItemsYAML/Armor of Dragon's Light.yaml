@@ -1,0 +1,23 @@
+name: Blinding Dragon's Light
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: dex
+        fail:
+          - type: ieffect2
+            name: Blinded
+            effects:
+              attack_advantage: "-1"
+            duration: "1"
+        success: []
+        dc: 8 + proficiencyBonus + wisdomMod
+  - type: text
+    text: Every creature within 10 ft must make a dexterity save or be blinded until
+      the beginning of the wearer's next turn
+_v: 2
+proper: true
+verb: illuminates with
+activation_type: 3
+thumb: https://images-ext-1.discordapp.net/external/GmWCwA3ZI_Gxyjt95NM5MCNimeL-a279L3HzGFjICWg/https/i.pinimg.com/564x/1d/4c/8c/1d4c8cfad2575e42cd031e9d295ab01e.jpg?width=555&height=671

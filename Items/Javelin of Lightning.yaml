@@ -1,0 +1,56 @@
+name: Javelin of Lightning (Hearthmere)
+automation:
+  - type: variable
+    name: miss
+    value: "0"
+  - type: roll
+    dice: 4d6[lightning]
+    name: lightning
+    hidden: null
+  - type: target
+    target: 1
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d6 [piercing]
+            overheal: null
+        miss:
+          - type: variable
+            name: miss
+            value: "1"
+        attackBonus: proficiencyBonus + strengthMod
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: dex
+        fail:
+          - type: damage
+            damage: "{lightning}"
+            overheal: null
+        success:
+          - type: damage
+            damage: "{lightning}/2"
+            overheal: null
+        dc: "13"
+  - type: target
+    target: 1
+    effects:
+      - type: condition
+        condition: miss == 1
+        onTrue:
+          - type: condition
+            condition: lastSaveDidPass == True
+            onTrue:
+              - type: damage
+                damage: -{lightning}/2
+                overheal: null
+            onFalse:
+              - type: damage
+                damage: -{lightning}
+                overheal: null
+            errorBehaviour: null
+        onFalse: []
+        errorBehaviour: null
+_v: 2

@@ -1,0 +1,26 @@
+!cc create "Blood Curse Restore" -title "restores their Blood Curse!" -reset long -type bubble -min 0 -max 1 -desc "The critical wound from Bloodrite bleeds, drawing the blood towards Rose.  Drinking deep, she restores 1 use of their blood curse.  Resets on a long rest.
+
+After using the counter, !cc maledict +1.
+
+
+!attack import - name: Bloodrite
+  automation:
+    - type: target
+      target: each 
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d8 + {dexterityMod + 2} [magical piercing] + 1d4 [magical lightning]
+              overheal: false
+          miss: []
+          attackBonus: dexterityMod + proficiencyBonus + 2
+    - type: text
+      text: "Granted for services to Faeyis and her Mistress, this longbow is specially designed for the blood hunting Dhampir, Rose.  It crackles with the power of the Rite of Storms, providing additional lightning damage on a hit.
+      
+      
+      All wounds caused by Bloodrite bubble with the blood of its target.  The dhampir wielder may, as a bonus action while in melee range, drink the blood of the target without making an attack roll.  This counts towards the use of their fanged bite ability, providing only the 1d4 bonus or healing without any modifier. 
+      
+      
+      On a crit, the blood streams from the wound towards the wielder, allowing them to utilize that ability without an action.  Once per long rest, the dhampir may instead use that blood to restore thier Blood Curse."
+  _v: 2

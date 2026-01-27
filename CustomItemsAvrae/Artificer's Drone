@@ -1,0 +1,9 @@
+!action create drone -verb "activates" -phrase "Gifted for services to Faeyis and her Mistress, the drone has 5 charges that reset when the artificer tinkers with it over a short rest.  The drone can be activated using a bonus action.  It flits to any point 30 ft from its user.  It can be moved 30 ft with a bonus action, but it must remain within 120 ft of the user or it falls inert.
+
+1 charge - Any spell cast can be targeted from the drone's position instead of the caster's position.
+
+2 charges - If the user casts a cantrip originating from themselves, they may duplicate it from the drone's position.  The duplicate spell targets independently."
+
+AND
+
+!cc create drone -title "Drone Charge" -desc "Remaining Drone Charge" -max 5 -min 0 -reset short -type bubble

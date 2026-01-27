@@ -1,0 +1,23 @@
+!cc create "Iapyx" -title "calls upon Iapyx" -reset long -type bubble -min 0 -max 2 -value 2 -desc "With a flash, the wielder leaps through the air with grace and speed, carried upon the winds (Zephyr Strike)."
+
+!cast zephyr -t gin -i
+
+!cc create "Boreas" -title "calls upon Boreas" -reset long -type bubble -min 0 -max 2 -value 2 -desc "The biting winds of winter batter the enemies of the wielder; in a flash, the wielder disappears from sight and strikes faster than the eye can see (Steel Wind Strike).  If this ability is used twice before a rest, however, the wind bites back at the user as well, adding them as an additional target."
+
+!cast "Steel Wind Strike" -b 9 -t badguys -i
+   If used a second time before a long rest, you can still select up to 5 targets but you MUST also target yourself.
+
+!attack import - name: Blade of the Four Winds
+  automation:
+    - type: target
+      target: each 
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d8 + {dexterityMod + 3} [magical piercing] + 1d4 [magical slashing]
+              overheal: false
+          miss: []
+          attackBonus: dexterityMod + proficiencyBonus + 3
+    - type: text
+      text: Granted to a contributer to the continent of Faeyis and its Mistress, the Blade of the Four Winds is a katana of strange origins.  Lighter than a normal katana and designed as a slashing weapon, it seems connected to the one person that can wield it properly.  It also seems to whisper words on the wind that surrounds it...while it grants the wielder near supernatural speed, though at what cost?
