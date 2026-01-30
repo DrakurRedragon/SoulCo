@@ -1,0 +1,205 @@
+_v: 2
+name: Wings of the Valkyrie
+automation:
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: condition
+    condition: "{level} > 10"
+    onTrue:
+      - type: condition
+        condition: "{level} > 15"
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "1"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-1"
+              ac_bonus: "1"
+            end: true
+            target_self: true
+    onFalse: []
+  - type: condition
+    condition: choice == "2"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-2"
+              ac_bonus: "2"
+    onFalse: []
+  - type: condition
+    condition: choice == "3"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-3"
+              ac_bonus: "3"
+            end: true
+            target_self: true
+    onFalse: []
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 2d6[slashing] + {weapbonus} + {weapmod}
+        miss: []
+        attackBonus: proficiencyBonus + weapmod + weapbonus
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, the Wings of the
+      Valkyrie were made specially for Asultir.  Functioning as both offensive
+      and defensive both, the wings can function as a blade, feathers can be
+      hurled in a ranged attack, and it can shield the wearer from
+      attacks.  Sacrificing the ability to hit, it can also be used to defend
+      its wielder even more.
+
+
+      Can sacrifice up to -3 from to hit rolls to gain that much to AC (`-choice 1`, replacing with 2 or 3)
+
+
+      Wing Attack - 2d6 slashing damage
+
+      Feather Attack - 1d8 piercing damage, 60/120 range
+proper: true
+
+_v: 2
+name: Feathers of the Valkyrie
+automation:
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: condition
+    condition: "{level} > 10"
+    onTrue:
+      - type: condition
+        condition: "{level} > 15"
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "1"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-1"
+              ac_bonus: "1"
+            end: true
+            target_self: true
+    onFalse: []
+  - type: condition
+    condition: choice == "2"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-2"
+              ac_bonus: "2"
+    onFalse: []
+  - type: condition
+    condition: choice == "3"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: AC Bonus/Hit Debuff
+            duration: "1"
+            effects:
+              to_hit_bonus: "-3"
+              ac_bonus: "3"
+            end: true
+            target_self: true
+    onFalse: []
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8[piercing] + {weapbonus} + {weapmod}
+        miss: []
+        attackBonus: proficiencyBonus + weapmod + weapbonus
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, the Wings of the
+      Valkyrie were made specially for Asillr.  Functioning as both offensive
+      and defensive both, the wings can function as a blade, feathers can be
+      hurled in a ranged attack, and it can shield the wearer from
+      attacks.  Sacrificing the ability to hit, it can also be used to defend
+      its wielder even more.
+
+
+      Can sacrifice up to -3 from to hit rolls to gain that much to AC (`-choice 1`, replacing with 2 or 3)
+
+
+      Wing Attack - 2d6 slashing damage
+
+      Feather Attack - 1d8 piercing damage, 60/120 range
+proper: true

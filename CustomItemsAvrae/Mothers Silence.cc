@@ -1,0 +1,1 @@
+!cc create "Mother's Silence" -min 0 -max 10 -reset long -resetby 1d6+2

@@ -1,0 +1,412 @@
+_v: 2
+name: Molten Chains
+automation:
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, This Sickle attached to
+          an unholy chain that is constantly burning was granted to Thar for
+          their dedication to protecting Vanalir and its people. The weapon
+          grows stronger as its wielder continues to use it, providing a weapon
+          bonus of +1 at level 5, +2 at level 10, and +3 at level 15.
+
+
+          `-choice atk`: The target takes {weapbonus}d6[fire]  + {strengthMod} + {weapbonus}[slashing] damage as Thar swings the flaming Sickle towards them.
+
+
+          `-choice chains`: **GET OVER HERE!:** As a bonus action, Thar can choose to send the molten chain attached to the Sickle towards a creature in range and it must make a Strength saving throw.
+        title: Molten Chains
+      - type: text
+        text: The target takes {weapbonus}d6[fire] damage as the sickle wraps and
+          impales them. The target is pulled 5ft towards Thar and the target is
+          wrapped in magical chains of fire and restrained. The restrained
+          target takes {proficiencyBonus}d6[fire] damage at the start of each of
+          its turns. At the end of each of its turn, it roll a str saving throw
+          to see if its continued to be restrained, ending the effect on itself
+          on a success. If it fails, it is pulled an additional 5ft until it is
+          next to Thar. While the target is Restrained. Thar cannot make a Melee
+          attack Using this weapon. He can only target one creature at a time,
+          up to half his proficiency bonus.
+        title: "On a fail:"
+      - type: text
+        text: The target takes {weapbonus}d6[fire] damage and is pulled 5 ft towards
+          thar direction, but the target is not restrained.
+        title: "On a success:"
+    onFalse: []
+  - type: condition
+    condition: choice == "atk"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, This Sickle attached to
+          an unholy chain that is constantly burning was granted to Thar for
+          their dedication to protecting Vanalir and its people. The weapon
+          grows stronger as its wielder continues to use it, providing a weapon
+          bonus of +1 at level 5, +2 at level 10, and +3 at level 15.
+
+
+          The target takes {weapbonus}d6[fire]  + {strengthMod} + {weapbonus}[slashing] damage
+        title: "Molten Chains: Sickle Melee attack"
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: "{weapbonus}d6[fire]  + {strengthMod} + {weapbonus}[slashing] "
+            miss: []
+            attackBonus: proficiencyBonus + strengthMod + weapbonus
+    onFalse: []
+  - type: condition
+    condition: choice == "chains"
+    onTrue:
+      - type: counter
+        counter: Molten Chains
+        amount: "1"
+        errorBehaviour: raise
+      - type: variable
+        name: curse
+        value: "0"
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, This Sickle attached to
+          an unholy chain that is constantly burning was granted to Thar for
+          their dedication to protecting Vanalir and its people. The weapon
+          grows stronger as its wielder continues to use it, providing a weapon
+          bonus of +1 at level 5, +2 at level 10, and +3 at level 15.
+
+
+          **GET OVER HERE!:** As a bonus action, Thar can choose to send the molten chain attached to the Sickle towards a creature in range and it must make a Strength saving throw. He can only target One creature at a time, up to half is proficiency bonus per long rest.
+        title: "Molten Chains: Ranged Attack"
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: str
+            fail:
+              - type: variable
+                name: curse
+                value: "1"
+              - type: text
+                text: The target takes {weapbonus}d6[fire] damage as the sickle wraps and
+                  impales them. The target is pulled 5ft towards Thar and the
+                  target is wrapped in magical chains of fire and restrained.
+                  The restrained target takes {proficiencyBonus}d6[fire] damage
+                  at the start of each of its turns. At the end of each of its
+                  turn, it roll a str saving throw to see if its continued to be
+                  restrained, ending the effect on itself on a success. If it
+                  fails, it is pulled an additional 5ft until it is next to
+                  Thar. While the target is Restrained. Thar cannot make a Melee
+                  attack Using this weapon. He can only target one creature at a
+                  time, up to half his proficiency bonus.
+                title: "On a Fail:"
+              - type: damage
+                damage: "{weapbonus}d6 [fire]"
+              - type: condition
+                condition: proficiencyBonus == 1
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 1d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 2
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 2d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 3
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 3d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 4
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 4d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 5
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 5d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 6
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 6d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+              - type: condition
+                condition: proficiencyBonus == 7
+                onTrue:
+                  - type: ieffect2
+                    name: Restrained
+                    buttons:
+                      - label: Start Restrained
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: damage
+                                damage: 7d6[fire]
+                        verb: Burns From Molten Chains
+                        style: "4"
+                        defaultAttackBonus: proficiencyBonus
+                      - label: Break Free?
+                        automation:
+                          - type: target
+                            target: self
+                            effects:
+                              - type: save
+                                stat: str
+                                fail:
+                                  - type: text
+                                    text: ""
+                                    title: Fails to escape
+                                success:
+                                  - type: text
+                                    text: ""
+                                    title: Breaks Free of the Chains!
+                                  - type: remove_ieffect
+                        verb: Attempts to Break Free!
+                        style: "1"
+                        defaultDC: 10 + strengthMod + proficiencyBonus
+                onFalse: []
+            success:
+              - type: text
+                text: The target takes {weapbonus}d6[fire] damage and is pulled 5 ft towards
+                  thar direction, but the target is not restrained.
+                title: "On a Success:"
+            dc: 10 + strengthMod + proficiencyBonus
+      - type: condition
+        condition: curse == 1
+        onTrue:
+          - type: variable
+            name: curse
+            value: "0"
+          - type: target
+            target: self
+            effects:
+              - type: ieffect2
+                name: Cursed
+                buttons:
+                  - label: Curse Damage
+                    automation:
+                      - type: target
+                        target: self
+                        effects:
+                          - type: damage
+                            damage: 1d4[Cursed Fire]
+                    verb: the Curse Flares
+                    style: "4"
+                  - label: Break Curse
+                    automation:
+                      - type: remove_ieffect
+                    verb: The Chains fall, ending the curse
+                    style: "1"
+        onFalse: []
+    onFalse: []
+verb: says **GET OVER HERE** with
+proper: true
+thumb: https://cdn.discordapp.com/attachments/1180866482247323728/1181224267300483243/molten_chains.png?ex=658047d3&is=656dd2d3&hm=d6a8dd571ca0aad3095bce58f8b8905e10b0e86a005d128c1929cf7cd0b069e2&

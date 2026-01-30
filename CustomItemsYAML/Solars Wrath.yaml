@@ -1,0 +1,168 @@
+name: Solar's Wrath
+automation:
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: condition
+    condition: "{level} > 10"
+    onTrue:
+      - type: condition
+        condition: "{level} > 15"
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "attack"
+    onTrue:
+      - type: text
+        text: Granted for service to Faeyis and her mistress, Solar's Wrath is little
+          more than a double haft at first glance.  Once a button is pressed, it
+          flares to life, with twin blades of pure light springing into
+          being.  This weapon deals 2d4 radiant damage on a successful
+          hit.  When taking the attack action, the wielder may make an
+          additional attack as a bonus action, dealing 1d4 instead of 2d4
+          radiant damage.
+        title: Effect
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 2d4 + {weapbonus} + {weapmod}[radiant]
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + weapmod + weapbonus
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "bonus"
+    onTrue:
+      - type: text
+        text: Granted for service to Faeyis and her mistress, Solar's Wrath is little
+          more than a double haft at first glance.  Once a button is pressed, it
+          flares to life, with twin blades of pure light springing into
+          being.  This weapon deals 2d4 radiant damage on a successful
+          hit.  When taking the attack action, the wielder may make an
+          additional attack as a bonus action, dealing 1d4 instead of 2d4
+          radiant damage.
+        title: Effect
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d4 + {weapbonus} + {weapmod}[radiant]
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + weapmod + weapbonus
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "bloodlust"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Faeyis and her mistress, Solar's Wrath is little
+          more than a double haft at first glance.  Once a button is pressed, it
+          flares to life, with twin blades of pure light springing into
+          being.  This weapon deals 2d4 radiant damage on a successful
+          hit.  When taking the attack action, the wielder may make an
+          additional attack as a bonus action, dealing 1d4 instead of 2d4
+          radiant damage.
+
+
+          Bloodlust can be used against a target that has taken damage up to a number of times equal to the wielder's proficiency modifier.  It provides additional damage as per barbarian's rage for the turn that it is active, requiring only one use if the wielder has multiple attacks.  At 9th level, on a critical, it will also allow its wielder to make an additional attack once per turn as part of the same attack action.  At 15th level, this also deals an additional 2d4 radiant damage.
+        title: Bloodlust
+      - type: counter
+        counter: Bloodlust
+        amount: "1"
+        errorBehaviour: raise
+      - type: condition
+        condition: level > 8
+        onTrue:
+          - type: condition
+            condition: level > 15
+            onTrue:
+              - type: variable
+                name: ragedmg
+                value: "4"
+              - type: variable
+                name: brutcrit
+                value: "1"
+                onError: "0"
+            onFalse:
+              - type: variable
+                name: ragedmg
+                value: "3"
+            errorBehaviour: "false"
+        onFalse:
+          - type: variable
+            name: ragedmg
+            value: "2"
+        errorBehaviour: "false"
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 2d4 + {weapbonus} + {weapmod} + {ragedmg} [radiant]
+                overheal: false
+              - type: condition
+                condition: lastAttackNaturalRoll == 20
+                onTrue:
+                  - type: condition
+                    condition: brutcrit == 1
+                    onTrue:
+                      - type: damage
+                        damage: 2d4 [radiant]
+                        overheal: false
+                      - type: text
+                        text: The target takes an additional 2d4 radiant damage on top of the normal
+                          critical hit dice.  In addition, the wielder may make
+                          another attack.  This can only occur once per turn;
+                          further critical hits do not generate additional
+                          attacks.
+                        title: Bloodlust Critical
+                    onFalse:
+                      - type: condition
+                        condition: level > 8
+                        onTrue:
+                          - type: text
+                            text: The wielder may make another attack.  This can only occur once per turn;
+                              further critical hits do not generate additional
+                              attacks.
+                            title: Additional Attack
+                        onFalse: []
+                        errorBehaviour: "false"
+                    errorBehaviour: "false"
+                onFalse: []
+                errorBehaviour: "false"
+            miss: []
+            attackBonus: proficiencyBonus + weapmod + weapbonus
+    onFalse: []
+    errorBehaviour: "false"
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1071973561419440151/1114545365358751765/06F25972-0E7C-49A2-A3E5-B462344894AB.jpg?width=671&height=671

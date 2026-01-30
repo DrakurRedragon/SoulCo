@@ -1,0 +1,27 @@
+_v: 2
+name: Cloak of the Deathknight
+automation:
+  - type: roll
+    dice: "{choice}d6"
+    name: SpellLevel
+    hidden: true
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Reduced Health
+        effects:
+          max_hp_bonus: -SpellLevel
+        stacking: true
+  - type: counter
+    counter: Cloak of the Deathknight
+    amount: "1"
+proper: false
+verb: supplements their own life with
+activation_type: 2
+thumb: https://media.discordapp.net/attachments/1023739151931158528/1064701761127985262/ypu89quz6a881.png
+phrase: Utilizing the Cloak of the Deathknight, a caster can replace their spell
+  slots with their own life force.
+
+
+!cc create "Cloak of the Deathknight" -reset long -type bubble -min 0 -max 2 -value 2 -desc "Utilizing the Cloak of the Deathknight, a caster can replace their spell slots with their own life force."

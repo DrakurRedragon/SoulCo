@@ -1,0 +1,121 @@
+name: Dragonhide Wraps
+automation:
+  - type: variable
+    name: monklevel
+    value: MonkLevel
+    onError: "0"
+  - type: variable
+    name: breath
+    value: "{choice}"
+    onError: "0"
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+          - type: variable
+            name: lightningdice
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+          - type: variable
+            name: lightningdice
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+      - type: variable
+        name: lightningdice
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: monklevel < 5
+    onTrue:
+      - type: variable
+        name: weapdamage
+        value: "4"
+    onFalse:
+      - type: condition
+        condition: monklevel < 11
+        onTrue:
+          - type: variable
+            name: weapdamage
+            value: "6"
+        onFalse:
+          - type: condition
+            condition: monklevel < 17
+            onTrue:
+              - type: variable
+                name: weapdamage
+                value: "8"
+            onFalse:
+              - type: variable
+                name: weapdamage
+                value: "10"
+  - type: condition
+    condition: breath == 1
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: roll
+            dice: 8d6[lightning]
+            name: breathdamage
+            displayName: Lightning Breath Weapon Damage
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{breathdamage}"
+            success:
+              - type: damage
+                damage: "{breathdamage}/2"
+            dc: "16"
+    onFalse:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d{weapdamage} + {weapmod} + {weapbonus}[magical bludgeoning] +
+                  {lightningdice}d6[lightning]
+            miss: []
+            attackBonus: weapmod + weapbonus + proficiencyBonus
+  - type: text
+    text: >-
+      Granted for services to Vanalir and its Mistress, these fist wraps were
+      blessed by the power of a blue dragon.  Imbued with the power of the
+      dragon and drawing on the power of its wielder, they deal increasing
+      lightning damage, culminating an the capacity to breath a cone or line of
+      lightning when the wielder reaches said heights.  It also provides a bonus
+      to the monk's abilities, making them harder to resist.
+
+
+      Up to level 10: +1 to attack, damage, and monk DCs.  +1d6 Lightning
+
+      Level 11-15: +2 to attack, damage, and monk DCs.  +2d6 Lightning
+
+      Above level 15: +3 to attack, damage, and monk DCs.  +2d6 Lightning.  In addition, grants a breath weapon that can be used as an action, 8d6 lighnting damage, DC 16 Dex save for half.
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1115045973677330493/1115631021564637245/Stonewalkers_Wraps-1_adobe_express.png?width=512&height=495

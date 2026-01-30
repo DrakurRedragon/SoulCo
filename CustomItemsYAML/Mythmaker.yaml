@@ -1,0 +1,43 @@
+name: Mythmaker
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {dexterityMod} + 3[slashing] + 1d6 [force]
+            overheal: false
+        miss: []
+        attackBonus: dexterityMod + proficiencyBonus + 3
+  - type: target
+    target: all
+    effects:
+      - type: condition
+        condition: target.hp < 0
+        onTrue:
+          - type: save
+            stat: cha
+            fail:
+              - type: text
+                text: The successful slaying of the target increases Azrael's Charisma score and
+                  max by 1 to a maximum of +3.  Resets the time counter.
+                title: The Legend Grows
+            success: []
+            dc: 8 + proficiencyBonus + charismaMod + 1
+        onFalse: []
+        errorBehaviour: "false"
+  - type: text
+    text: Granted for services to Vanalir and her Mistress, this magical rapier
+      turns enemies into myths and spreading the legend of Azrael.  Functioning
+      as a +3 weapon, it also deals an additional 1d6 force damage and allows
+      the wielder to the Vicious Mockery cantrip.  When this weapon reduces an
+      enemy to 0 hp, the enemy must make a charisma save.  On a fail, the legend
+      grows, and Azrael increases his Charisma score and the maximum for that
+      score by +1 to a maximum of +3.  If this weapon is not used to kill an
+      enemy at least once a week, the charisma bonus fades as the legend
+      does.  If Azrael is reduced to 0 hit points, the bonus fades immediately,
+      as you cannot kill a legend.
+    title: Effect
+_v: 2
+thumb: https://images-ext-1.discordapp.net/external/Bgvfxrv8OLAra-aT518H1fmCwc8hDiyaSw_E39iiW94/https/i.pinimg.com/564x/71/61/03/7161036231a1b9a675539133a4cb3dd2.jpg

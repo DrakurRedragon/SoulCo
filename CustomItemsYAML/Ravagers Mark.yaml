@@ -1,0 +1,160 @@
+name: Ravager's Mark
+automation:
+  - type: counter
+    counter: Ravagers Mark Poison
+    amount: "0"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: variable
+    name: poisoncc
+    value: lastCounterRemaining
+  - type: variable
+    name: powerpoison
+    value: "{choice}"
+    onError: "0"
+  - type: condition
+    condition: caster.levels.total_level < 11
+    onTrue:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    onFalse:
+      - type: condition
+        condition: caster.levels.total_level < 16
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: condition
+    condition: poisoncc == 1
+    onTrue:
+      - type: condition
+        condition: powerpoison == 0
+        onTrue:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 1d8[magical bludgeoning] + 1d6[poison] + {dexterityMod} + {weapbonus}
+                    overheal: false
+                  - type: save
+                    stat: con
+                    fail:
+                      - type: ieffect2
+                        name: Poisoned
+                        duration: "1"
+                        effects:
+                          attack_advantage: "-1"
+                          check_dis:
+                            - all
+                        attacks: []
+                        buttons: []
+                        end: false
+                        conc: false
+                        desc: Poisoned
+                        stacking: false
+                        save_as: null
+                        parent: null
+                    success: []
+                    dc: "13"
+                miss: []
+                attackBonus: proficiencyBonus + dexterityMod + weapbonus + 2
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 1d8[magical bludgeoning] + 1d12[virulent strain] + {dexterityMod} + {weapbonus}
+                    overheal: false
+                  - type: variable
+                    name: dccalc
+                    value: proficiencyBonus + constitutionMod + 8
+                  - type: condition
+                    condition: "{dccalc} <= 13"
+                    onTrue:
+                      - type: save
+                        stat: con
+                        fail:
+                          - type: ieffect2
+                            name: Poisoned
+                            duration: "1"
+                            effects:
+                              attack_advantage: "-1"
+                              check_dis:
+                                - all
+                            attacks: []
+                            buttons: []
+                            end: true
+                            conc: false
+                            desc: Poisoned
+                            stacking: false
+                            save_as: null
+                            parent: null
+                        success: []
+                        dc: "13"
+                    onFalse:
+                      - type: save
+                        stat: con
+                        fail:
+                          - type: ieffect2
+                            name: Poisoned
+                            duration: "1"
+                            effects:
+                              attack_advantage: "-1"
+                              check_dis:
+                                - all
+                            attacks: []
+                            buttons: []
+                            end: true
+                            conc: false
+                            desc: null
+                            stacking: false
+                            save_as: null
+                            parent: null
+                        success: []
+                        dc: "{dccalc}"
+                    errorBehaviour: "false"
+                miss: []
+                attackBonus: proficiencyBonus + dexterityMod + weapbonus + 2
+          - type: counter
+            counter: Ravagers Mark Poison
+            amount: "1"
+            allowOverflow: false
+            errorBehaviour: warn
+        errorBehaviour: "false"
+    onFalse:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8[magical bludgeoning] + {dexterityMod} + {weapbonus}
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + dexterityMod + weapbonus
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Range 40/120, measures distance from previous target.
+
+      1d8 magical bludgeoning + 1d6 poison.  DC 13 Con save or be Poisoned
+
+      Use reservoir, 1d12 poison instead.  DC 13 or (8 + Proficiency + Con mod), whichever is higher
+
+      Bonus action to refill reservoir.  Until refilled, no poison damage or poisoned condition.
+    title: Effect
+_v: 2
+proper: true
+verb: hurls their
+thumb: https://media.discordapp.net/attachments/1071973561419440151/1094734143142768740/image.png

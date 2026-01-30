@@ -1,0 +1,85 @@
+name: Eclipse Frostplate
+automation:
+  - type: condition
+    condition: choice == "embrace"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: 1d6 [necrotic] + 1d6 [cold]
+                overheal: false
+            success:
+              - type: damage
+                damage: 1d6/2 [necrotic] + 1d6/2 [cold]
+                overheal: false
+            dc: spell_dc
+      - type: text
+        text: The wielder can, instead of their usual twilight aura, activate a
+          different kind, one borne of the spirit haunting it.  Instead of
+          bolstering their allies, the wielder can force enemies within the aura
+          to make a Constitution saving throw at  the end of their turns.  If
+          the target fails, they take 1d6 cold and 1d6 necrotic damage as the
+          frozen spirit lashes out.  If they pass, they take half the damage
+          instead.
+        title: Frost's Embrace
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == "echoes"
+    onTrue:
+      - type: counter
+        counter: Echoes of Twilight
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: roll
+            dice: "{proficiencyBonus}d8"
+            name: dmg
+            hidden: false
+            displayName: Damage
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: "{dmg}/2 [necrotic] + {dmg}/2 [cold]"
+                overheal: false
+            success:
+              - type: damage
+                damage: "{dmg}/4 [necrotic] + {dmg}/4 [cold]"
+                overheal: false
+            dc: spell_dc
+          - type: text
+            text: As a reaction to taking damage, the spirit energy can lash out. The target
+              must make a Constitution saving throw or take damage. This damage
+              is equal to a number of d8s equal to the wearer's proficiency
+              bonus. Half of the damage rolled is necrotic and half is cold. The
+              target takes half damage on a successful save. This ability can be
+              used 3 times per long rest.
+            title: Echoes of Twilight
+    onFalse: []
+    errorBehaviour: neither
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, this plate has a
+      haunting aura about it, a shadow of its former owner.  It provides an
+      additional +1 to AC as well as resistance to necrotic damage.  The wielder
+      can, instead of their usual twilight aura, activate one borne of the
+      spirit haunting it.  Instead of bolstering their allies, the wielder can
+      force enemies within the aura to make a Constitution saving throw at  the
+      end of their turns.  If the target fails, they take 1d6 cold and 1d6
+      necrotic damage as the frozen spirit lashes out.  If they pass, they take
+      half the damage instead. `-choice embrace`
+
+
+      In addition, as a reaction to taking damage, the spirit energy can lash out.  The target must make a Constitution saving throw or take damage.  This damage is equal to a number of d8s equal to the wearer's proficiency bonus.  Half of the damage rolled is necrotic and half is cold.  The target takes half damage on a successful save.  This ability can be used 3 times per long rest. `-choice echoes`
+    title: Effect
+verb: manifests their
+proper: true
+thumb: https://images.mysoulco.com/albums/Items/kitskiss_smooth_vector_fantasy_armor_feminine_shape_female_set__f2975d69-7386-4ec5-9924-4f535d91607d.webp

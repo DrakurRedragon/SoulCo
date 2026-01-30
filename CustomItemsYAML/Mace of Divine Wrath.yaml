@@ -1,0 +1,114 @@
+_v: 2
+name: Mace of Divine Wrath
+automation:
+  - type: variable
+    name: smite
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+  - type: condition
+    condition: level > 8
+    onTrue:
+      - type: condition
+        condition: level > 14
+        onTrue:
+          - type: variable
+            name: smitedice
+            value: "4"
+          - type: variable
+            name: smitedicess
+            value: "3"
+        onFalse:
+          - type: variable
+            name: smitedice
+            value: "3"
+          - type: variable
+            name: smitedicess
+            value: "2"
+    onFalse:
+      - type: variable
+        name: smitedice
+        value: "2"
+      - type: variable
+        name: smitedicess
+        value: "1"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {strengthMod} + {weapbonus} [magical bludgeoning] + 1d4 [radiant]
+          - type: condition
+            condition: smite == 1
+            onTrue:
+              - type: damage
+                damage: "{smitedice}d8[radiant]"
+              - type: counter
+                counter: Divine Wrath
+                amount: "1"
+            onFalse: []
+          - type: condition
+            condition: lastAttackNaturalRoll == 20
+            onTrue:
+              - type: condition
+                condition: '"fiend" in target.creature_type or "undead" in target.creature_type'
+                onTrue:
+                  - type: damage
+                    damage: 1d6 [magical bludgeoning] + 1d6 [radiant]
+                onFalse:
+                  - type: damage
+                    damage: 1d6[magical bludgeoning]
+            onFalse: []
+          - type: condition
+            condition: smite == 2
+            onTrue:
+              - type: damage
+                damage: "{smitedice}d8[radiant]"
+              - type: counter
+                counter:
+                  slot: smitedicess
+                amount: "1"
+            onFalse: []
+        miss: []
+        attackBonus: strengthMod+proficiencyBonus+weapbonus
+  - type: condition
+    condition: smite == 2
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: damage
+            damage: "{smitess}d4[radiant]"
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Faeyis and her Mistress, the Mace of Divine Wrath
+      grows with its wielder.  It allows the wielder to call upon the divines to
+      smite their target with radiant fury, dealing increasing damage as they
+      themselves grow in power.  Though the weapon possesses its own charges,
+      the wielder can supplement that capacity with their own magical
+      capacity.  On a critical hit, the power of the weapon increases,
+      particularly against fiends and undead.
+
+
+      +{weapbonus} to attack and damage, deals 1d8 magical bludgeoning + 1d4 radiant damage.  Use 1 charge to deal {smitedice}d8 Radiant damage to target.  Has 4 charges, restores 1d4 at dawn.  Can instead use a level {smitedicess} spell slot to fuel.  On crit, deals an extra 2d6 bludgeoning damage, plus an additional 2d6 radiant damage if the target is a fiend or undead.
+proper: false
+thumb: https://images-ext-1.discordapp.net/external/gtEO0ci2A83vk0903Iyv-B0ouyt1I7drFsyBL8nGGr8/https/i.pinimg.com/564x/0b/7f/b3/0b7fb3fb955938999de231b3a72187bd.jpg?width=291&height=671

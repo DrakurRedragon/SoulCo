@@ -1,0 +1,68 @@
+name: Chivarias Prodigy
+automation:
+  - type: condition
+    condition: choice == "shot"
+    onTrue:
+      - type: target
+        target: 1
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + 3 + 2 [piercing]
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + dexterityMod + 3 + 2
+      - type: target
+        target: all
+        effects:
+          - type: roll
+            dice: 2d6
+            name: shotdam
+            hidden: false
+            displayName: Necrotic Damage
+            fixedValue: true
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: "{shotdam} [necrotic]"
+                overheal: false
+            success:
+              - type: damage
+                damage: "{shotdam}/2 [necrotic]"
+                overheal: false
+            dc: 8 + proficiencyBonus + dexterityMod + 3
+          - type: text
+            text: When this arrow lands, it burst in a simultaneously healing and harming
+              burst.  It deals 2d6 damage to each creature within 10 ft of the
+              target, hit or miss.  In addition, one ally in the area my elect
+              to roll up to roll up to 3 of their hit dice to recover that many
+              hit points + {wisdomMod}..
+            title: Balance Shift
+    onFalse:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d8 + {dexterityMod} + 3 + 2 [piercing]
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + dexterityMod + 3 + 2
+    errorBehaviour: "false"
+  - type: text
+    text: Granted for services to Vanalir and her Mistress, Chivaria's Prodigy
+      belongs to Daress.  This +3 Longbow increases not only its wielders
+      accuracy, but also its own ability to strike weak points on any enemy.  In
+      addition, once per turn upon striking an enemy, the wielder can cause a
+      small shift in the natural balance, dealing 2d6 necrotic damage to every
+      creature of the wielders choice within 10 ft of the original target of the
+      shot.  One ally within that same distance can roll up to 3 of their hit
+      dice to recover that many hit points + {wisdomMod}.
+    title: Chivarias Prodigy
+verb: fires
+proper: true
+criton: 19
+thumb: https://images-ext-2.discordapp.net/external/jNruyXbGG-OTX4BD7xjaCayewDcBfP27z6yIAbP7TQM/https/i.pinimg.com/564x/e4/06/e0/e406e02a483444bfce15be5f3c58ecc7.jpg

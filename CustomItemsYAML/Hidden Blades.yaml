@@ -1,0 +1,85 @@
+name: Hidden Blades
+automation:
+  - type: variable
+    name: monklevel
+    value: MonkLevel
+    onError: "0"
+  - type: condition
+    condition: monklevel < 5
+    onTrue:
+      - type: variable
+        name: weapdamage
+        value: "4"
+    onFalse:
+      - type: condition
+        condition: monklevel < 11
+        onTrue:
+          - type: variable
+            name: weapdamage
+            value: "6"
+        onFalse:
+          - type: condition
+            condition: monklevel < 17
+            onTrue:
+              - type: variable
+                name: weapdamage
+                value: "8"
+            onFalse:
+              - type: variable
+                name: weapdamage
+                value: "10"
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+  - type: condition
+    condition: "{level} > 5"
+    onTrue:
+      - type: condition
+        condition: "{level} > 10"
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: AC Bonus
+        effects:
+          ac_bonus: weapbonus
+          save_bonus: "{weapbonus}"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d{weapdamage} + {weapmod} + {weapbonus}[magical bludgeoning]
+        miss: []
+        attackBonus: weapmod + weapbonus + proficiencyBonus
+  - type: text
+    text: Granted to a supporter of Faeyis and her Mistress, these blades are
+      cleverly hidden within knee pads, elbow pads, gloves, and several other
+      random places.  They can deal bludgeoning, piercing, or bludgeoning
+      damage, count as a monk weapon and an unarmed strike, and provide a bonus
+      to AC and saves equal to the bonus it provides to attacks.  Once per long
+      rest, the wielder can strike one additional time with flurry of blows,
+      hitting 3 times instead of 2.
+    title: Hidden Blades
+_v: 2
+proper: true

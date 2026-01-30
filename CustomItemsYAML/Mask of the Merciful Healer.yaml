@@ -1,0 +1,19 @@
+!attack import name: Mask of the Merciful Healer
+automation:
+  - type: target
+    target: self
+    effects:
+      - type: check
+        ability: medicine
+        dc: "22"
+        success:
+          - type: text
+            text: Success!  The wearer uses the potion as a bonus action.
+        fail:
+          - type: text
+            text: Failure!  The user wasn't able to use the potion as a bonus action.  They
+              must use it as an action or lose the potion.  The wearer's bonus
+              action is NOT used for this turn.
+_v: 2
+proper: true
+verb: attempts to use a potion with their

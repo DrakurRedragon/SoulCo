@@ -1,0 +1,617 @@
+name: Luminous Aegis
+automation:
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: text
+        text: >-
+          granted to Minra in service of her Celestial patroness, Wophe, for service
+          to Vanalir and her mistress, Luminous Aegis is a Special Talismen that
+          grants the user the immense power of four choices. 
+
+
+          One, a weapon enhancement. increasing any weapon based on the users level as well as granting an additional 1d8 radiant damage `-choice weapon`
+
+
+          Two, a Vast array of spells, some with the ability to cast at will, others 3 times a day, and the most powerful 1 time a day. `-choice spell`
+
+
+          Three, a Aura of Luminous energy, providing advantage from fear and greater agility in combat, giving enemies a harder time to hit them. `-choice aura`
+
+
+          Four, A Celestial Serenade. Using the power of the Patron themselves, the user is granted energy from the moon itself to either attack their foes or heal their allies. `-choice serenade`
+
+
+          The user can shift through each of these as a bonus action, but only have one active at a time, as the stress on their body would be too great carrying more than one boon.
+        title: Luminous Aegis
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "weapon"
+    onTrue:
+      - type: text
+        text: >-
+          granted to Minra in service of her Celestial patroness, Wophe, for service
+          to Vanalir and her mistress, Luminous Aegis is a Special Talismen that
+          grants the user the immense power of four choices.
+           
+          Choice One, a weapon enhancement. increasing any weapon based on the users level as well as granting an additional 1d8 radiant damage. This bonus is +1 at level 5+, +2 at level 10+, and +3 at level 15+.
+
+
+          The user can shift through each of these as a bonus action, but only have one active at a time, as the stress on their body would be too great carrying more than one boon.
+        title: Lunar Weaponry
+      - type: target
+        target: self
+        effects:
+          - type: condition
+            condition: level > 10
+            onTrue:
+              - type: condition
+                condition: level > 15
+                onTrue:
+                  - type: variable
+                    name: weapbonus
+                    value: "3"
+                onFalse:
+                  - type: variable
+                    name: weapbonus
+                    value: "2"
+                errorBehaviour: "false"
+            onFalse:
+              - type: variable
+                name: weapbonus
+                value: "1"
+            errorBehaviour: "false"
+          - type: ieffect2
+            name: Weapon Bonus
+            duration: null
+            effects:
+              to_hit_bonus: "{weapbonus}"
+              damage_bonus: "{weapbonus} + 1d8[radiant]"
+            attacks: []
+            buttons:
+              - label: Change Form
+                automation:
+                  - type: remove_ieffect
+                verb: null
+                style: "4"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "spell"
+    onTrue:
+      - type: text
+        text: >-
+          granted to Minra in service of her Celestial patroness, Wophe, for service
+          to Vanalir and her mistress, Luminous Aegis is a Special Talismen that
+          grants the user the immense power of four choices. 
+
+
+          Choice Two: a Vast array of spells, some with the ability to cast at will, others 3 times a day, and the most powerful 1 time a day.
+
+
+
+          Innate Spellcasting: Minra can innately cast the following spells, requiring no material components:
+
+
+          At will: detect evil and good, detect magic, thunderwave
+
+
+          3/day each: create food and water (can create wine instead of water) , tongues, wind walk
+
+
+          1/day each: conjure elemental (air elemental only), creation, gaseous form, invisibility, major image, plane shift
+
+
+
+          The user can shift through each of these as a bonus action, but only have one active at a time, as the stress on their body would be too great carrying more than one boon.
+        title: Celestial Spellbook
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Spell List
+            duration: null
+            effects: null
+            attacks:
+              - attack:
+                  name: Detect Evil and Good
+                  automation:
+                    - type: spell
+                      id: 2064
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                  _v: 2
+                  verb: Casts
+                  activation_type: 1
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Detect Magic
+                  automation:
+                    - type: spell
+                      id: 2065
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                  _v: 2
+                  verb: Casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Thunderwave
+                  automation:
+                    - type: spell
+                      id: 2278
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Create Food and Water
+                  automation:
+                    - type: spell
+                      id: 2052
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 3/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Tongues
+                  automation:
+                    - type: spell
+                      id: 2281
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 3/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Wind Walk
+                  automation:
+                    - type: spell
+                      id: 2301
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 3/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Conjure Air Elemental
+                  automation:
+                    - type: spell
+                      id: 2041
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Creation
+                  automation:
+                    - type: spell
+                      id: 2055
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Gaseous Form
+                  automation:
+                    - type: spell
+                      id: 2118
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Invisibility
+                  automation:
+                    - type: spell
+                      id: 2159
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Major Image
+                  automation:
+                    - type: spell
+                      id: 2180
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Plane Shift
+                  automation:
+                    - type: spell
+                      id: 2206
+                      level: null
+                      dc: null
+                      attackBonus: null
+                      castingMod: null
+                      parent: null
+                    - type: counter
+                      counter: 1/day spells
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: casts
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            buttons:
+              - label: Change Form
+                automation:
+                  - type: remove_ieffect
+                verb: null
+                style: "4"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "aura"
+    onTrue:
+      - type: text
+        text: >-
+          granted to Minra in service of her Celestial patroness, Wophe, for service
+          to Vanalir and her mistress, Luminous Aegis is a Special Talismen that
+          grants the user the immense power of four choices. 
+           
+          Choice Three, a Aura of Luminous energy, providing advantage from fear and greater agility in combat, giving enemies a harder time to hit them.
+
+
+          The user can shift through each of these as a bonus action, but only have one active at a time, as the stress on their body would be too great carrying more than one boon.
+        title: Luminous Aura
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Luminous Aura
+            duration: null
+            effects:
+              save_adv:
+                - wis
+            attacks: []
+            buttons:
+              - label: Change Form
+                automation:
+                  - type: remove_ieffect
+                verb: null
+                style: "4"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "serenade"
+    onTrue:
+      - type: text
+        text: >-
+          granted to Minra in service of her Celestial patroness, Wophe, for service
+          to Vanalir and her mistress, Luminous Aegis is a Special Talismen that
+          grants the user the immense power of four choices. 
+
+
+          Choice Four, A Celestial Serenade. Using the power of the Patron themselves, the user is granted energy from the moon itself to either attack their foes or heal their allies. Such attacks are known to her as "Moonbeam", "Healing Aura", and "Radiant Blast"
+
+
+          Moonbeam: Every target in a 100ft line, 5ft across, must make a Dexterity save against The users' spell save DC. They take 8d6[radiant] on fail, and half as much on a success.
+
+
+          Healing Aura: All allies within 20ft of the user heals for the casters wisdom modifier plus their proficiency bonus.
+
+
+          Radiant blast: This attack can only be used once per long rest. Any target of the user's choice within a 30ft radius must make a Dexterity saving throw against the casters Spell DC save. They take 4d6[radiant] damage and is blinded for a minute on a fail, or half as much and is not blinded on a success. A blinded opponent can roll again at the end of their turn, ending the effect on a success. 
+
+
+          The user can shift through each of these as a bonus action, but only have one active at a time, as the stress on their body would be too great carrying more than one boon.
+        title: Celestial Serenade
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Celestial Serenade
+            duration: null
+            effects: null
+            attacks:
+              - attack:
+                  name: Moon Beam
+                  automation:
+                    - type: text
+                      text: >-
+                        granted to Minra in service of her Celestial patroness, Wophe, for service
+                        to Vanalir and her mistress, Luminous Aegis is a Special
+                        Talismen that grants the user the immense power of four
+                        choices. 
+
+
+                        Choice Four, A Celestial Serenade. Using the power of the Patron themselves, the user is granted energy from the moon itself to either attack their foes or heal their allies. Such attacks are known to her as "Moonbeam", "Healing Aura", and "Radiant Blast"
+
+
+                        Moonbeam: Every target in a 100ft line, 5ft across, must make a Dexterity save against The users' spell save DC. They take 8d6[radiant] on fail, and half as much on a success.
+                      title: Moonbeam
+                    - type: roll
+                      dice: 8d6[radiant]
+                      name: damage
+                      hidden: false
+                    - type: target
+                      target: all
+                      effects:
+                        - type: save
+                          stat: dex
+                          fail:
+                            - type: damage
+                              damage: "{damage}"
+                              overheal: false
+                          success:
+                            - type: damage
+                              damage: ({damage})/2
+                              overheal: false
+                          dc: 8 + charismaMod + proficiencyBonus
+                  _v: 2
+                  verb: fires
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Healing Aura
+                  automation:
+                    - type: text
+                      text: >-
+                        granted to Minra in service of her Celestial patroness, Wophe, for service
+                        to Vanalir and her mistress, Luminous Aegis is a Special
+                        Talismen that grants the user the immense power of four
+                        choices. 
+
+
+                        Choice Four, A Celestial Serenade. Using the power of the Patron themselves, the user is granted energy from the moon itself to either attack their foes or heal their allies. Such attacks are known to her as "Moonbeam", "Healing Aura", and "Radiant Blast"
+
+
+                        Healing Aura: All allies within 20ft of the user heals for the casters wisdom modifier plus their proficiency bonus.
+                      title: Healing Aura
+                    - type: target
+                      target: all
+                      effects:
+                        - type: damage
+                          damage: -({wisdomMod} + {proficiencyBonus})[heal]
+                          overheal: false
+                  _v: 2
+                  verb: channels
+                  activation_type: 3
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              - attack:
+                  name: Radiant Blast
+                  automation:
+                    - type: text
+                      text: >-
+                        granted to Minra in service of her Celestial patroness, Wophe, for service
+                        to Vanalir and her mistress, Luminous Aegis is a Special
+                        Talismen that grants the user the immense power of four
+                        choices. 
+
+
+                        Choice Four, A Celestial Serenade. Using the power of the Patron themselves, the user is granted energy from the moon itself to either attack their foes or heal their allies. Such attacks are known to her as "Moonbeam", "Healing Aura", and "Radiant Blast"
+
+
+                        Radiant blast: This attack can only be used once per long rest. Any target of the user's choice within a 30ft radius must make a Dexterity saving throw against the casters Spell DC save. They take 4d6[radiant] damage and is blinded for a minute on a fail, or half as much and is not blinded on a success. A blinded opponent can roll again at the end of their turn, ending the effect on a success.
+                      title: Radiant Blast
+                    - type: roll
+                      dice: 4d6[radiant]
+                      name: damage
+                      hidden: false
+                    - type: target
+                      target: all
+                      effects:
+                        - type: save
+                          stat: dex
+                          fail:
+                            - type: damage
+                              damage: "{damage}"
+                              overheal: false
+                            - type: ieffect2
+                              name: Blinded
+                              duration: "10"
+                              effects: null
+                              attacks: []
+                              buttons:
+                                - label: Resist Blinded
+                                  automation:
+                                    - type: target
+                                      target: self
+                                      effects:
+                                        - type: save
+                                          stat: dex
+                                          fail: []
+                                          success:
+                                            - type: remove_ieffect
+                                              removeParent: if_no_children
+                                  verb: attempts to resist Blinded
+                                  style: "4"
+                                  defaultDC: lastSaveDC
+                                  defaultAttackBonus: null
+                                  defaultCastingMod: null
+                              end: true
+                              conc: false
+                              desc: null
+                              stacking: false
+                              save_as: null
+                              parent: null
+                              target_self: false
+                              tick_on_caster: false
+                          success:
+                            - type: damage
+                              damage: ({damage})/2
+                              overheal: false
+                          dc: 8 + charismaMod + proficiencyBonus
+                    - type: counter
+                      counter: Radiant Blast
+                      amount: "1"
+                      allowOverflow: false
+                      errorBehaviour: raise
+                  _v: 2
+                  verb: unleashes
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            buttons:
+              - label: Change Form
+                automation:
+                  - type: remove_ieffect
+                verb: null
+                style: "4"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: "false"
+_v: 2
+proper: true
+verb: Channels their Patron’s
+thumb: https://media.discordapp.net/attachments/1167561326210588703/1174824769737199677/lamp3.png?ex=6568ffd4&is=65568ad4&hm=fd1859bfa0355040ec53b5067d6dd401a5e647de1ad576b777fa71faa63b0a9e&=&width=671&height=671
+
+!cc create "Radiant Blast" -title "Radiant Blast" -reset long -type box -min 0 -max 1 -value 1 -desc "The patron of Minra has granted her the ability to cause a Radiant explosion in a 20ft sphere with Minra at the center."
+
+!cc create "1/day spells" -title "1/day spells" -reset long -type number -min 0 -max 6 -value 6 -desc "The patron of Minra has granted her to cast certain spells when using her relic. the spells from this list are allowed to be used 1 time per day each: conjure elemental (air elemental only), creation, gaseous form, invisibility, major image, plane shift"
+
+!cc create "3/day spells" -title "3/day spells" -reset long -type number -min 0 -max 9 -value 9 -desc "The patron of Minra has granted her to cast certain spells when using her relic. the spells from this list are allowed to be used 3 times per day each: create food and water (can create wine instead of water), tongues, wind walk"

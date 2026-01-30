@@ -1,0 +1,128 @@
+_v: 2
+name: Winter's Edge
+automation:
+  - type: variable
+    name: weapmod
+    value: strengthMod
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, the Winter's Edge was
+          once said to be crafted from a red dragon's body that had been frozen
+          by a group of white dragons. The sword quickly gained runes from the
+          dragon's original form. It is said that this sword holds the soul of
+          that dragon.
+
+
+          `-choice atk`: Winter's Edge does 2d6[magical slashing] damage plus {weapbonus}d6[magical fire] damage that scales as the connection between the wielder and sword grows. The weapon also Gets a Bonus to attack and damage based on the users level. On a successful hit, the target must make a DC 11 + {weapbonus} saving throw or be Frozen solid until Renegade's next turn (Stunned).
+
+
+          `-choice dragon`: Starting at 10th level, once per long rest, Renegade can further channel the spirit of the dragon.  As an action, Renegade can exhale the burning soul of the red dragon, a snap freeze following shortly thereafter.  It deals a number of {proficiencyBonus}d6 [fire] damage, followed by the cold snap dealing {proficiencyBonus}d6[cold] damage in a cone that {proficiencyBonus}x10ft.  A creature must make a Dex save to avoid the fire and a Con save to avoid the effects of the cold, taking half damage on a successful save. If they fail the Con save, they must also make the Frozen DC check or be frozen solid until Renegade's next turn (Stunned).
+        title: The Winter's Edge
+    onFalse: []
+  - type: condition
+    condition: choice == "atk"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, the Winter's Edge was
+          once said to be crafted from a red dragon's body that had been frozen
+          by a group of white dragons. The sword quickly gained runes from the
+          dragon's original form. It is said that this sword holds the soul of
+          that dragon.
+
+
+          Winter's Edge does 2d6[magical slashing] damage plus {weapbonus}d6[magical fire] damage that scales as the connection between the wielder and sword grows. The weapon also Gets a Bonus to attack and damage based on the users level. On a successful hit, the target must make a DC 11 + {weapbonus} saving throw or be Frozen solid until Renegade's next turn (Stunned).
+        title: The Winter's Edge
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 2d6[magical slashing] + {weapbonus}d6[magical fire]
+              - type: save
+                stat: con
+                fail:
+                  - type: ieffect2
+                    name: Frozen (Stunned)
+                    duration: "1"
+                    desc: The Target is Frozen until Renegade's next turn
+                    tick_on_caster: true
+                success: []
+                dc: 11 + weapbonus
+            miss: []
+            attackBonus: proficiencyBonus + weapmod + weapbonus
+    onFalse: []
+  - type: condition
+    condition: choice == "dragon"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, the Winter's Edge was
+          once said to be crafted from a red dragon's body that had been frozen
+          by a group of white dragons. The sword quickly gained runes from the
+          dragon's original form. It is said that this sword holds the soul of
+          that dragon.
+
+
+          Starting at 10th level, once per long rest, Renegade can further channel the spirit of the dragon. As an action, Renegade can exhale the burning soul of the red dragon, a snap freeze following shortly thereafter. It deals a number of {proficiencyBonus}d6 [fire] damage, followed by the cold snap dealing {proficiencyBonus}d6[cold] damage in a cone that {proficiencyBonus}x10ft. A creature must make a Dex save to avoid the fire and a Con save to avoid the effects of the cold, taking half damage on a successful save. If they fail the Con save, they must also make the Frozen DC check or be frozen solid until Renegade's next turn (Stunned).
+        title: "The Winter's Edge: Dragon Spirit"
+      - type: roll
+        dice: "{proficiencyBonus}d6"
+        name: dmg
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{dmg}[fire]"
+            success:
+              - type: damage
+                damage: "{dmg}/2[fire]"
+            dc: 8 + charismaMod + proficiencyBonus + weapbonus
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: "{dmg}[cold]"
+              - type: save
+                stat: con
+                fail:
+                  - type: ieffect2
+                    name: Frozen (Stunned)
+                    duration: "1"
+                    desc: The Target is Frozen until Renegade's next turn
+                    tick_on_caster: true
+                success: []
+                dc: 11 + weapbonus
+            success:
+              - type: damage
+                damage: "{dmg}/2[cold]"
+            dc: 8 + charismaMod + proficiencyBonus + weapbonus
+    onFalse: []
+verb: Swings The
+proper: true
+thumb: https://cdn.discordapp.com/attachments/1179760163486445719/1180280647122685962/403d79bf-6733-4395-bebf-9ccb2fc55c98.webp?ex=657cd902&is=656a6402&hm=fad87b48defd5723f97cf7e267cde1f6da5a2cf82b51146dfced753f4fc15115&
+activation_type: 1

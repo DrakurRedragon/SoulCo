@@ -1,0 +1,65 @@
+_v: 2
+name: Judgement
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d8 + {intelligenceMod} + 3[thunder]
+          - type: ieffect2
+            name: Thunderstruck
+            duration: "1"
+            end: true
+            desc: Dis on attacks vs anyone except {name}
+        miss: []
+        attackBonus: proficiencyBonus + intelligenceMod + 3
+  - type: text
+    text: >-
+      Granted for services to Faeyis and her Mistress, Judgement is an upgraded
+      form of the Thunder Gauntlets, functioning as a +3 weapon as well as
+      providing another method of focusing the defensive field.  When a creature
+      misses the wielder, they may use their reaction to deal damage equal to
+      any remaining Temp HP and reset it to maximum.  This can be done a number
+      of times equal to the wielder's proficiency bonus, resetting on a long
+      rest.
+
+
+      In addition, if the wielder casts a cantrip, they can use a bonus action to cast the cantrip again.  This can be done a number of times equal to the wielder's proficiency bonus.
+
+
+      Thunder Gauntlets counts as a simple melee weapon while you aren't holding anything in it, and it deals 1d8 thunder damage on a hit. A creature hit by the gauntlet has disadvantage on attack rolls against targets other than you until the start of your next turn, as the armor magically emits a distracting pulse when the creature attacks someone else.
+proper: true
+thumb: https://images-ext-2.discordapp.net/external/hRsujnv0zlVbnxfjLAal1xztF8yvGJ4ARpBl4cyWH8Q/https/pbs.twimg.com/media/FY2xoyyXEAADv-d.jpg%3Alarge?width=1440&height=603
+activation_type: 1
+
+
+!cc create "Judgement Reactive Field" -min 0 -max {proficiencyBonus} -value {proficiencyBonus} -reset long -type bubble -desc "When a creature misses the wielder, they may use their reaction to deal damage equal to any remaining Temp HP and reset it to maximum. This can be done a number of times equal to the wielder's proficiency bonus, resetting on a long rest."
+
+
+name: Judgement Reactive Field
+automation:
+  - type: counter
+    counter: Judgement Reactive Field
+    amount: "1"
+  - type: target
+    target: self
+    effects:
+      - type: variable
+        name: temp
+        value: caster.temp_hp
+        onError: "0"
+      - type: temphp
+        amount: "{{int(ArtificerLevel)}}"
+  - type: target
+    target: all
+    effects:
+      - type: damage
+        damage: "{temp}[thunder]"
+        overheal: false
+_v: 2
+proper: true
+verb: activates
+activation_type: 4
+thumb: https://images-ext-2.discordapp.net/external/hRsujnv0zlVbnxfjLAal1xztF8yvGJ4ARpBl4cyWH8Q/https/pbs.twimg.com/media/FY2xoyyXEAADv-d.jpg%3Alarge?width=1440&height=603

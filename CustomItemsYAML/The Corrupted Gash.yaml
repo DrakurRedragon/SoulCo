@@ -1,0 +1,59 @@
+_v: 2
+name: The Corrupted Gash
+automation:
+  - type: condition
+    condition: level >= 10
+    onTrue:
+      - type: condition
+        condition: level >= 15
+        onTrue:
+          - type: variable
+            name: weapmod
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapmod
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+  - type: variable
+    name: savedc
+    value: 8 + proficiencyBonus + strengthMod
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d10[slashing] + {weapbonus} + {strengthMod} + {weapbonus}d6[necrotic]
+          - type: ieffect2
+            name: Corrupted
+            buttons:
+              - automation:
+                  - type: target
+                    target: self
+                    effects:
+                      - type: save
+                        stat: con
+                        fail:
+                          - type: damage
+                            damage: 1d6[necrotic]
+                        success:
+                          - type: remove_ieffect
+                label: Save vs Corruption
+                verb: attempts to save against the Corruption
+                style: "4"
+                defaultDC: "{savedc}"
+        miss: []
+        attackBonus: proficiencyBonus + strengthMod + weapbonus
+  - type: text
+    text: "Granted for services to Vanalir and her Mistress, The Corrupted Gash is a
+      potent halberd designed to corrupt and decay its target.  It grows with
+      its wielder, dealing increasing necrotic damage based on its own
+      magic.  In addition, it inflicts each creature it strikes with Corruption
+      if it isn't already Corrupted. That creature must then make a DC {savedc}
+      CON save or take 1d6 necrotic damage.  On a success, this corruption is
+      removed. "
+proper: true

@@ -1,0 +1,103 @@
+name: Ice Shield
+automation:
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: acbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: acbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: acbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "summon"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her Mistress, this rune is engraved
+                      into the arm of its wielder. On command, ice begins to grow 
+                      from the rune, rapidly forming into a glittering shield. The
+                      runes power increases with the users experience, increasing
+                      the protection bonus  by 1 at level 5, 2 and level 10, and 3 at level 15.
+
+          as a bonus action, the user can command the conjured shield to retract, melting back into the rune.
+        title: Ice Shield
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Icicle Armor
+            duration: null
+            effects:
+              ac_bonus: 2 + acbonus
+            attacks: []
+            buttons:
+              - label: Remove Shield
+                automation:
+                  - type: remove_ieffect
+                  - type: text
+                    text: >-
+                      Granted for service to Vanalir and her mistress. This rune is engraved
+                      into the arm of its wielder. on its command word, an ice
+                      shield appears, providing the benefits of a shield. the
+                      Rune grows stronger with the user, increasing the AC bonus
+                      by 1 at level 5, 2 and level 10, and 3 at level 15.
+
+
+                      Remove: as a bonus action, the user Removes the frozen shield on their arm, which shrinks back into the rune on their arm.
+                    title: Effect
+                verb: null
+                style: "1"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: raise
+  - type: condition
+    condition: choice == "bash"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her Mistress, this rune is engraved
+                      into the arm of its wielder. On command, ice begins to grow 
+                      from the rune, rapidly forming into a glittering shield. The
+                      runes power increases with the users experience, increasing
+                      the protection bonus  by 1 at level 5, 2 and level 10, and 3 at level 15.
+
+          as a reaction, the user can use the conjured shield to attempt to bash their opponent for 2d4[cold] plus their strength and weapon modifier in damage.
+        title: Ice Shield Bash!
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 2d4 + {acbonus} +{strengthMod}[cold]
+                overheal: false
+            miss: []
+            attackBonus: proficiencyBonus + strengthMod + acbonus
+    onFalse: []
+    errorBehaviour: raise
+_v: 2
+verb: Activates their
+proper: true
+thumb: https://cdn.discordapp.com/attachments/1167561617068785845/1167864918192693288/mev_shield.jpg?ex=654fadf6&is=653d38f6&hm=72f9d997e28a683805230bf7e691f635b1d3b9117c302446075b13da2e782b1d&
+activation_type: 1

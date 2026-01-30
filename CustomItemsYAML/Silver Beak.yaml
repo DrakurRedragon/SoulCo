@@ -1,0 +1,23 @@
+name: The Silver Beak
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d6 + {strengthMod} + 3 [slashing]
+        miss: []
+        attackBonus: proficiencyBonus + strengthMod + 3
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, the Silver Beak is a
+      specialized handaxe designed for Denahi.  If the Silver Beak is thrown at
+      a target, hit or miss, it returns immediately to its wielder's hand.
+
+
+      One Man Army: If the Silver Beak is used to reduce a foe to 0 hit points, the wielder may immediately make an additional attack as a bonus action.  If the attack used to reduce a foe to 0 hit points was a bonus action offhand attack, the wielder may instead use their reaction to do so.  If this additional attack also reduces a foe to 0 hit points, one more additional attack may be made as part of the same action.  No further attacks may be generated this way.
+    title: The Silver Beak
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1200138105445961750/1200504670985125888/Silver_Beak_Handaxe_Final.jpeg

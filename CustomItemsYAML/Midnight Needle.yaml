@@ -1,0 +1,93 @@
+name: Midnight Needle
+automation:
+  - type: condition
+    condition: choice == "lightning"
+    onTrue:
+      - type: counter
+        counter: Lightning Steel Blitz
+        amount: "1"
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: int
+            fail:
+              - type: variable
+                name: failed
+                value: "1"
+              - type: ieffect2
+                name: Confused
+                desc: All attacks against this creature are made at advantage
+                tick_on_caster: true
+                duration: "1"
+            success: []
+            dc: 8 + proficiencyBonus + charismaMod
+          - type: condition
+            condition: failed == 1
+            onTrue:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 6d10 [force]
+                miss: []
+                adv: "1"
+                attackBonus: spell_attack_bonus
+            onFalse:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 6d10 [force]
+                miss: []
+                attackBonus: spell_attack_bonus
+      - type: text
+        text: >-
+          As an action, you flourish the Midnight Needle and strike forth, vanishing
+          in a crack of thunder as you become like lightning. Choose up to 5
+          creatures within range.  Your speed leaves behind afterimages that
+          confuse your target.  Any target that can see you through any other
+          mans except Truesight and Blindsight must make an Intelligence saving
+          throw vs your spell DC.  On a failure, all attack rolls against it are
+          at advantage until the beginning of your next turn.
+
+
+          After each target makes their saving throw, roll an attack roll against each of them.  If they failed their saving throw, this attack is also made at advantage.  On a hit, the target takes 6d10 force damage.
+        title: Lightning Steel Blitz
+    onFalse:
+      - type: condition
+        condition: choice == "steel"
+        onTrue:
+          - type: counter
+            counter: Midnight Needle - Steel Wind Strike
+            amount: "1"
+            errorBehaviour: raise
+          - type: spell
+            id: 14602
+          - type: text
+            text: Once per long rest, the wielder can cast Steel Wind Strike without using a
+              spell slot.
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: 1d8 + {charismaMod} + 2 [magical piercing]
+                    overheal: false
+                miss: []
+                attackBonus: proficiencyBonus + charismaMod + 2
+    errorBehaviour: "false"
+  - type: text
+    text: >
+      Granted for services to Vanalir and her Mistress, this rapier enhances its
+      wielder's speed to near impossible levels.  It provides a +2 bonus to both
+      weapon attack rolls and spell attack rolls, while also boosting spell DCs
+      by the same.  It provides its wielder the ability to cast Steel Wind
+      Strike without expending a spell slot once per long rest, but its power
+      rests in a unique ability encoding on it.
+
+
+      `-choice lightning` or `-choice steel` to use the special abilities.
+    title: Midnight Needle
+_v: 2

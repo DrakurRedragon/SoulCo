@@ -1,0 +1,410 @@
+name: Dormant Vestments of the Crimson Hunter Transformation
+automation:
+  - type: counter
+    counter: Hybrid Transformation
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: variable
+    name: rite
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: ""
+        duration: null
+        effects:
+          damage_bonus: "2"
+          resistances:
+            - bludgeoning
+            - piercing
+            - slashing
+          ac_bonus: "1"
+        attacks:
+          - attack:
+              name: Predatory Strikes (Dex)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d8 + {dexterityMod} +2
+                          overheal: false
+                      miss: []
+                      attackBonus: dexterityMod + proficiencyBonus + 2
+              _v: 2
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - attack:
+              name: Predatory Strikes (Str)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d8 + {strengthMod} + 2
+                          overheal: false
+                      miss: []
+                      attackBonus: strengthMod + proficiencyBonus + 2
+              _v: 2
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        buttons:
+          - label: Bloodlust
+            automation:
+              - type: text
+                text: >-
+                  If you start your turn with fewer hit points than half your hit point
+                  maximum, you must succeed on a DC 8 Wisdom saving throw or
+                  move directly toward the nearest creature and use the Attack
+                  action against that creature. If you’re concentrating on a
+                  spell or are under an effect that prevents you from
+                  concentrating (such as the barbarian’s Rage feature), you
+                  automatically fail this saving throw.
+
+
+                  If you have your Extra Attack feature, you can choose whether to use it for this frenzied attack. If more than one creature is equally near to you, roll randomly to determine your target. Once your attack is resolved, you regain control of yourself.
+
+
+                  Your Bloodlust save DC becomes 12. Additionally, your bloodlust lasts until you roll a successful saving throw or your hit points become higher than half of your total hit points. While under the effect of your bloodlust, your walking speed increases by 10 feet.
+              - type: target
+                target: self
+                effects:
+                  - type: save
+                    stat: wis
+                    fail:
+                      - type: text
+                        text: Failed to control the beast within!
+                    success: []
+                    dc: "12"
+            verb: tries to resist the Bloodlust
+            style: "4"
+            defaultDC: "12"
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: Lycan Regeneration
+            automation:
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: "- (1 + {constitutionMod})"
+                    overheal: false
+            verb: null
+            style: "3"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        end: false
+        conc: false
+        desc: null
+        stacking: false
+        save_as: null
+        parent: null
+  - type: condition
+    condition: rite == 1
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: damage
+            damage: 1d8[necrotic]
+            overheal: false
+          - type: text
+            text: Lucien elects to take additional damage to activate the crimson rite
+              during the transformation.
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      While you are transformed, you gain the following benefits and drawbacks:
+
+
+      Feral Might. You have advantage on Strength checks and Strength saving throws, and you have a +1 bonus to melee damage rolls. This bonus increases to +2 at 11th level and to +3 at 18th level.
+
+
+      Resilient Hide. You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks not made with silvered weapons. Additionally, while you are not wearing heavy armor, you have a +1 bonus to AC.
+
+
+      Predatory Strikes. You can apply your Crimson Rite feature to your unarmed strikes, which you treat as one weapon. You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes, which deal 1d6 bludgeoning or slashing damage (your choice). This damage increases to 1d8 at 11th level.
+
+
+      Additionally, when you use the Attack action to make an unarmed strike, you can make one additional unarmed strike as a bonus action.
+
+
+      Bloodlust. If you start your turn with fewer hit points than half your hit point maximum, you must succeed on a DC 12 Wisdom saving throw or move directly toward the nearest creature and use the Attack action against that creature. If you’re concentrating on a spell or are under an effect that prevents you from concentrating (such as the barbarian’s Rage feature), you automatically fail this saving throw.  This effect lasts until the save is passed or your hit points are no longer half.
+
+
+      If you have your Extra Attack feature, you can choose whether to use it for this frenzied attack. If more than one creature is equally near to you, roll randomly to determine your target. Once your attack is resolved, you regain control of yourself.
+_v: 2
+proper: true
+verb: activates the
+activation_type: 3
+
+
+_v: 2
+name: Awakened Vestments of the Crimson Hunter Transformation
+automation:
+  - type: counter
+    counter: Hybrid Transformation
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: variable
+    name: rite
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: ""
+        effects:
+          damage_bonus: "3"
+          resistances:
+            - bludgeoning
+            - piercing
+            - slashing
+          ac_bonus: "1"
+        attacks:
+          - attack:
+              _v: 2
+              name: Predatory Strikes (Dex)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d10 + {dexterityMod} +3
+                          overheal: false
+                      miss: []
+                      attackBonus: dexterityMod + proficiencyBonus + 3
+          - attack:
+              _v: 2
+              name: Predatory Strikes (Str)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d10 + {strengthMod} + 3
+                          overheal: false
+                      miss: []
+                      attackBonus: strengthMod + proficiencyBonus + 3
+        buttons:
+          - automation:
+              - type: text
+                text: >-
+                  If you start your turn with fewer hit points than half your hit point
+                  maximum, you must succeed on a DC 8 Wisdom saving throw or
+                  move directly toward the nearest creature and use the Attack
+                  action against that creature. If you’re concentrating on a
+                  spell or are under an effect that prevents you from
+                  concentrating (such as the barbarian’s Rage feature), you
+                  automatically fail this saving throw.
+
+
+                  If you have your Extra Attack feature, you can choose whether to use it for this frenzied attack. If more than one creature is equally near to you, roll randomly to determine your target. Once your attack is resolved, you regain control of yourself.
+
+
+                  Your Bloodlust save DC becomes 16. Additionally, your bloodlust lasts until you roll a successful saving throw or your hit points become higher than half of your total hit points. While under the effect of your bloodlust, your walking speed increases by 10 feet.
+              - type: target
+                target: self
+                effects:
+                  - type: save
+                    stat: wis
+                    fail:
+                      - type: text
+                        text: Failed to control the beast within!
+                    success: []
+                    dc: "16"
+            label: Bloodlust
+            verb: tries to resist the Bloodlust
+            style: "4"
+            defaultDC: "16"
+          - automation:
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: "- (1 + {constitutionMod})"
+                    overheal: false
+            label: Lycan Regeneration
+            style: "3"
+        end: false
+        conc: false
+        stacking: false
+  - type: condition
+    condition: rite == 1
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: damage
+            damage: 1d8[necrotic]
+            overheal: false
+          - type: text
+            text: Lucien elects to take additional damage to activate the crimson rite
+              during the transformation.
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      While you are transformed, you gain the following benefits and drawbacks:
+
+
+      Feral Might. You have advantage on Strength checks and Strength saving throws, and you have a +1 bonus to melee damage rolls. This bonus increases to +2 at 11th level and to +3 at 18th level.
+
+
+      Resilient Hide. You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks not made with silvered weapons. Additionally, while you are not wearing heavy armor, you have a +1 bonus to AC.
+
+
+      You can assume a Large size if you are not already Large.
+
+
+      Additionally, when you use the Attack action to make an unarmed strike, you can make one additional unarmed strike as a bonus action.
+verb: activates the
+proper: true
+activation_type: 3
+
+
+_v: 2
+name: Exalted Vestments of the Crimson Hunter Transformation
+automation:
+  - type: counter
+    counter: Hybrid Transformation
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: variable
+    name: rite
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: ""
+        effects:
+          damage_bonus: "3"
+          resistances:
+            - bludgeoning
+            - piercing
+            - slashing
+          ac_bonus: "1"
+        attacks:
+          - attack:
+              _v: 2
+              name: Predatory Strikes (Dex)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d10 + {dexterityMod} +3
+                          overheal: false
+                      miss: []
+                      attackBonus: dexterityMod + proficiencyBonus + 3
+          - attack:
+              _v: 2
+              name: Predatory Strikes (Str)
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: 1d10 + {strengthMod} + 3
+                          overheal: false
+                      miss: []
+                      attackBonus: strengthMod + proficiencyBonus + 3
+        buttons:
+          - automation:
+              - type: text
+                text: >-
+                  If you start your turn with fewer hit points than half your hit point
+                  maximum, you must succeed on a DC 20 Wisdom saving throw or
+                  move directly toward the nearest creature and use the Attack
+                  action against that creature. If you’re concentrating on a
+                  spell or are under an effect that prevents you from
+                  concentrating (such as the barbarian’s Rage feature), you
+                  automatically fail this saving throw.
+
+
+                  If you have your Extra Attack feature, you can choose whether to use it for this frenzied attack. If more than one creature is equally near to you, roll randomly to determine your target. Once your attack is resolved, you regain control of yourself.
+
+
+                  Your Bloodlust save DC becomes 20. Bloodlust lasts until your HP increases above half. While under the effect of your bloodlust, your walking speed increases by 10 feet.
+              - type: target
+                target: self
+                effects:
+                  - type: save
+                    stat: wis
+                    fail:
+                      - type: text
+                        text: Failed to control the beast within!
+                    success: []
+                    dc: "16"
+            label: Bloodlust
+            verb: tries to resist the Bloodlust
+            style: "4"
+            defaultDC: "16"
+          - automation:
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: "- 2*(1 + {constitutionMod})"
+                    overheal: false
+            label: Lycan Regeneration
+            style: "3"
+        end: false
+        conc: false
+        stacking: false
+  - type: condition
+    condition: rite == 1
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: damage
+            damage: 1d8[necrotic]
+            overheal: false
+          - type: text
+            text: Lucien elects to take additional damage to activate the crimson rite
+              during the transformation.
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      While you are transformed, you gain the following benefits and drawbacks:
+
+
+      Feral Might. You have advantage on Strength checks and Strength saving throws, and you have a +1 bonus to melee damage rolls. This bonus increases to +2 at 11th level and to +3 at 18th level.
+
+
+      Resilient Hide. You have resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks not made with silvered weapons. Additionally, while you are not wearing heavy armor, you have a +1 bonus to AC.
+
+
+      You can assume a Large size if you are not already Large.
+
+
+      Additionally, when you use the Attack action to make an unarmed strike, you can make one additional unarmed strike as a bonus action.
+verb: activates the
+proper: true
+activation_type: 3

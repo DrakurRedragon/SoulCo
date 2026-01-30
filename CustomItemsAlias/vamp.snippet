@@ -1,0 +1,7 @@
+!snippet vamp {{<drac2>
+if level<10:
+    monkdc=8+proficiencyBonus+wisdomMod+1
+elif level<15:
+    monkdc=8+proficiencyBonus+wisdomMod+2
+else:
+    monkdc=8+proficiencyBonus+wisdomMod+3</drac2>}} {{f'-dc "{monkdc}" -f "Vampiress Corset|The Vampiress Corset increase the dc for monk attacks by +1 until the wielder is level 10, then it increases to +2 until the wielder is level 15, then it increases to +3"'}}

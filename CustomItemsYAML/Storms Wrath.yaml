@@ -1,0 +1,15 @@
+ !attack import - name: Storm’s Wrath
+  automation:
+    - type: target
+      target: each 
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d6 [magical lightning]
+              overheal: false
+          miss: []
+          attackBonus: dexterityMod + proficiencyBonus + 2
+    - type: text
+      text: On a critical, the weapon deals an additional 1d6 lightning damage to the target and every enemy within 5 ft.
+  _v: 2

@@ -1,0 +1,1 @@
+!cc create "Zophiels Umbra" -name "Zophiels Umbra" -type bubble -min 0 -max 1 -value 1 -reset long -desc "As a bonus action, the wearer of the Robe of the Eternal Kirin can call upon a phosphorescent cloud that drifts off of the robe, enveloping up to 5 allies in a protective film. Each ally gains temp hitpoints equal the wearer's Proficiency Bonus + their Charisma Modifier."

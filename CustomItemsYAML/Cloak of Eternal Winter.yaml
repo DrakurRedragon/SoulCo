@@ -1,0 +1,85 @@
+_v: 2
+name: Cloak of Eternal Winters
+automation:
+  - type: variable
+    name: usage
+    value: "{int(choice)}}"
+    onError: "0"
+  - type: condition
+    condition: usage == 1
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Winter's Wind
+            effects:
+              resistances:
+                - cold
+              vulnerabilities:
+                - fire
+            buttons:
+              - automation:
+                  - type: remove_ieffect
+                label: Dismiss the Aura
+                style: "1"
+            desc: Winter's Wind kicks a blast of ice and wind around the wearer.  It causes
+              everything within 10 ft of them to be difficult terrain, while
+              also providing resistance to cold damage.  It does cause fire
+              spells to have greater effect, providing vulnerability to fire
+              damage at the same time to the wearer.
+      - type: text
+        text: Winter's Wind kicks a blast of ice and wind around the wearer.  It causes
+          everything within 10 ft of them to be difficult terrain, while also
+          providing resistance to cold damage.  It does cause fire spells to
+          have greater effect, providing vulnerability to fire damage at the
+          same time to the wearer.
+    onFalse: []
+  - type: condition
+    condition: usage == 2
+    onTrue:
+      - type: condition
+        condition: level > 16
+        onTrue:
+          - type: condition
+            condition: level > 18
+            onTrue:
+              - type: variable
+                name: lvl
+                value: "2"
+            onFalse:
+              - type: variable
+                name: lvl
+                value: "1"
+        onFalse:
+          - type: variable
+            name: lvl
+            value: "0"
+      - type: counter
+        counter: Eternal Winter Frozen Sphere
+        amount: "1"
+        errorBehaviour: raise
+      - type: roll
+        dice: 10d8 + {lvl}d8
+        name: colddmg
+        displayName: Cold Damage
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{colddmg} [cold]"
+            success:
+              - type: damage
+                damage: "{colddmg}/2 [cold]"
+            dc: 8 + proficiencyBonus + charismaMod + 3
+      - type: text
+        text: Focusing the force of the cold into a single point, a globe of frozen
+          energy surges forth.  It explodes in a 30 ft radius sphere for 10d8
+          damage.  This damage increases by 1d8 at level 17 and 2d8 at 19.
+    onFalse: []
+verb: cloaks with their
+proper: true
+thumb: https://images-ext-1.discordapp.net/external/VNrgVhcNHqcqslp0SjuVB5BPNRfhsNCN4M_8Wxzx9Pc/https/i.pinimg.com/564x/d7/75/a4/d775a4437944e245293c18c1c51fb21f.jpg?width=536&height=671

@@ -1,0 +1,57 @@
+name: Fynox Sight
+automation:
+  - type: counter
+    counter: Burning Sight
+    amount: "1"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Burning Sight
+        duration: "1"
+        effects:
+          attack_advantage: "1"
+          damage_bonus: "{proficiencyBonus} [fire]"
+        attacks:
+          - attack:
+              _v: 2
+              name: Burning Sight Glow
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: save
+                      stat: con
+                      fail:
+                        - type: ieffect2
+                          name: Glowing
+                          duration: "1"
+                          desc: Advantage on attacks against this creature
+                          tick_on_caster: true
+                        - type: text
+                          text: The struck creature must make a Constitution saving throw vs a DC of 8 +
+                            Strength Modifier + Proficiency Bonus or be wreathed
+                            in flame until the start of the wielder's
+                            turn.  While these flames are harmless, they cause
+                            the target to glow, granting advantage on any attack
+                            roll against the creature.  That creature cannot
+                            benefit from the Invisible condition either.
+                      success: []
+                      dc: 8 + strengthMod + proficiencyBonus
+                    - type: text
+                      text: ""
+        end: true
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, this tattoo has strange
+      properties.  A faint glow originates from the wielder's eyes, granting
+      them blindsight within 10 ft.  It also makes them and their allies within
+      30 ft immune to the surprised condition.
+
+
+      Once per short rest, as a bonus action, the wielder can cause their eyes to glow brightly.  They gain Blindsight out to 30 ft and advantage on all attack rolls they make until the end of their turn.  Every attack that lands deals an additional {proficiencyBonus} damage.  The struck creature must make a Constitution saving throw vs a DC of 8 + Strength Modifier + Proficiency Bonus or be wreathed in flame until the start of the wielder's turn.  While these flames are harmless, they cause the target to glow, granting advantage on any attack roll against the creature.  That creature cannot benefit from the Invisible condition either.
+    title: Fynox Sight
+verb: activates their
+proper: true
+thumb: https://images.mysoulco.com/albums/Items/fynoxsight.jpg
+activation_type: 3

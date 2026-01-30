@@ -1,0 +1,15 @@
+!attack import - name: Storm
+  automation:
+    - type: target
+      target: each 
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d8 + {dexterityMod + 2} [magical piercing] + 2d6 [magical lightning]
+              overheal: false
+          miss: []
+          attackBonus: dexterityMod + proficiencyBonus + 2
+    - type: text
+      text: This magic rapier was granted to a contributor to the continent of Faeyis and its Mistress.  On a critical, the weapon deals an additional 1d6 lightning damage to the target and every enemy within 5 ft.  In addition, as an action, instead of attacking, the wielder can make a single strike against every enemy currently within its reach.
+  _v: 2

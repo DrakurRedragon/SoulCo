@@ -1,0 +1,110 @@
+<drac2>
+
+ch = character()
+title = "The Spectral Tiara of Elemental Blades"
+foot = "!tblade | Made by DrakurRedragon for Solar on SoulCo"
+basedesc = "The Spectral Tiara of Elemental Blades|Granted for services to Vanalir and her Mistress, the Spectral Tiara of Elemental Blades grants its wearer strange blade-focused powers.  For one, it grants a unique spell called Elemental Blades that must be powered by the wearer's own magics.  This spell can be cast a number of times equal to half their proficiency bonus AND must use the wearer's spell slots.  \n\n The Tiara also grants an ability to summon a number of spectral swords to a point that the wearer can see within 60 ft of themselves.  Each sword then be used to make a bonus action ranged spell attack with a range of 120 ft that deals 2d12 force damage, vanishing on use.  If there are more than 3 swords remaining, the swords can also be used to make a reaction melee spell attack if something moves within 5 feet.  In addition, if the wearer is occupying the same square the blades were brought forth on, they also can a bonus to their AC equal to the number of swords remaining above 3."
+use = "Usage|`!tblade cast` - Casts Elemental Blade.\n\n`!tblade call` - Calls the blades as an action. \n\n `!tblade call ba` - Bonus Action attack with one of the summoned swords. \n\n `!tblade call self` - swords grants AC bonus while summoned around Kayy for each sword above 3. \n\n `!tblade call reaction` - grants the ability to react to an attack with a summoned sword if above 3 swords."
+pic = "https://images.mysoulco.com/albums/Items/closed__diadems_adopts_15_by_rittik_designs_dcfyenc-fullview.jpg"
+cc1 = title + " - Elemental Blade"
+cc2 = title + " - Summon Spectral Blades"
+cc1val = floor(int(proficiencyBonus/2))
+
+#create custom counters
+ch.create_cc_nx(cc1, 0, cc1val, "long", "bubble", None, cc1val, cc1, cc1, cc1val)
+ch.create_cc_nx(cc2, 0, 1, "long", "bubble", None, 1, cc2, cc2, 1)
+
+if not &ARGS&:
+    return f'embed -title "{title}" -f "{basedesc}" -f "{use}" -footer "{foot}" -thumb {pic}'
+
+try:
+    c = combat()
+    person = c.get_combatant(name)
+except:
+    return f'embed -title "{title}" -f "{basedesc}" -f "{use}" -footer "{foot}" -thumb {pic}'
+    
+a = &ARGS&
+cast_args="""&*&"""
+
+if a[0] == "cast":
+    if ch.get_cc(cc1) > 0:
+        ch.mod_cc(cc1, -1)
+        return f'cast "Elemental Blade" {cast_args} -phrase "Using the Spectral Tiara of Elemental Blades Charges: {ch.cc_str(cc1)}"'
+    else:
+        return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Not enough charges remaining!|You are out of charges!"'
+elif a[0] == "call":
+    if not person.get_effect("Blades Summoned"):
+        if ch.get_cc(cc2) > 0:
+            ch.mod_cc(cc2, -1)
+            swordcount = proficiencyBonus
+            if swordcount > 3:
+                if "self" in a:
+                    person.add_effect("Blades Summoned",duration=10,desc=swordcount+" swords remaining",passive_effects={"ac_bonus":min(3,(swordcount-3))})
+                    return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Blades Summoned!|{swordcount} swords remaining, AC bonus:{min(3,(swordcount-3))}"'
+                else:
+                    person.add_effect("Blades Summoned",duration=10,desc=swordcount+" swords remaining")
+                    return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Blades Summoned!|{swordcount} swords remaining"'
+            else:
+                person.add_effect("Blades Summoned",duration=10,desc=swordcount+" swords remaining")
+                return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Blades Summoned!|{swordcount} swords remaining"'
+        else:
+            return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Not enough charges remaining!|You are out of charges!"'
+    else:
+        effect = person.get_effect("Blades Summoned")
+        effectdesc = effect.desc
+        swordcurr = effectdesc.split(" ",1)
+        swordcount = int(swordcurr[0])
+        if "reaction" in a:
+            if swordcount > 3:
+                argsp = argparse(a)
+                combatantnm=argsp.last('t')
+                combatant = c.get_combatant(combatantnm)
+                attroll = vroll(f"1d20+{ch.spellbook.sab}")
+                swordcount = swordcount - 1
+                dura = person.get_effect("Blades Summoned").duration
+                if person.get_effect("Blades Summoned").effect and "ac_bonus" in person.get_effect("Blades Summoned").effect and swordcount > 3:
+                    person.add_effect("Blades Summoned",duration=dura,desc=swordcount+" swords remaining",passive_effects={min(3,(swordcount-3))})
+                elif swordcount > 0:
+                    person.add_effect("Blades Summoned",duration=dura,desc=swordcount+" swords remaining")
+                else:
+                    person.remove_effect("Blades Summoned")
+                if attroll.total >= combatant.ac:
+                    dam = vroll(f"2d12 + {spell}")
+                    dmg = dam.total
+                    combatant.damage(f"{dmg}[force]")
+                    return f'embed -title "The Spectral Tiara of Elemental Blades, Reaction Attack" -f "Attack Hit!|{attroll} - Hit" -f "Damage|{dam} [force]" -f "Reaction Attack|As a reaction to a creature entering within 5 ft of the blades, the wielder may make a single melee spell attack against it. This attack deals 2d12 + spellcasting modifier damage." -f "{swordcount} swords remaining" -footer "{foot}"'
+                else:
+                    return f'embed -title "The Spectral Tiara of Elemental Blades, Reaction Attack" -f "Attack missed!|{attroll}" -f "Reaction Attack|As a reaction to a creature entering within 5 ft of the blades, the wielder may make a single melee spell attack against it. This attack deals 2d12 + spellcasting modifier damage." -f "{swordcount} swords remaining" -footer "{foot}"'
+            else:
+                return f'embed -title "The Spectral Tiara of Elemental Blades, Reaction Attack" -f "Not enough blades remaining!" -footer "{foot}"'
+        elif "ba" in a:
+            argsp = argparse(a)
+            combatantnm=argsp.last('t')
+            combatant = c.get_combatant(combatantnm)
+            attroll = vroll(f"1d20+{ch.spellbook.sab}")
+            swordcount = swordcount - 1
+            dura = person.get_effect("Blades Summoned").duration
+            if person.get_effect("Blades Summoned").effect and "ac_bonus" in person.get-effect("Blades Summoned").effect and swordcount > 3:
+                person.add_effect("Blades Summoned",duration=dura,desc=swordcount+" swords remaining",passive_effects={min(3,(swordcount-3))})
+            elif swordcount > 0:
+                person.add_effect("Blades Summoned",duration=dura,desc=swordcount+" swords remaining")
+            else:
+                person.remove_effect("Blades Summoned")
+            if attroll.total >= combatant.ac:
+                dam = vroll(f"2d12 + {spell}")
+                dmg = dam.total
+                combatant.damage(f"{dmg}[force]")
+                return f'embed -title "The Spectral Tiara of Elemental Blades, Bonus Action Attack" -f "Attack Hit!|{attroll} - Hit" -f "Damage|{dam} [force]" -f "Bonus Action Attack|As a bonus action, the wielder may make a single ranged spell attack against a target within 120 ft. This attack deals 2d12 + spellcasting modifier damage." -f "{swordcount} swords remaining \n\n {combatant.name}: {combatant.hp_str()}" -footer "{foot}"'
+            else:
+                return f'embed -title "The Spectral Tiara of Elemental Blades, Bonus Action Attack" -f "Attack missed!|{attroll}" -f "Bonus Action Attack|As a bonus action, the wielder may make a single ranged spell attack against a target within 120 ft.  This attack deals 2d12 + spellcasting modifier damage." -f "{swordcount} swords remaining" -footer "{foot}"'
+        elif "self" in a:
+            if swordcount > 3:
+                person.add_effect("Blades Summoned",duration=10,desc=swordcount+" swords remaining",passive_effects={"ac_bonus":min(3,(swordcount-3))})
+                return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Blades Summoned!|{swordcount} swords remaining, AC bonus:{min(3,(swordcount-3))}"'
+            else:
+                return f'embed -title "The Spectrial Tiara of Elemental Blades, Reaction Attack" -f "Not enough blades remaining!" -footer "{foot}"'
+        else:
+            return f'embed -title "{title}" -footer "{foot}" -thumb "{pic}" -f "Blades Summoned!|{swordcount} swords remaining"'
+else:
+    return f'return embed -title "{title}" -f "{use}" -footer "{foot}" -thumb {pic}'
+</drac2>

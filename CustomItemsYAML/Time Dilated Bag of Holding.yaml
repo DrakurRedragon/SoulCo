@@ -1,0 +1,36 @@
+name: Time Dilated Bag of Holding
+automation:
+  - type: counter
+    counter: Time Dilation Draw
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: check
+        ability: history
+        dc: "15"
+        success:
+          - type: text
+            text: "{name} successfully draws and uses the item as a bonus action."
+        fail:
+          - type: text
+            text: "{name} was not successful, losing the bonus action."
+  - type: text
+    text: >-
+      Granted to a contributor to the continent of Faeyis and its Mistress.
+
+
+      The time Dilation Bag of Holding, was created by Dustin the Great in his time of the university while dabbling into time and Space Magic, in the process of creating it he destroyed and entire wing of his university, getting expelled in the process.
+
+
+      Time doesn't pass for objects placed into the bag.  Living creatures are actively rejected, not being allowed to enter or be placed into the bag.  If a recently deceased body is placed in the bag, it can delay the passing of the resurrection time by up to 24 hours, meaning that creature taken from the battlefield seconds after death can be brought back with Revifify if the spell is cast within 24 hours and the body remains in the bag until the spell is ready to be cast.
+
+
+      While attuned to Time Dilation Bag of Holding, consumable magic items (not including spell scrolls) can be used as a bonus action when drawn from the bag.  If there are more than 10 items in the bag, a successful History DC 15 is required, otherwise the item cannot be recalled, instead returning nothing.  This can be used a number of times equal to the bearer's proficiency bonus, successful or not, before needing a long rest to recover its uses.
+
+
+      While attuned to the Time Dilation Bag of Holding it gives +2 Spell DC/Attack (Int)
+_v: 2
+proper: false
+thumb: https://media.discordapp.net/attachments/1091754212360200263/1099617692245303306/image.png?width=279&height=256

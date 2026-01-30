@@ -1,0 +1,125 @@
+name: Strand of fate
+automation:
+  - type: variable
+    name: charge
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: condition
+    condition: level > 2
+    onTrue:
+      - type: condition
+        condition: level > 4
+        onTrue:
+          - type: condition
+            condition: level > 6
+            onTrue:
+              - type: condition
+                condition: level > 8
+                onTrue:
+                  - type: condition
+                    condition: level > 10
+                    onTrue:
+                      - type: condition
+                        condition: level > 12
+                        onTrue:
+                          - type: condition
+                            condition: level > 14
+                            onTrue:
+                              - type: condition
+                                condition: level > 16
+                                onTrue:
+                                  - type: variable
+                                    name: necdice
+                                    value: "11"
+                                onFalse:
+                                  - type: variable
+                                    name: necdice
+                                    value: "10"
+                            onFalse:
+                              - type: variable
+                                name: necdice
+                                value: "9"
+                        onFalse:
+                          - type: variable
+                            name: necdice
+                            value: "8"
+                    onFalse:
+                      - type: variable
+                        name: necdice
+                        value: "7"
+                onFalse:
+                  - type: variable
+                    name: necdice
+                    value: "6"
+            onFalse:
+              - type: variable
+                name: necdice
+                value: "5"
+        onFalse:
+          - type: variable
+            name: necdice
+            value: "4"
+    onFalse:
+      - type: variable
+        name: necdice
+        value: "3"
+  - type: condition
+    condition: charge == 1
+    onTrue:
+      - type: counter
+        counter: Strand of Fate
+        amount: "1"
+        errorBehaviour: raise
+      - type: text
+        text: For 1 charge, it can bolster the guiding stars of the Circle of the Stars
+          Druid depending on their current constellation. Under the Archer, the
+          druid can strike an additional target. Under the Chalice, the druide
+          can heal an additional target. Under the Dragon, the druid can choose
+          a single target within 10 ft and, as a reaction to that target taking
+          damage, allow that target to treat a constitution saving throw to
+          maintain concentration on a spell as a minimum of a 10 on the dice
+          roll.
+    onFalse: []
+  - type: condition
+    condition: charge == 3
+    onTrue:
+      - type: counter
+        counter: Strand of Fate
+        amount: "3"
+        errorBehaviour: raise
+      - type: text
+        text: For 3 charges, the loom of fate is restrung with the strand. As a
+          reaction, when a creature is reduced to 0 hp or killed outright, the
+          wearer can instead cause the creature to live and remain conscious
+          with 1 hp remaining.
+        title: Restring the Loom
+    onFalse: []
+  - type: condition
+    condition: charge == 5
+    onTrue:
+      - type: counter
+        counter: Strand of Fate
+        amount: "5"
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: con
+            fail:
+              - type: damage
+                damage: "{necdice}d8 [necrotic]"
+            success:
+              - type: damage
+                damage: "{necdice}d8/2 [necrotic]"
+            dc: 8 + wisdomMod + proficiencyBonus + 3
+      - type: text
+        text: For 5 charges, the strand can sever the fate instead. The druid chooses a
+          target within 60 ft. That creature takes 3d8 necrotic damage, +1d8
+          damage for each spell level above 1st that the wearer can cast (Con
+          save vs Spell Save modifier for half).
+    onFalse: []
+_v: 2
+proper: true
+verb: plucks the
+thumb: https://media.discordapp.net/attachments/1091734304394051745/1104741163614863401/b51fa13a1492b411c8c7ad3acd943425.jpg?width=526&height=671

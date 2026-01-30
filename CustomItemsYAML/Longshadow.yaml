@@ -1,0 +1,153 @@
+name: "Longshadow, the Gloomstalker\u2019s Harbinger"
+automation:
+- type: text
+  text: "Granted for services to Faeyis and her mistress, crafted from the rarest\
+    \ woods of the Feywild jungles of Faeyis, Longshadow, the Gloomstalker\u2019s\
+    \ Harbringer, has an air of mystery and malice. Standing 6 feet tall, it is strangely\
+    \ warm to touch, it\u2019s surface adorned with twisting vines, entangled thorns,\
+    \ and glowing runes that pulse softly with a deep, otherworldy energy. The bowstring,\
+    \ said to be made from the hair of an ancient fallen fey queen, hums a haunting\
+    \ melody with every pull. The grip, fashioned from a bone of a forgotten beast\
+    \ of the jungle, fits comfortably in the hand, inviting one to unleash its devastating\
+    \ potential."
+  title: Effect
+- type: variable
+  name: weapmod
+  value: dexterityMod
+- type: condition
+  condition: level >= 10
+  onTrue:
+  - type: condition
+    condition: level >= 15
+    onTrue:
+    - type: variable
+      name: weaponbonus
+      value: '3'
+    onFalse:
+    - type: variable
+      name: weaponbonus
+      value: '2'
+    errorBehaviour: 'false'
+  onFalse:
+  - type: variable
+    name: weaponbonus
+    value: '1'
+  errorBehaviour: 'false'
+- type: condition
+  condition: choice == "gloom"
+  onTrue:
+  - type: counter
+    counter: Sphere of Gloom
+    amount: '1'
+    allowOverflow: false
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+    - type: ieffect2
+      name: Sphere of Gloom
+      duration: '10'
+      effects: null
+      attacks:
+      - attack:
+          name: Spread sphere
+          automation:
+          - type: target
+            target: each
+            effects:
+            - type: ieffect2
+              name: In the Sphere
+              duration: ieffect.remaining
+              effects: null
+              attacks: []
+              buttons:
+              - label: Leave Sphere
+                automation:
+                - type: remove_ieffect
+                verb: leaves the Sphere of Gloom
+                style: '4'
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+              end: false
+              conc: false
+              desc: Lasts while within the 10-feet sphere
+              stacking: false
+              save_as: null
+              parent: ieffect
+              target_self: false
+              tick_on_caster: false
+          _v: 2
+          proper: true
+          verb: begins to
+        defaultDC: null
+        defaultAttackBonus: null
+        defaultCastingMod: null
+      buttons: []
+      end: false
+      conc: false
+      desc: Additionally, once per day, upon succesfully hitting a target, the psychic
+        energy coursing through the bow releases a 15-foot radius of gloom that lasts
+        for 1 minute, causing disadvantage on Wisdom (Perception) checks within the
+        area and reducing visibility to 10 feet.
+      stacking: false
+      save_as: gloom
+      parent: null
+      target_self: false
+      tick_on_caster: false
+  - type: target
+    target: each
+    effects:
+    - type: ieffect2
+      name: In the Sphere
+      duration: '10'
+      effects: null
+      attacks: []
+      buttons:
+      - label: Leave Sphere
+        automation:
+        - type: remove_ieffect
+        verb: leaves the Sphere
+        style: '4'
+        defaultDC: null
+        defaultAttackBonus: null
+        defaultCastingMod: null
+      end: false
+      conc: false
+      desc: Lasts while within 30 feet of {{caster.name}}
+      stacking: false
+      save_as: null
+      parent: aura
+      target_self: false
+      tick_on_caster: false
+  - type: text
+    text: Additionally, once per day, upon succesfully hitting a target ( use `-choice
+      gloom` ) , the psychic energy coursing through the bow releases a 15-foot radius
+      of gloom that lasts for 1 minute, causing disadvantage on Wisdom (Perception)
+      checks within the area and reducing visibility to 10 feet.
+    title: Sphere of Gloom
+  onFalse:
+  - type: target
+    target: all
+    effects:
+    - type: attack
+      hit:
+      - type: damage
+        damage: 1d8 [magical piercing] + {weapmod} + {weaponbonus}
+        overheal: false
+      miss: []
+      attackBonus: proficiencyBonus + weapmod + weaponbonus
+  - type: text
+    text: Longshadow, the Gloomstalker's Harbinger, grants the wielder a +1/+2/+3
+      bonus to ranged attacks. When you are unseen by your target, your crit range
+      increases to 19-20.  Once per turn, while you are unseen, you may add a number
+      of d4s equal to your proficiency bonus to the damage roll of an attack. Additionally,
+      once per day, upon successfully hitting a target ( use `-choice gloom` ) ,the
+      psychic energy coursing through the bow releases a 15-foot radius of gloom that
+      lasts for 1 minute, causing disadvantage on Wisdom (Perception) checks within
+      the area and reducing visibility to 10 feet.
+    title: .
+  errorBehaviour: 'false'
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1235365623995830384/1235387987106332672/IMG_3237.png

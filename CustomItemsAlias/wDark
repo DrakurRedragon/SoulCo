@@ -1,0 +1,28 @@
+<drac2>
+#inputs
+a  = argparse(&ARGS&)
+ch = character()
+cc = "Wand of Darkness"
+
+image= "https://media.discordapp.net/attachments/1180866415339786342/1182658457892040794/IMG_8348.jpg?ex=65857f85&is=65730a85&hm=6c8266316a098c0b1c0469f70b043e45ed56511b4cde7327d9add572a5964790& "
+    
+ch.create_cc_nx(cc, 0, 3, "long", "bubble")
+
+help_text = f'''embed -title "Wand of Darkness" -desc "Granted for services to Vanalir and her mistress. This wand, carved from the shadows themselves, allows the user to cast darkness at will. \n\nThe wand has 3 charges and regains all uses daily at dawn." -f "Usage|`!wDark darkness` - Casts darkness using a charge of the wand." -thumb {image}  -f "Charges|{ch.cc_str(cc)}" -footer "Created by `@solarisprime` for askipintime on SoulCo" '''
+
+if not &ARGS&:
+    return help_text 
+
+i = a.get('i')
+v = i or ch.get_cc(cc)
+
+if "&1&".lower() == "darkness":
+  if v:
+    i or ch.mod_cc(cc, -1)
+    return f'''cast "darkness" -i -thumb {image} -phrase "Using the Wand of Darkness"  &*& -f "{cc}|{ch.cc_str(cc)} {'_charges ignored_' if i else '(-1)'}" '''
+  else:
+    return f'''embed -title "Out of charges!" -desc "The Wand of Darkness has no more charges." -f "{cc}|{ch.cc_str(cc)}" -thumb {image} '''
+
+else:
+    return help_text
+</drac2>

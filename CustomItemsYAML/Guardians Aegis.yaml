@@ -1,0 +1,178 @@
+name: Guardian's Aegis
+automation:
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: text
+        text: Granted for service to Vanalir and her mistress, Guardian's Aegis Provides
+          a nice boost to her AC, +1 at level 5, +2 at level 10, and +3 at level
+          15. It also gives access to Special abilities from the Oath of the
+          Crown, as well as a Fighter ability at level 15!
+        title: Guardian's Aegis
+      - type: text
+        text: "`-choice champ` As a bonus action, you issue a challenge that compels
+          other creatures to do battle with you. Each creature of your choice
+          that you can see within 30 feet of you must make a Wisdom saving
+          throw. On a failed save, a creature can’t willingly move more than 30
+          feet away from you. This effect ends on the creature if you are
+          incapacitated or die or if the creature is more than 30 feet away from
+          you."
+        title: "Champion Challenge:"
+      - type: text
+        text: "`-choice tide` As a bonus action, you can bolster injured creatures with
+          your Channel Divinity. Each creature of your choice that can hear you
+          within 30 feet of you regains hit points equal to 1d6 + your Charisma
+          modifier (minimum of 1) if it has no more than half of its hit
+          points."
+        title: "Turn the Tide:"
+      - type: text
+        text: "`-choice aid` When the wearer or an ally fails an ability check, they can
+          add a d4 to the roll, potentially turning the roll into a success.
+          This benefit can be used a number of times equal to half your
+          proficiency bonus, and all expended uses are restored when you finish
+          a long rest, and both you and one of your allies can benefit from this
+          buff."
+        title: "Guardian's Aid:"
+      - type: text
+        text: "`-choice unyield` ***Starting at 15th level***, you have earned the
+          ability to grant allies advantage on saving throws to avoid becoming
+          paralyzed or stunned. all allies within 30ft of you is granted this
+          benefit."
+        title: "Unyielding Spirit:"
+    onFalse: []
+    errorBehaviour: "true"
+  - type: condition
+    condition: choice == "champ"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, Guardian's Aegis Provides
+          a nice boost to her DC, +1 at level 5, +2 at level 10, and +3 at level
+          15. It also gives access to Special abilities from the Oath of the
+          Crown, as well as a Fighter ability at level 15!
+
+
+          Champion Challenge: As a bonus action, you issue a challenge that compels other creatures to do battle with you. Each creature of your choice that you can see within 30 feet of you must make a Wisdom saving throw. On a failed save, a creature can’t willingly move more than 30 feet away from you. This effect ends on the creature if you are incapacitated or die or if the creature is more than 30 feet away from you.
+        title: "Varissa's Shield: Champion Challenge"
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: wis
+            fail:
+              - type: ieffect2
+                name: Champion Challenge
+                duration: null
+                effects: null
+                attacks: []
+                buttons:
+                  - label: Remove Champion Challenge
+                    automation:
+                      - type: remove_ieffect
+                    verb: null
+                    style: "3"
+                    defaultDC: null
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                end: false
+                conc: false
+                desc: The User Cannot willingly move more than 30ft away from Varissa. The
+                  effect ends if Varissa is incapacitated, dead, or more than
+                  30ft away.
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+            success: []
+    onFalse: []
+    errorBehaviour: raise
+  - type: condition
+    condition: choice == "tide"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, Guardian's Aegis Provides
+          a nice boost to her DC, +1 at level 5, +2 at level 10, and +3 at level
+          15. It also gives access to Special abilities from the Oath of the
+          Crown, as well as a Fighter ability at level 15!
+
+
+          Turn the Tide: As a bonus action, you can bolster injured creatures with your Channel Divinity. Each creature of your choice that can hear you within 30 feet of you regains hit points equal to 1d6 + your Charisma modifier (minimum of 1) if it has no more than half of its hit points.
+        title: "Varissa's Shield: Turn the Tide"
+      - type: target
+        target: all
+        effects:
+          - type: damage
+            damage: -(1d6 + {charismaMod})[heal]
+            overheal: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "aid"
+    onTrue:
+      - type: text
+        text: >-
+          Granted for service to Vanalir and her mistress, Guardian's Aegis Provides
+          a nice boost to her DC, +1 at level 5, +2 at level 10, and +3 at level
+          15. It also gives access to Special abilities from the Oath of the
+          Crown, as well as a Fighter ability at level 15!
+
+
+          Guardian's Aid: When the wearer or an ally fails an ability check, they can add a d4 to the roll, potentially turning the roll into a success. This benefit can be used a number of times equal to half your proficiency bonus, and all expended uses are restored when you finish a long rest, and both you and one of your allies can benefit from this buff.
+        title: "Varissa's Shield: Guardian's Aid"
+      - type: roll
+        dice: 1d4
+        name: Guardian's Aegis
+        hidden: false
+        displayName: Guardian's Aegis
+      - type: counter
+        counter: Guardians Aegis
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "unyield"
+    onTrue:
+      - type: text
+        text: "***Starting at 15th level***, you have earned the ability to grant allies
+          advantage on saving throws to avoid becoming paralyzed or stunned. All
+          allies within 30ft of you is granted this benefit."
+        title: Unyielding Spirit
+      - type: target
+        target: all
+        effects:
+          - type: ieffect2
+            name: Unyielding Spirit
+            duration: null
+            effects:
+              save_adv:
+                - con
+                - wis
+            attacks: []
+            buttons:
+              - label: Exit Unyielding Field
+                automation:
+                  - type: remove_ieffect
+                verb: Exits the Unyielding Spirit Field
+                style: "1"
+                defaultDC: null
+                defaultAttackBonus: null
+                defaultCastingMod: null
+            end: false
+            conc: false
+            desc: null
+            stacking: false
+            save_as: null
+            parent: null
+            target_self: false
+            tick_on_caster: false
+    onFalse: []
+    errorBehaviour: raise
+_v: 2
+proper: true
+verb: Raises
+thumb: https://cdn.discordapp.com/attachments/1172936273841897574/1173353658151354418/3d-metalic-shield-light-background-style-white-silver-gold-tones_334364-2922.png?ex=6563a5bf&is=655130bf&hm=c91160e6576476cbebafa4a5083cd92ca1f805ff7b290f602227afe6ab0e2ff5&
+activation_type: 3

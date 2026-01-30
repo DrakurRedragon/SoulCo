@@ -1,0 +1,109 @@
+name: Âme Twilight Shard
+automation:
+  - type: condition
+    condition: choice == "damage"
+    onTrue:
+      - type: counter
+        counter: Lifeforce
+        amount: "1"
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: damage
+            damage: 1d8 [necrotic]
+          - type: text
+            text: Utilizing the life force in the Âme Twilight Shard, the spell deals an
+              additional 1d8 Necrotic damage.  This can be utilized any time a
+              spell is cast.
+            title: Âme Twilight Shard - Augment Spell
+    onFalse:
+      - type: condition
+        condition: choice == "eldritch"
+        onTrue:
+          - type: counter
+            counter: Lifeforce
+            amount: "1"
+            errorBehaviour: raise
+          - type: text
+            text: Utilizing the life force in the Âme Twilight Shard, the wielder can cast
+              Eldritch Blast as a bonus action.
+            title: Âme Twilight Shard - Eldritch Blast
+          - type: spell
+            id: 2082
+        onFalse:
+          - type: condition
+            condition: choice == "vampire"
+            onTrue:
+              - type: counter
+                counter: Lifeforce
+                amount: "2"
+                errorBehaviour: raise
+              - type: target
+                target: all
+                effects:
+                  - type: damage
+                    damage: 1d8 [necrotic]
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: -{lastDamage}/2 [healing]
+              - type: text
+                text: Utilizing the life force stored in Âme Twilight Shard, the wielder can
+                  consume two charges to add additional necrotic damage to any
+                  weapon or spell attack that hits, healing an amount equal to
+                  half the damage dealt.
+                title: Âme Twilight Shard
+            onFalse:
+              - type: condition
+                condition: choice == "heal"
+                onTrue:
+                  - type: counter
+                    counter: Lifeforce
+                    amount: "3"
+                    errorBehaviour: raise
+                  - type: target
+                    target: self
+                    effects:
+                      - type: damage
+                        damage: -1d10 - {constitutionMod} [healing]
+                  - type: text
+                    text: Utilizing the life force of Âme Twilight Shard, the wielder can instead
+                      consume 3 charges as a bonus action to heal themselves
+                      1d10 + their Constitution modifier.
+                    title: Âme Twilight Shard
+                onFalse:
+                  - type: condition
+                    condition: choice == "charge"
+                    onTrue:
+                      - type: counter
+                        counter: Lifeforce
+                        amount: "-1"
+                      - type: text
+                        text: The wielder siphons the life force from a target they've reduced to 0 hit
+                          points or less, adding a Lifeforce charge.
+                        title: Âme Twilight Shard - Charge
+                    onFalse:
+                      - type: text
+                        text: >-
+                          Granted for services to Vanalir and her Mistress, this shard consumes the
+                          life force of those slain in combat and utilizes this
+                          to augment the wielder's own magics.
+
+
+                          The shard has a maximum of 6 charges (`-choice charge`), but it can only be charged when the wielder reduces a target to 0 hit points.  These charges can then be used as follows:
+
+
+                          1 charge: the wielder can add 1d8 necrotic damage to any spell damage they do. `-choice damage`
+
+                          1 charge: the wielder can cast Eldritch Blast as a bonus action `-choice eldritch`
+
+                          2 charges: the wielder can add 1d8 necrotic damage to any spell or weapon attack that hits, healing for half of the necrotic damage done. `-choice vampire`
+
+                          3 charges: the wielder can heal themselves for 1d10 + their Con Mod as a bonus action. `-choice heal`
+                        title: Âme Twilight Shard
+_v: 2
+proper: true
+verb: utilizies their
+thumb: https://images.mysoulco.com/albums/Items/bf8dad4360add5b8ba54b36b419c92e4.webp

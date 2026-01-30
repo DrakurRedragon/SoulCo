@@ -1,0 +1,156 @@
+_v: 2
+name: Reckoning, The Purple Heart
+automation:
+  - type: variable
+    name: input
+    value: "{{choice}}"
+    onError: "4"
+  - type: condition
+    condition: input < 3
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Eldritch Blade Bonus
+            duration: "0"
+            effects:
+              to_hit_bonus: 1d8
+            end: true
+            tick_on_caster: true
+          - type: counter
+            counter: Eldritch Blade Charges
+            amount: "1"
+    onFalse: []
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+          - type: variable
+            name: forcedice
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+          - type: variable
+            name: forcedice
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+      - type: variable
+        name: forcedice
+        value: "1"
+    errorBehaviour: "false"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: condition
+            condition: level > 15
+            onTrue:
+              - type: ieffect2
+                name: Deny Force Resistance
+                duration: "0"
+                effects:
+                  ignored_resistances:
+                    - force
+                attacks: []
+                buttons: []
+                end: false
+                conc: false
+                stacking: false
+                target_self: false
+                tick_on_caster: true
+            onFalse: []
+            errorBehaviour: "false"
+          - type: condition
+            condition: lastAttackDidCrit == True
+            onTrue:
+              - type: roll
+                dice: "{forcedice}d6[force] + {forcedice}d6[force]"
+                name: forcedmg
+            onFalse:
+              - type: roll
+                dice: "{forcedice}d6[force]"
+                name: forcedmg
+          - type: damage
+            damage: (1d8 + {weapbonus} + {charismaMod})[magical slashing] + {forcedmg}
+            overheal: false
+        miss: []
+        attackBonus: charismaMod + weapbonus + proficiencyBonus
+  - type: condition
+    condition: lastAttackDidHit == True
+    onTrue:
+      - type: condition
+        condition: input == 2
+        onTrue:
+          - type: target
+            target: self
+            effects:
+              - type: damage
+                damage: -{forcedmg}/2
+              - type: counter
+                counter: Eldritch Blade Charges
+                amount: "1"
+        onFalse: []
+        errorBehaviour: "false"
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: lastAttackDidHit == True
+    onTrue:
+      - type: condition
+        condition: input == 3
+        onTrue:
+          - type: target
+            target: self
+            effects:
+              - type: damage
+                damage: -{forcedmg}/2
+              - type: counter
+                counter: Eldritch Blade Charges
+                amount: "1"
+        onFalse: []
+        errorBehaviour: "false"
+    onFalse: []
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, this blade provides a
+      +{weapbonus} bonus to attack and damage rolls.  This bonus is also
+      provided to Warlock spell attack rolls and save DCs.  It deals an
+      additional {forcedice}d6 force damage on a successful hit. At 15th level,
+      this bypasses force resistance.  It is also usable as a spell focus for
+      warlock spells.
+
+
+      The sword also has charges equal to half of the wielder's warlock level, rounded down.  As part of an attack action, the wielder may spend one charge to gain 1d8 on the attack roll.  This lasts for all attacks with that action.
+
+
+      On a succesful hit, the wielder may spend a charge to heal for half of force damage done.
+
+
+      The wielder may also, once per long rest, spend a number of charges equal to their pact magic spellcasting level to restore a single pact slot.
+
+
+      `-choice 1` uses the bonus to attack rolls
+
+      `-choice 2` uses the heal and the bonus
+
+      `-choice 3` uses just the heal
+
+
+      Only use the attack roll bonus the first time you swing each combat.
+verb: strikes with
+proper: true
+thumb: https://media.discordapp.net/attachments/1091734304394051745/1120312690594816080/4eb3e600abe92fdc2b652029eecdf6ff.png?width=259&height=424

@@ -1,0 +1,139 @@
+name: Lord's Aegis
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: ieffect2
+        name: Lord's Aegis
+        duration: null
+        effects: null
+        attacks: []
+        buttons:
+          - label: Leave Lord's Aegis Aura
+            automation:
+              - type: remove_ieffect
+            verb: null
+            style: "1"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: Lord's Aegis Damage
+            automation:
+              - type: target
+                target: self
+                effects:
+                  - type: save
+                    stat: dex
+                    fail:
+                      - type: damage
+                        damage: 3d8 + {proficiencyBonus} + {strengthMod} [magical piercing]
+                        overheal: false
+                    success:
+                      - type: damage
+                        damage: (3d8 + {proficiencyBonus} + {strengthMod})/2 [magical piercing]
+                        overheal: false
+                    dc: proficiencyBonus + strengthMod + 8
+            verb: takes damage from Lord's Aegis
+            style: "4"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        end: false
+        conc: false
+        desc: null
+        stacking: false
+        save_as: null
+        parent: null
+  - type: target
+    target: self
+    effects:
+      - type: save
+        stat: con
+        fail:
+          - type: damage
+            damage: 3d8 + {proficiencyBonus} + {strengthMod} [magical piercing]
+            overheal: false
+        success:
+          - type: damage
+            damage: (3d8 + {proficiencyBonus} + {strengthMod})/2 [magical piercing]
+            overheal: false
+        dc: proficiencyBonus + strengthMod + 8
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Activating the Lord's Aegis
+        duration: null
+        effects: null
+        attacks:
+          - attack:
+              name: Spread Lord's Aegis
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: ieffect2
+                      name: Lord's Aegis
+                      duration: null
+                      effects: null
+                      attacks: []
+                      buttons:
+                        - label: Leave Lord's Aegis Aura
+                          automation:
+                            - type: remove_ieffect
+                          verb: null
+                          style: "1"
+                          defaultDC: null
+                          defaultAttackBonus: null
+                          defaultCastingMod: null
+                        - label: Lord's Aegis Damage
+                          automation:
+                            - type: target
+                              target: self
+                              effects:
+                                - type: save
+                                  stat: dex
+                                  fail:
+                                    - type: damage
+                                      damage: 3d8 + {proficiencyBonus} + {strengthMod} [magical piercing]
+                                      overheal: false
+                                  success:
+                                    - type: damage
+                                      damage: (3d8 + {proficiencyBonus} + {strengthMod})/2 [magical piercing]
+                                      overheal: false
+                                  dc: proficiencyBonus + strengthMod + 8
+                          verb: takes damage from Lord's Aegis
+                          style: "4"
+                          defaultDC: null
+                          defaultAttackBonus: null
+                          defaultCastingMod: null
+                      end: false
+                      conc: false
+                      desc: null
+                      stacking: false
+                      save_as: null
+                      parent: null
+              _v: 2
+              verb: spins the sword from the Lord's Aegis
+              activation_type: 2
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        buttons: []
+        end: false
+        conc: false
+        desc: null
+        stacking: false
+        save_as: null
+        parent: null
+  - type: text
+    text: "Granted for services to Faeyis and her Mistress, the Lord's Aegis is a
+      shield formed from the the weapons of a Lord of Blades.  It functions as a
+      +2 Animated Shield, but it possesses the ability to expand the swords
+      within to devastating effect. It deals 3d8 + Proficiency Bonus + Strength
+      Modifier to the wielder (Con save DC [8+str+proficiency] for half.)  It
+      deals the same damage with a dex save for half to any creature that enters
+      within 20 ft or starts their turn there. "
+_v: 2
+proper: true
+verb: unleashes

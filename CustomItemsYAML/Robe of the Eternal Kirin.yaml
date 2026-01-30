@@ -1,0 +1,29 @@
+!attack import name: Zophiel's Umbra
+automation:
+  - type: variable
+    name: tempset
+    value: proficiencyBonus + charismaMod
+  - type: counter
+    counter: Zophiels Umbra
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: all
+    effects:
+      - type: condition
+        condition: target.temp_hp > tempset
+        onTrue:
+          - type: text
+            text: "{target.name} has {target.temp_hp} temporary hit points already."
+        onFalse:
+          - type: temphp
+            amount: "{tempset}"
+  - type: text
+    text: As a bonus action, the wearer of the Robe of the Eternal Kirin can call
+      upon a phosphorescent cloud that drifts off of the robe, enveloping up to
+      5 allies in a protective film. Each ally gains temp hitpoints equal the
+      wearer's Proficiency Bonus + their Charisma Modifier.
+_v: 2
+proper: true
+verb: bolsters with
+thumb: https://media.discordapp.net/attachments/1191361764164640778/1194052246581825556/void7.png

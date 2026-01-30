@@ -1,0 +1,25 @@
+name: Celestial Reversal
+automation:
+  
+type: counter
+  counter: Celestial Reversal
+  amount: "1"
+type: target
+target: all
+effects:
+type: damage
+  damage: -{proficiencyBonus}
+  overheal: false
+type: text
+text: Granted by the powers of the Codex Aetheris, whenever you are in Celestial
+  Revelation, instead of adding the damage to your spells, you may instead
+  use your heritage to heal your allies.  When you sculpt your spells, you
+  may choose not to deal the extra damage.  Instead, you may use your bonus
+  action to restore a number of hit points equal to your proficiency
+  modifier to a number of allies up to half your proficiency bonus that you
+  sculpted your spells to avoid.
+title: Effect
+_v: 2
+verb: heals with their
+proper: true
+thumb: https://images.mysoulco.com/albums/Items/Codex_Aetheris.webp

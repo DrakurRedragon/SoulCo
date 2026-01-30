@@ -1,0 +1,161 @@
+- name: Vampiress Revelation
+  automation:
+    - type: condition
+      condition: level < 10
+      onTrue:
+        - type: target
+          target: self
+          effects:
+            - type: ieffect2
+              name: Vampiric Resilience
+              duration: "10"
+              effects:
+                ac_bonus: "1"
+              attacks: []
+              buttons: []
+              end: true
+              conc: false
+              desc: Embracing Her Vampiric Side, Bianca is able to harden her skin Providing a
+                +1 to AC for the duration.
+              stacking: false
+              save_as: null
+              parent: null
+              target_self: true
+              tick_on_caster: false
+      onFalse:
+        - type: condition
+          condition: level < 15
+          onTrue:
+            - type: target
+              target: self
+              effects:
+                - type: ieffect2
+                  name: Vampiric Resilience
+                  duration: "10"
+                  effects:
+                    ac_bonus: "2"
+                  attacks: []
+                  buttons: []
+                  end: true
+                  conc: false
+                  desc: Embracing Her Vampiric Side, Bianca is able to harden her skin Providing a
+                    +2 to AC for the duration.
+                  stacking: false
+                  save_as: null
+                  parent: null
+                  target_self: true
+                  tick_on_caster: false
+          onFalse:
+            - type: target
+              target: self
+              effects:
+                - type: ieffect2
+                  name: Vampiric Resilience
+                  duration: "10"
+                  effects:
+                    ac_bonus: "3"
+                  attacks: []
+                  buttons: []
+                  end: true
+                  conc: false
+                  desc: Embracing Her Vampiric Side, Bianca is able to harden her skin Providing a
+                    +3 to AC for the duration.
+                  stacking: false
+                  save_as: null
+                  parent: null
+                  target_self: true
+                  tick_on_caster: false
+          errorBehaviour: "false"
+      errorBehaviour: "false"
+    - type: text
+      text: Bianca Calls upon her hidden nature to provide a myriad of Benefits for a
+        limited time. For 1 minute she is able to Grow a Pair of Bat like wings
+        allowing her to Fly up to her movement speed, with this she is able to
+        attack her enemies and fly away without provoking an attack of
+        opportunity against her. She also pulls on her Vampiric nature,
+        providing a boost to her AC equal to the bonus of the Item depending on
+        her level.
+      title: Vampiress Revelation
+  _v: 2
+  proper: true
+  verb: Embraces her Nature with
+  thumb: https://media.discordapp.net/attachments/1111275934683779103/1127738985486229524/kitskiss_smooth_vector_cartoon_corset_dark_vampire_bodice_leath_457c1741-ed4d-4bba-afad-1f37fafe5c86.png
+  activation_type: 3
+- name: Vampiric Claws
+  automation:
+    - type: variable
+      name: monklevel
+      value: MonkLevel
+      onError: "0"
+    - type: condition
+      condition: monklevel < 5
+      onTrue:
+        - type: variable
+          name: weapdamage
+          value: "4"
+      onFalse:
+        - type: condition
+          condition: monklevel < 11
+          onTrue:
+            - type: variable
+              name: weapdamage
+              value: "6"
+          onFalse:
+            - type: condition
+              condition: monklevel < 17
+              onTrue:
+                - type: variable
+                  name: weapdamage
+                  value: "8"
+              onFalse:
+                - type: variable
+                  name: weapdamage
+                  value: "10"
+              errorBehaviour: "false"
+          errorBehaviour: "false"
+      errorBehaviour: "false"
+    - type: condition
+      condition: level > 10
+      onTrue:
+        - type: condition
+          condition: level > 15
+          onTrue:
+            - type: variable
+              name: weapbonus
+              value: "3"
+          onFalse:
+            - type: variable
+              name: weapbonus
+              value: "2"
+          errorBehaviour: "false"
+      onFalse:
+        - type: variable
+          name: weapbonus
+          value: "2"
+      errorBehaviour: "false"
+    - type: condition
+      condition: strengthMod > dexterityMod
+      onTrue:
+        - type: variable
+          name: weapmod
+          value: strengthMod
+      onFalse:
+        - type: variable
+          name: weapmod
+          value: dexterityMod
+      errorBehaviour: "false"
+    - type: target
+      target: all
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d{weapdamage} + {weapmod} + {weapbonus}[magical slashing] +
+                1d4[necrotic]
+              overheal: false
+          miss: []
+          attackBonus: proficiencyBonus + weapmod + weapbonus
+  _v: 2
+  proper: true
+  verb: Slashes with her
+  activation_type: 1

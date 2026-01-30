@@ -1,0 +1,87 @@
+name: Cinder Lord's Talons
+automation:
+  - type: condition
+    condition: choice == "conq"
+    onTrue:
+      - type: counter
+        counter: "Embers of Avernus: Hellfire ImpIosion"
+        amount: "2"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: roll
+        dice: 2d8 + {proficiencyBonus}
+        name: dam
+        displayName: Damage
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: "{dam}"
+              - type: ieffect2
+                name: Blinded
+                tick_on_caster: true
+                duration: "1"
+            success:
+              - type: damage
+                damage: "{dam}/2"
+            dc: 8 + proficiencyBonus + strengthMod
+      - type: text
+        text: Each creature of your choice in a 15-foot-radius sphere centered on you
+          must make a Dexterity saving throw (DC equals 8 + your proficiency
+          bonus + the modifier of the ability increased by this feat). On a
+          failed save, a creature takes damage equal to 1d8 + your proficiency
+          bonus, and it has the blinded condition until the start of your next
+          turn. On a successful save, the creature takes half as much damage
+          only.
+        title: Hellfire Implosion
+      - type: variable
+        name: used
+        value: "1"
+    onFalse: []
+    errorBehaviour: neither
+  - type: condition
+    condition: choice == "pact"
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: damage
+                damage: 8d6
+            success:
+              - type: damage
+                damage: (8d6)/2
+            dc: 8 + proficiencyBonus + charismaMod
+    onFalse:
+      - type: condition
+        condition: used == 1
+        onTrue: []
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: damage
+                damage: 1d8
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, the Cinder Lord's Talons
+      are a pair of gauntlets meant to exaggerate the more fiendish features of
+      its wearer.
+
+
+      Infernal Flames: The gauntlets add an additional 1d8 damage to all attack rolls.
+
+
+      Pact of Retribution: The gauntlets are bound to the wielder's soul. If the wielder drops to 0 hit points but is not outright killed, they can choose to drop to 1 hit point instead. After doing so, the gauntlets unleash a burst of hellfire in a 20-foot radius. Each creature of their choice in the area must make a Dexterity saving throw, taking 8d6 fire damage on a failed save, or half as much damage on a successful one. This feature can be used once per week. (`-choice pact`)
+
+
+      Hellish Conqueror: When the wielder scores a critical hit in combat, they can use their reaction and spend 2 charges of Searing Ignition to activate its effect immediately and unleash a shockwave of hellfire. The Infernal Flames gets added to this. (`-choice conq`)
+    title: Effect
+thumb: https://images.mysoulco.com/albums/Items/fef74452-c495-4235-8293-12512778f165_1.webp

@@ -1,0 +1,119 @@
+!attack import name: Shepherd of Souls
+automation:
+  - type: variable
+    name: charge
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: condition
+    condition: level > 9
+    onTrue:
+      - type: condition
+        condition: level > 14
+        onTrue:
+          - type: variable
+            name: weaponBonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weaponBonus
+            value: "2"
+    onFalse:
+      - type: variable
+        name: weaponBonus
+        value: "1"
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d6 + {weaponBonus} + {charismaMod} [magical bludgeoning] + 1d6
+              [necrotic]
+          - type: condition
+            condition: charge == 1
+            onTrue:
+              - type: damage
+                damage: 1d10[necrotic]
+              - type: text
+                text: One ally within 30 ft can roll a hit die, healing for that amount plus the
+                  amount of extra necrotic damage dealt by this ability.
+              - type: counter
+                counter: Shepherd of Souls Charges
+                amount: "1"
+            onFalse: []
+        miss: []
+        attackBonus: charismaMod+proficiencyBonus+weaponBonus
+  - type: text
+    text: >-
+      Granted for service to Faeyis and her Mistress, the Shepherd of Souls is a
+      quarterstaff imbued with life and death.  It has a bonus of {weaponBonus}
+      to attack rolls and damage, and it deals an additional 1d6 necrotic
+      damage.  It has {proficiencyBonus} charges that reset at dawn.
+
+
+      Expending a charge allows the staff to deal an additional 1d10 necrotic damage.  In addition, one ally within 30 ft can choose to expend a hit dice to heal equal to the number rolled + the additional damage done.  Expending 3 charges allows the wielder to cast Life Transference without using a spell slot.  Expending 5 charges allows the wielder to deal 10d6 necrotic damage to every enemy in a 20 ft radius of a point 150 ft away.  Any ally in the radius will be healed for the same amount instead.
+_v: 2
+proper: true
+thumb: https://media.discordapp.net/attachments/1096783436024393799/1097158362203955301/e03ea6a9e5cf1ff4697765c8a9bf6e7c_1_adobe_express.jpeg?width=139&height=558
+
+!cc create "Shepherd of Souls Charges" -title "Shepherd of Souls Charges" -reset long -type bubble -min 0 -max {proficiencyBonus} -desc "The charges for the Shepherd of Souls, granted for services to Faeyis and her Mistress."
+
+!attack import name: Shepherd of Souls - Life Transference
+automation:
+  - type: spell
+    id: 14880
+  - type: counter
+    counter: Shepherd of Souls Charges
+    amount: "3"
+    errorBehaviour: raise
+_v: 2
+proper: true
+verb: uses their life force with
+thumb: https://media.discordapp.net/attachments/1096783436024393799/1097158362203955301/e03ea6a9e5cf1ff4697765c8a9bf6e7c_1_adobe_express.jpeg?width=139&height=558
+
+!attack import name: Shepherd of Souls - Grim Harvest
+automation:
+  - type: roll
+    dice: 10d6
+    name: dmg
+    displayName: Necrotic Damage/Healing
+  - type: target
+    target: all
+    effects:
+      - type: damage
+        damage: "{dmg} [necrotic]"
+  - type: text
+    text: >-
+      Choose a point within 150 ft.  Every target of your choice within a 20 ft
+      radius of that point takes 10d6 necrotic damage.
+
+
+      Choose any number of friendly targets in that same radius.  They regain the damage done by the instead.
+    title: Grim Harvest
+  - type: counter
+    counter: Shepherd of Souls Charges
+    amount: "5"
+_v: 2
+proper: true
+verb: harvests the life force with
+activation_type: 1
+thumb: https://media.discordapp.net/attachments/1096783436024393799/1097158362203955301/e03ea6a9e5cf1ff4697765c8a9bf6e7c_1_adobe_express.jpeg?width=139&height=558
+
+!attack import name: Shepherd of Souls - Grim Harvest Heal
+automation:
+  - type: variable
+    name: healing
+    value: "{{int(choice)}}"
+    onError: "0"
+  - type: target
+    target: all
+    effects:
+      - type: damage
+        damage: -{healing}
+  - type: text
+    text: Allies healed by Grim Harvest
+_v: 2
+proper: true
+verb: restores life with
+activation_type: 2
+thumb: https://media.discordapp.net/attachments/1096783436024393799/1097158362203955301/e03ea6a9e5cf1ff4697765c8a9bf6e7c_1_adobe_express.jpeg?width=139&height=558

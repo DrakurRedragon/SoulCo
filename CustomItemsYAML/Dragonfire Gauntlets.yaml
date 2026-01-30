@@ -1,0 +1,163 @@
+name: Dragonfire Gauntlets
+automation:
+  - type: variable
+    name: used
+    value: "0"
+  - type: variable
+    name: monklevel
+    value: MonkLevel
+    onError: "0"
+  - type: condition
+    condition: strengthMod > dexterityMod
+    onTrue:
+      - type: variable
+        name: weapmod
+        value: strengthMod
+    onFalse:
+      - type: variable
+        name: weapmod
+        value: dexterityMod
+    errorBehaviour: "false"
+  - type: condition
+    condition: level > 10
+    onTrue:
+      - type: condition
+        condition: level > 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        errorBehaviour: "false"
+    onFalse:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    errorBehaviour: "false"
+  - type: condition
+    condition: monklevel < 5
+    onTrue:
+      - type: variable
+        name: weapdamage
+        value: "4"
+    onFalse:
+      - type: condition
+        condition: monklevel < 11
+        onTrue:
+          - type: variable
+            name: weapdamage
+            value: "6"
+        onFalse:
+          - type: condition
+            condition: monklevel < 17
+            onTrue:
+              - type: variable
+                name: weapdamage
+                value: "8"
+            onFalse:
+              - type: variable
+                name: weapdamage
+                value: "10"
+    errorBehaviour: "true"
+  - type: condition
+    condition: choice == "enter"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Enter the Dragon
+            duration: "10"
+            effects:
+              ac_bonus: "2"
+            attacks:
+              - attack:
+                  _v: 2
+                  name: Retaliatory Strike
+                  automation:
+                    - type: target
+                      target: all
+                      effects:
+                        - type: save
+                          stat: dex
+                          fail:
+                            - type: damage
+                              damage: "{proficiencyBonus}d4 [fire]"
+                          success:
+                            - type: damage
+                              damage: "{proficiencyBonus}d4/2 [fire]"
+                          dc: 8+wisdomMod+proficiencyBonus
+                        - type: text
+                          text: The wielder may strike out at anyone hitting them with an attack, deal a
+                            number of d4s equal to their proficiency bonus of
+                            fire damage to the attacker as a reaction if the
+                            target fails a Dexterity Saving Throw with a DC of 8
+                            + Proficiency Bonus + Wisdom Modifier.  On a
+                            success, they take half damage instead
+                  verb: responds with
+                  activation_type: 4
+      - type: text
+        text: >-
+          If 3 or more strikes land in a single round, the wielder may use their
+          reaction to activate Enter the Dragon.  For one minute:
+
+
+          All attacks have a range of 15 ft
+
+          AC increases by 2. The wielder may strike out at anyone hitting them with an attack, deal a number of d4s equal to their proficiency bonus of fire damage to the attacker as a reaction.
+
+          Once per round, the wielder may substitute a single ranged weapon attack for any unarmed attack, with a range of 120/600 ft.  This attack deals the normal damage at that range but cannot be used to activate monk abilities.
+
+
+          Enter the dragon may also be triggered directly as a bonus action.
+      - type: variable
+        name: used
+        value: "1"
+    onFalse: []
+  - type: condition
+    condition: choice == "imbue"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Imbued Strikes
+            duration: "10"
+            desc: add 1d4 fire damage to your attacks using `dragonfire` snippet
+          - type: text
+            text: Striking these knuckles together as a bonus action causes flames to leap
+              from them.  For 1 minute, the wielder adds 1d4 fire damage to
+              their unarmed strikes with these gauntlets.
+      - type: variable
+        name: used
+        value: "1"
+    onFalse: []
+  - type: condition
+    condition: used == 0
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d{weapdamage} + {weapbonus} + {weapmod} [bludgeoning]
+            miss: []
+            attackBonus: proficiencyBonus + weapbonus + weapmod
+    onFalse: []
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, these gauntlets
+      represent the power of Dragonfire.  They can be struck together as a bonus
+      action to cause flames to leap from them, adding an additional 1d4 fire
+      damage to all unarmed strikes for a minute.
+
+
+      Should 3 strikes be landed in a single round, the wielder can use their reaction to enter a state called "Enter the Dragon".  For the next minute, their unarmed attacks have a range of 15 feet.  In addition, they can as a reaction to being damaged, they can retaliate up to 15 feet away with an attack that deals a number of d4s equal to their proficiency bonus in fire damage on a failed dexterity save with a DC of 8 + Prof Bonus + Wi Modifier.  On a success, the target only takes half damage.  The wielder's AC increases by 2 as well, and once per turn, they may forgo one of their normal attacks to strike with a range of 120/600 ft.  This attack uses the damage of this weapon, but it cannot be used with any other monk abilities.  Enter the Dragon can also be entered as a bonus action instead without needing to land the 3 strikes.
+_v: 2
+proper: true
+verb: assaults with their
+thumb: https://images.mysoulco.com/albums/Items/Dragonfire_Gauntlets_Final.jpeg

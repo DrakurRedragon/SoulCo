@@ -1,0 +1,121 @@
+name: Torrential Torment
+automation:
+  - type: condition
+    condition: level < 10
+    onTrue:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    onFalse:
+      - type: condition
+        condition: level < 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice == "entangle"
+    onTrue:
+      - type: counter
+        counter: Torrential Torment Entangle
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: dex
+            fail:
+              - type: ieffect2
+                name: Entangled
+                duration: "10"
+                effects:
+                  attack_advantage: "-1"
+                  save_dis:
+                    - dex
+                attacks: []
+                buttons:
+                  - label: Attempt Escape (Action)
+                    automation:
+                      - type: target
+                        target: self
+                        effects:
+                          - type: save
+                            stat: str
+                            fail: []
+                            success:
+                              - type: remove_ieffect
+                    verb: attempts to break free
+                    style: "4"
+                    defaultDC: spell_dc
+                    defaultAttackBonus: null
+                    defaultCastingMod: null
+                end: false
+                conc: false
+                desc: Speed is 0.  Attack rolls against this creature have advantage.  It has
+                  disadvantage on attack rolls and dexterity saves. It can
+                  attempt a Strength check as an action to break free.
+                stacking: false
+                save_as: null
+                parent: null
+                target_self: false
+                tick_on_caster: false
+            success: []
+            dc: spell_dc
+      - type: text
+        text: On a hit, the wielder can attempt to entangle the target in seaweed and
+          kelp,, functioning as the Entangle spell cast against just that target
+          without concentration.  This ability can be used a number of times
+          equal to half their proficiency modifier, resetting on a long rest.
+        title: Entangling Strike
+    onFalse:
+      - type: condition
+        condition: choice == "captain"
+        onTrue:
+          - type: counter
+            counter: Torrential Torment Captains Call
+            amount: "1"
+            allowOverflow: false
+            errorBehaviour: raise
+          - type: text
+            text: Once per long rest, the wielder can issue a Captain's Call as a reaction
+              to an ally failing an attack roll.  This allows that ally to
+              reroll the attack roll if they desire.
+            title: Captain's Call
+        onFalse:
+          - type: target
+            target: all
+            effects:
+              - type: attack
+                hit:
+                  - type: damage
+                    damage: "{proficiencyBonus} + {dexterityMod} + {weapbonus} [piercing]"
+                    overheal: false
+                miss: []
+                attackBonus: proficiencyBonus + dexterityMod + weapbonus
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Granted for services to Vanalir and her Mistress, this bow is a sea
+      captain's best friend.  Arrows are unaffected by water, allowing it to be
+      fired without penalty underwater.  On a hit, the wielder can attempt to
+      entangle the target in seaweed and kelp,, functioning as the Entangle
+      spell cast against just that target without concentration.  This ability
+      can be used a number of times equal to half their proficiency modifier,
+      resetting on a long rest.  Once per long rest, the wielder can issue a
+      Captain's Call as a reaction to an ally failing an attack roll.  This
+      allows that ally to reroll the attack roll if they desire.
+
+
+      The bow can be attuned to one ship that the wielder owns.  The wielder can adjust sails and steering by shouting commands instead of having to manually perform the tasks.  On that vessel, the wielder is treated as having a climb speed equal to their walking speed while traversing rigging.  The wielder's sea legs also grant them advantage on saving throws to avoid being forced prone.
+    title: Effect
+_v: 2
+thumb: https://images.mysoulco.com/albums/Items/88b62adc26f052bf71dfaf583d116710.webp
