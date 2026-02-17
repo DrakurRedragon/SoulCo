@@ -1,0 +1,39 @@
+<drac2>
+fishlist=load_json(get_gvar('428660f4-cd5d-4a02-b7d2-3f0139550b2e'))
+cnt = len(fishlist)
+rollcnt = "1d"+cnt+"-1"
+rll = vroll(rollcnt)
+rll2 = vroll(rollcnt)
+rll3 = vroll(rollcnt)
+rll4 = vroll(rollcnt)
+rll5 = vroll(rollcnt)
+rll6 = vroll(rollcnt)
+fish = fishlist[rll.total]
+fish2 = fishlist[rll2.total]
+fish3 = fishlist[rll3.total]
+fish4 = fishlist[rll4.total]
+fish5 = fishlist[rll5.total]
+fish6 = fishlist[rll6.total]
+
+while fish2 == fish:
+  rll2 = vroll(rollcnt)
+  fish2 = fishlist[rll2.total]
+
+while fish3 == fish or fish3 == fish2:
+  rll3 = vroll(rollcnt)
+  fish3 = fishlist[rll3.total]
+
+while fish4 == fish or fish4 == fish2 or fish4 == fish3:
+  rll4 = vroll(rollcnt)
+  fish4 = fishlist[rll4.total]
+
+while fish5 == fish or fish5 == fish2 or fish5 == fish3 or fish5 == fish4:
+  rll5 = vroll(rollcnt)
+  fish5 = fishlist[rll5.total]
+
+while fish6 == fish or fish6 == fish2 or fish6 == fish3 or fish6 == fish4 or fish6 == fish5:
+  rll6 = vroll(rollcnt)
+  fish6 = fishlist[rll6.total]
+
+return f'embed -title "Fishing Contest of Hearthmere" -f "Fishing Contest Points Fish|The six fish are:" -f "3 Points:|{fish}\n{fish2}" -f "2 points:|{fish3}\n{fish4}" -f "1 Point:|{fish5}\n{fish6}" -footer "!fishcontest - Written by DrakurRedragon for Hearthmere"'
+</drac2>

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "The Tradefleet - Basin",
+        "description": "Harbormasters, riverwalkers, coin-counts, and tide-riders.",
+        "temperament": "Reflective",
+        "tag": "basin",
+        "reward1": "Basin Ferry Token - ",
+        "reward2": "Custom Traders Bundle - ",
+        "reward3": "Riverpass Ledger Entry - ",
+        "reward4": "Appointed Tiderider - "
+    },
+    {
+        "name": "The Krolbaul - Brackenwild",
+        "description": "Ancestral wardens who speak to bark and blood.",
+        "temperament": "Fickle",
+        "tag": "brackenwild",
+        "reward1": "Woodwrights Tally-stone - A hand-carved token that grants guidance through Brackenwild trails. Once per journey here, re-roll a failed Nature/Survival check. ",
+        "reward2": "Whispering Barkwrap (Staff Item Grant) - Gain a custom light armor or bracer inscribed with Brackenwood sigils. Staff grants a minor feature (e.g., can whistle to signal animals, inscribed old trail signs only Krolbaul understand).",
+        "reward3": "none yet! - ",
+        "reward4": "Appointed Tiderider (Staff Personalized Boon - Receive a custom spiritual item (mask, knife, fanged relic) that may interact with Brackenwild NPCs, creatures, or spirits. Staff tailors the function via a short quest."
+    }
+]
