@@ -3,6 +3,11 @@ g=load_json(get_gvar('9dce3c1a-e980-45b7-b4f8-d8a63594f098'))
 ch = character()
 tglist = ""
 rew = ""
+rew2 = ""
+rew3 = ""
+rew4 = ""
+rewnew = ""
+img= ""
 
 for y in g:
     nm = y.get("name") + " Reputation"
@@ -11,7 +16,7 @@ for y in g:
     tglist = tglist + y.get("tag") + ", "
 
 if not &ARGS&:
-    return f'embed -title "!rephearth - calculate reputation for Hearthmere" -f "Usage|`!rephearth org` - org is the organization.  Select from: {tglist}" -footer "!rephearth - created by DrakurRedragon"'
+    return f'embed -title "!rep - calculate reputation for Hearthmere" -f "Usage|`!rep org (#)` - org is the organization.\n\nSelect from: {tglist}\n\nIf you run it without a number, it will tell you what your reputation and rewards are for that organization.  If you put a number in, it will add to your reputation with that organization." -footer "!rep - created by DrakurRedragon"'
 
 a = &ARGS&
 tag = a[0]
@@ -21,37 +26,54 @@ for x in g:
         listx = x
 ccnm = listx.get("name") + " Reputation"
 ccval = ch.get_cc(ccnm)
+img = listx.get("imglink")
 
 try:
     ch.mod_cc(ccnm, +int(a[1]))
     ccval2 = ch.get_cc(ccnm)
     if ccval < 10 and ccval2 >= 10:
-        rew = rew + '-f "New Reward Available!"'
-        rew = '-f "First reward|' + listx["reward1"] + ' "'
-    elif ccval < 26 and ccval2 >= 26:
-        rew = rew + '-f "New Reward Available!"'
-        rew = '-f "First reward|' + listx["reward1"] + ' "' + '-f "Second reward|' + listx["reward2"] + ' "'    
-    elif ccval < 51 and ccval2 >= 51:
-        rew = rew + '-f "New Reward Available!"'
-        rew = '-f "First reward|' + listx["reward1"] + ' "' + '-f "Second reward|' + listx["reward2"] + ' "' + '-f "Third reward|' + listx["reward3"] + ' "'
+        rewnew = "New Reward Available!"
+    elif ccval < 25 and ccval2 >= 25:
+        rewnew = "New Reward Available!"
+    elif ccval < 50 and ccval2 >= 50:
+        rewnew = "New Reward Available!"
     elif ccval < 100 and ccval2 >= 100:
-        rew = rew + '-f "New Reward Available!"'
-        rew = '-f "First reward|' + listx["reward1"] + ' "' + '-f "Second reward|' + listx["reward2"] + ' "' + '-f "Third reward|' + listx["reward3"] + ' "' + '-f "Fourth reward|' + listx["reward4"] + ' "'
-    elif ccval >= 100:
-        rew = '-f "First reward|' + listx["reward1"] + ' "' + '-f "Second reward|' + listx["reward2"] + ' "' + '-f "Third reward|' + listx["reward3"] + ' "' + '-f "Fourth reward|' + listx["reward4"] + ' "'
+        rewnew = "New Reward Available!"
     else:
-        rew = '-f "No rewards available."'
-    return f'embed -title "Hearthmere Reputation - {listx["name"]}" -f "Description|{listx["description"]}" -f "Added Reputation|{ccval} + {int(a[1])}" {rew} -footer "!rephearth - created by DrakurRedragon"'
+        rewnew = ""
+    if ccval2 < 10:
+        rew = "No rewards available."
+    elif ccval2 < 26:
+        rew = listx["reward1"]
+    elif ccval2 < 51:
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
+    elif ccval2 < 100:
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
+        rew3 = listx["reward3"]
+    else:
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
+        rew3 = listx["reward3"]
+        rew4 = listx["reward4"]   
+    return f'embed -title "{ch.name} adds to their their Hearthmere Reputation, {listx["name"]}" -f "Description|{listx["description"]}" -f "Added Reputation|{ccval} + {int(a[1])} = {ccval2}" -f "{rewnew}|" -f "Rewards Earned|{rew}\n{rew2}\n{rew3}\n{rew4}" -footer "!rep - created by DrakurRedragon"'
 except:
     if ccval < 10:
         rew = "No rewards available."
     elif ccval < 26:
-        rew = '-f \\"First reward|' + listx["reward1"] + ' \\"'
+        rew = listx["reward1"]
     elif ccval < 51:
-        rew = '-f \\"First reward|' + listx["reward1"] + ' \\"' + '-f \\"Second reward|' + listx["reward2"] + ' \\"'
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
     elif ccval < 100:
-        rew = '-f \\"First reward|' + listx["reward1"] + ' \\"' + '-f \\"Second reward|' + listx["reward2"] + ' \\"' + '-f \\"Third reward|' + listx["reward3"] + ' \\"'
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
+        rew3 = listx["reward3"]
     else:
-        rew = '-f \\"First reward|' + listx["reward1"] + ' \\"' + '-f \\"Second reward|' + listx["reward2"] + ' \\"' + '-f \\"Third reward|' + listx["reward3"] + ' \\"' + '-f \\"Fourth reward|' + listx["reward4"] + ' \\"'
-    return f'embed -title "Hearthmere Reputation - {listx["name"]}" -f "Description|{listx["description"]}" -f "Current Reputation|{ccval}" {rew} -footer "!rephearth - created by DrakurRedragon"'
+        rew = listx["reward1"]
+        rew2 = listx["reward2"]
+        rew3 = listx["reward3"]
+        rew4 = listx["reward4"]
+    return f'embed -title "{ch.name} checks their Hearthmere Reputation, {listx["name"]}" -f "Description|{listx["description"]}" -f "Current Reputation|{ccval}" -f "Rewards Earned|{rew}\n{rew2}\n{rew3}\n{rew4}" -footer "!rep - created by DrakurRedragon"'
 </drac2>

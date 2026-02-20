@@ -1,0 +1,7 @@
+<drac2>
+nm = ctx.author.display_name
+if not &ARGS&:
+    return f'embed -title "{nm} declares dishonor!" -image "https://images.mysoulco.com/albums/gifs/483807dea702aaf034ada6c3baf25ec7.gif" -footer "!dishonor | by DrakurRedragon"'
+else:
+    a = &ARGS&
+    return f'embed -title "{nm} declares dishonor!" -desc "Dishonor  on {a[0]}.  And their family.  And their cow." -image "https://images.mysoulco.com/albums/gifs/483807dea702aaf034ada6c3baf25ec7.gif" -footer "!dishonor | by DrakurRedragon"'

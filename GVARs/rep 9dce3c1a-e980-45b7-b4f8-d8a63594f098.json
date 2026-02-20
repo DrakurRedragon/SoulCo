@@ -4,10 +4,11 @@
         "description": "Harbormasters, riverwalkers, coin-counts, and tide-riders.",
         "temperament": "Reflective",
         "tag": "basin",
-        "reward1": "Basin Ferry Token - ",
-        "reward2": "Custom Traders Bundle - ",
-        "reward3": "Riverpass Ledger Entry - ",
-        "reward4": "Appointed Tiderider - "
+        "reward1": "Basin Ferry Token - A stamped brass chit used by Tradefleet barges. Allows the player to bypass travel checks across major waterways once per week.",
+        "reward2": "Custom Traders Bundle - Choose a trade skill, item focus, or regional flavor. Staff grants a tailored inventory starter bundle (e.g., herbalist satchel, ink-stamped merchant ledger, fishmongers carved pole, etc).",
+        "reward3": "Riverpass Ledger Entry - Your name is recorded in the Tradefleet ledgers. Gain access to locked RP locations (like backroom docks or barge inns). May receive courier gigs or bartering leads.",
+        "reward4": "Appointed Tiderider - You are granted honorary route rights—staff may offer you a Tradefleet-flagged river barge, or a custom dock post for character use. Unlocks fleet-exclusive RP routes or bartering privileges.",
+        "imglink": 
     },
     {
         "name": "The Krolbaul - Brackenwild",
@@ -17,6 +18,51 @@
         "reward1": "Woodwrights Tally-stone - A hand-carved token that grants guidance through Brackenwild trails. Once per journey here, re-roll a failed Nature/Survival check. ",
         "reward2": "Whispering Barkwrap (Staff Item Grant) - Gain a custom light armor or bracer inscribed with Brackenwood sigils. Staff grants a minor feature (e.g., can whistle to signal animals, inscribed old trail signs only Krolbaul understand).",
         "reward3": "none yet! - ",
-        "reward4": "Appointed Tiderider (Staff Personalized Boon - Receive a custom spiritual item (mask, knife, fanged relic) that may interact with Brackenwild NPCs, creatures, or spirits. Staff tailors the function via a short quest."
+        "reward4": "Appointed Tiderider (Staff Personalized Boon - Receive a custom spiritual item (mask, knife, fanged relic) that may interact with Brackenwild NPCs, creatures, or spirits. Staff tailors the function via a short quest.",
+        "imglink": ""
+    },
+    {
+        "name": "Lorbinders of Ardenridge - Stonehollow",
+        "description": "Archivists of deep time, memory-keepers, and oath-engravers.",
+        "temperament": "Restless",
+        "tag": "stonehollow",
+        "reward1": "Echo-etched Map Fragment - A partial Stonehollow map etched in mineral wax. Grants insight into old quarry paths—allows one bonus clue during a hollow-based scene.",
+        "reward2": "none yet!",
+        "reward3": " Echochamber Access - You are granted supervised entry into a Lorebinder echochamber—a place of memory resonance. May trigger unique lore, rumors, or personalized scene writing.",
+        "reward4": "none yet!",
+        "imglink": ""
+    },
+    {
+        "name": "The Ash-Keepers - Sootbarrow",
+        "description": "Forged in ruin, stewards of fire and forgotten war rites.",
+        "temperament": "Jealous",
+        "tag": "sootbarrow",
+        "reward1": "Ash-Sworn Cindercloak Patch A sewn sigil marking you as tolerated among pyre-tenders. Grants safe lodging at Ash-Keeper watchfires.",
+        "reward2": "none yet!",
+        "reward3": "Rite of Smoke You gain access to an Ash-Keeper mourning rite. Staff may run a personal remembrance or fire-spoken RP scene—character may commune with emberbound memory.",
+        "reward4": "Eldrkyn Banner-Thane You are entrusted as Eldrkyn Banner-Thane— a honor only given to those who have walked through fire and returned. Raising your banner may rally Ash-Keeper forces in times of conflict.",
+        "imglink": ""
+    },
+    {
+        "name": "The Mirebound Circle - Gloamfen",
+        "description": "Dreamsingers, duskwalkers, and those who speak with still water.",
+        "temperament": "Brooding",
+        "tag": "gloamfen",
+        "reward1": "Fenwatchers Respite (Campers Respite) - A mire-wrought rod capped with a black-iron brazier and root-carved spike. When invoked, it kindles smokeless witchflame and unfurls into a modest fen-tent. Within lies a dry, stone-floored dwelling untouched by damp, rot, or weather. The fire burns without breath, and the walls hum faintly with marsh-lullabies.  The Mirebound gift this only to those trusted to walk the dusk without losing themselves",
+        "reward2": "Murk-Speakers Favor - You may petition a minor fen-spirit for guidance once per arc.",
+        "reward3": "none yet!",
+        "reward4": "Circle of the Quiet Deep You are named Mirebound. Staff may grant a recurring fen-spirit contact, custom swamp haven location, or narrative sway within Gloamfen territories.",
+        "imglink": ""
+    },
+    {
+        "name": "The Holdfast Compact - Hollow Steppe",
+        "description": "Blade-sworn sentries, cairn-tenders, and oath-scrawlers.",
+        "temperament": "Reflective",
+        "tag": "steppe",
+        "reward1": "Cairnstone Marker - A stone etched with your name (or vow). May be placed IC at a route or rest point to mark safe passage—grants one-time reroll on trail mishap or lost check.",
+        "reward2": "Compact Sigilwear (Staff Visual Asset) - Staff creates a symbolic item for your character (e.g., clasp, brooch, tabard edge) showing the Compacts mark. May carry weight with sentries or travelers.",
+        "reward3": "Duskwatch Chronicle Entry  -A written note or deed of yours is added to the Compacts cairn-lore. Grants RP privilege to narrate/submit player-written passage in future #almanac-journal logs.",
+        "reward4": "Compact Trailwright (Staff-Given Route Right) - You are entrusted with “keeping” a specific trail—staff grants access to co-write and describe a regionally flavored trail, including optional recurring NPC, custom hazard, or scenic detail.",
+        "imglink": ""
     }
 ]
