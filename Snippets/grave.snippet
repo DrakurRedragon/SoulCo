@@ -1,0 +1,7 @@
+{{<drac2>
+c=combat()
+a = &ARGS&
+argsp = argparse(a)
+combatant=argsp.last('t')
+target=c.get_combatant(combatant)
+}}

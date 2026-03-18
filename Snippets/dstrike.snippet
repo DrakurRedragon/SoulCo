@@ -1,0 +1,32 @@
+{{<drac2>
+ch=character()
+g = load_json(ch.get_cvar("subclass"))
+dmg = ""
+dmgtype = ""
+
+if ClericLevel < 8:
+    dmg = ""
+elif ClericLevel < 14:
+    dmg = "1d8"
+else:
+    dmg = "2d8"
+
+if "Death" in str(g["ClericLevel"]):
+    dmgtype = "necrotic"
+elif "War" in str(g["ClericLevel"]):
+    dmgtype = ""
+elif "Life" in str(g["ClericLevel"]):
+    dmgtype = "radiant"
+elif "Forge" in str(g["ClericLevel"]):
+    dmgtype = "fire"
+elif "Tempest" in str(g["ClericLevel"]):
+    dmgtype = "thunder"
+elif "Trickery" in str(g["ClericLevel"]):
+    dmgtype = "poison"
+elif "Twilight" in str(g["ClericLevel"]):
+    dmgtype = "radiant"
+elif "Order" in str(g["ClericLevel"]):
+    dmgtype = "psychic"
+else:
+    dmgtype = ""
+</drac2>}} {{f'-d {dmg}[{dmgtype}] -f "Divine Strike|At 8th level, you gain the ability to infuse your weapon strikes with divine energy. Once on each of your turns when you hit a creature with a weapon attack, you can cause the attack to deal an extra 1d8 {dmgtype} to the target. When you reach 14th level, the extra damage increases to 2d8."'}}

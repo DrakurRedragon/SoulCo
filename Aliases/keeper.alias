@@ -1,0 +1,14 @@
+<drac2>
+ch = character()
+foot = "!keeper, created by DrakurRedragon for Hearthmere"
+if not &ARGS&:
+    return f'embed -title "Keeper of Souls" -f "Keeper of Souls|At 17th level, you can seize a trace of vitality from a parting soul and use it to heal the living. When an enemy you can see dies within 30 feet of you, you or one ally of your choice that is within 30 feet of you regains hit points equal to the enemys number of Hit Dice. You can use this feature only if you arent incapacitated. Once you use it, you cant do so agan until the start of your next turn." -f "Usage|`!keeper # -t ally.`\nYou will need to ask the HD amount from the DM." -footer "{foot}" -thumb {image}'
+a = &ARGS&
+argsp = argparse(a)
+c = combat()
+target_name = argsp.last("t")
+target = c.get_combatant(target_name)
+hpheal = int(a[0])
+target.modify_hp(hpheal)
+return f'embed -title "Keeper of Souls" -f "Keeper of Souls Used|At 17th level, you can seize a trace of vitality from a parting soul and use it to heal the living. When an enemy you can see dies within 30 feet of you, you or one ally of your choice that is within 30 feet of you regains hit points equal to the enemys number of Hit Dice. You can use this feature only if you arent incapacitated. Once you use it, you cant do so agan until the start of your next turn." -f "{target.name} regains {hpheal} HP!|{target.name}: {target.hp_str()}" -footer "{foot}" -thumb {image}'
+</drac2>

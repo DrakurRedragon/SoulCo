@@ -1,0 +1,11 @@
+{{<drac2>
+c=combat()
+a = &ARGS&
+argsp = argparse(a)
+combatant=argsp.last('t')
+target=c.get_combatant(combatant)
+if "'necrotic'" in str(target.resistances.resist):
+    neut="-neutral necrotic"
+else:
+    neut=""
+</drac2>}} {{f'{neut} -f "Inescapable Destruction|If the target is resistant to necrotic damage, that resistance is ignored."'}}
