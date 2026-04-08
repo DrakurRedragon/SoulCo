@@ -1,0 +1,21 @@
+<drac2>
+
+a  = &ARGS&
+t = '<t:' + f'{int(time())}' + ':F>'
+set_uvar_nx("DeepBreathing","")
+y = list(get_uvar("DeepBreathing").split(";"))
+disp = ""
+for x in y:
+    disp = disp + y[y.index(x)] + "\n"
+if not &ARGS&:
+    return f'embed -title "Deep Breathing Log" -footer "!deepbreath - Deep Breathing Tracker - Created by DrakurRedragon" -f "Square Breathing|Breathe in for 4, hold for 4, out for 4, hold for 4." -f "Usage|Use `!deepbreath log` to see your breathing log.  To add an entry, do `!deepbreath a b`, where a is your anxiety from 1-100 before you started, and b is your anxiety level after you finished."'
+if a[0] == "log":
+    return f'embed -title "Deep Breathing Log" -footer "!deepbreath - Deep Breathing Tracker - Created by DrakurRedragon" -f "Square Breathing|Breathe in for 4, hold for 4, out for 4, hold for 4."  -f "{disp}"'
+sudsb = a[0]
+sudsa = a[1]
+z = get_uvar("DeepBreathing")
+z2 = ";" + t +  ", " + "Before: " + sudsb + ", " + "After: " + sudsa
+z3 = z + z2
+set_uvar("DeepBreathing",z3)
+return f'embed -title "Deep Breathing Tracker" -f "Square Breathing|Breathe in for 4, hold for 4, out for 4, hold for 4." -f "{t}|SUDS/Anxiety Before: {sudsb}\n\nSUDS/Anxiety after: {sudsa}" -footer "!deepbreath - Deep Breathing Tracker - Created by DrakurRedragon"'
+</drac2>

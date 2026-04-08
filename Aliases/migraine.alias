@@ -1,0 +1,19 @@
+<drac2>
+a  = &ARGS&
+t = '<t:' + f'{int(time())}' + ':F>'
+set_uvar_nx("Migraine","")
+y = list(get_uvar("Migraine").split(";"))
+disp = ""
+for x in y:
+    disp = disp + y[y.index(x)] + "\n"
+if not &ARGS&:
+    return f'embed -title "Migraine Log" -footer "!migraine - Migraine Tracker - Created by DrakurRedragon" -f "Usage|Use `!migraine log` to see your migraine log.  To add an entry, do `!migraine a`, where a is your pain level from 1-10."'
+if a[0] == "log":
+    return f'embed -title "Migraine Log" -footer "!migraine - Migraine Tracker - Created by DrakurRedragon" -f "{disp}"'
+sudsb = a[0]
+z = get_uvar("Migraine")
+z2 = ";" + t +  ", " + "Pain: " + sudsb
+z3 = z + z2
+set_uvar("Migraine",z3)
+return f'embed -title "Migraine Tracker" -f "{t}|Migraine Pain: {sudsb}" -footer "!migraine - Migraine Tracker - Created by DrakurRedragon"'
+</drac2>
